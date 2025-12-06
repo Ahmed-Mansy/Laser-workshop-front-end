@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal, computed } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { User, LoginRequest, LoginResponse, RegisterRequest } from '../models/user.model';
 import { environment } from '../../../environments/environment';
@@ -12,8 +12,14 @@ export class AuthService {
     private http = inject(HttpClient);
     private router = inject(Router);
 
-    private currentUserSubject = new BehaviorSubject<User | null>(null);
-    public currentUser$ = this.currentUserSubject.asObservable();
+    // Convert from BehaviorSubject to Signal
+    readonly currentUser = signal<User | null>(null);
+
+    // Computed signals for derived state
+    readonly isAuthenticated = computed(() => !!this.getAccessToken() && !!this.currentUser());
+    readonly userRole = computed(() => this.currentUser()?.role || null);
+    readonly isManager = computed(() => this.currentUser()?.role === 'MANAGER');
+    readonly isWorker = computed(() => this.currentUser()?.role === 'WORKER');
 
     private readonly TOKEN_KEY = 'access_token';
     private readonly REFRESH_TOKEN_KEY = 'refresh_token';
@@ -23,7 +29,7 @@ export class AuthService {
         // Load user from localStorage on init
         const storedUser = localStorage.getItem(this.USER_KEY);
         if (storedUser) {
-            this.currentUserSubject.next(JSON.parse(storedUser));
+            this.currentUser.set(JSON.parse(storedUser));
         }
     }
 
@@ -51,15 +57,11 @@ export class AuthService {
      * Logout user and clear tokens
      */
     logout(): void {
-        const refreshToken = this.getRefreshToken();
-
-        if (refreshToken) {
-            this.http.post(`${environment.apiUrl}/auth/logout/`, { refresh_token: refreshToken })
-                .subscribe();
-        }
-
+        // Clear tokens and user signal
         this.clearTokens();
-        this.currentUserSubject.next(null);
+        this.currentUser.set(null);
+
+        // Redirect to login page
         this.router.navigate(['/login']);
     }
 
@@ -84,36 +86,6 @@ export class AuthService {
                     this.setAccessToken(response.access);
                 })
             );
-    }
-
-    /**
-     * Check if user is authenticated
-     */
-    isAuthenticated(): boolean {
-        return !!this.getAccessToken();
-    }
-
-    /**
-     * Check if current user is a manager
-     */
-    isManager(): boolean {
-        const user = this.currentUserSubject.value;
-        return user?.role === 'MANAGER';
-    }
-
-    /**
-     * Check if current user is a worker
-     */
-    isWorker(): boolean {
-        const user = this.currentUserSubject.value;
-        return user?.role === 'WORKER';
-    }
-
-    /**
-     * Get user role
-     */
-    getUserRole(): 'MANAGER' | 'WORKER' | null {
-        return this.currentUserSubject.value?.role || null;
     }
 
     /**
@@ -159,6 +131,6 @@ export class AuthService {
      */
     private setCurrentUser(user: User): void {
         localStorage.setItem(this.USER_KEY, JSON.stringify(user));
-        this.currentUserSubject.next(user);
+        this.currentUser.set(user);
     }
 }

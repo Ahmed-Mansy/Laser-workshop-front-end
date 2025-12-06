@@ -16,11 +16,11 @@
             </button>
         </div>
 
-        @if (isLoading) {
+        @if (isLoading()) {
         <div class="flex justify-center items-center py-32">
             <mat-spinner class="!border-laser-500"></mat-spinner>
         </div>
-        } @else if (employees.length === 0) {
+        } @else if (employees().length === 0) {
         <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-20 text-center">
             <i class="fas fa-users text-8xl text-gray-600 mb-6"></i>
             <h3 class="text-3xl font-bold text-gray-400 mb-3">No Employees Yet</h3>
@@ -34,7 +34,7 @@
         } @else {
         <!-- Employee Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @for (employee of employees; track employee.id) {
+            @for (employee of employees(); track employee.id) {
             <div
                 class="bg-metal-900 border-2 border-metal-700 rounded-xl p-6 hover:border-laser-500 transition-all duration-300 hover:shadow-laser">
                 <!-- Employee Header -->
@@ -100,7 +100,7 @@
         <!-- Employee Count -->
         <div class="mt-8 text-center">
             <p class="text-gray-400 text-lg">
-                Total Employees: <span class="text-laser-400 font-bold text-2xl">{{employees.length}}</span>
+                Total Employees: <span class="text-laser-400 font-bold text-2xl">{{employees().length}}</span>
             </p>
         </div>
         }

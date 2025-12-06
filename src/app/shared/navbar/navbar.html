@@ -32,7 +32,7 @@
             </button>
 
             <!-- Nav Links -->
-            @if (!(authService.currentUser$ | async)) {
+            @if (!(authService.currentUser())) {
             <a mat-button routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
                 class="!text-gray-300 hover:!text-laser-400 !font-semibold !transition">
                 <i class="fas fa-home mr-2"></i>
@@ -76,12 +76,12 @@
             <button mat-button [matMenuTriggerFor]="userMenu"
                 class="!bg-metal-800 !border-2 !border-metal-700 hover:!border-laser-500 !text-white !px-4 !rounded-lg !transition">
                 <i class="fas fa-user-circle mr-2 text-laser-400"></i>
-                <span>{{ (authService.currentUser$ | async)?.username }}</span>
+                <span>{{ authService.currentUser()?.username }}</span>
             </button>
             <mat-menu #userMenu="matMenu" class="!bg-metal-800">
                 <button mat-menu-item disabled class="!text-gray-400">
                     <i class="fas fa-id-badge mr-2 text-fire-400"></i>
-                    <span>{{ (authService.currentUser$ | async)?.role }}</span>
+                    <span>{{ authService.currentUser()?.role }}</span>
                 </button>
                 <button mat-menu-item (click)="logout()" class="!text-white hover:!bg-laser-500/20">
                     <i class="fas fa-sign-out-alt mr-2 text-laser-500"></i>
@@ -121,7 +121,7 @@
             </button>
 
             <!-- Mobile Nav Links -->
-            @if (!(authService.currentUser$ | async)) {
+            @if (!(authService.currentUser())) {
             <a routerLink="/" routerLinkActive="!bg-laser-500/20" [routerLinkActiveOptions]="{exact: true}"
                 (click)="closeMobileMenu()"
                 class="flex items-center gap-3 px-4 py-3 rounded-lg bg-metal-800 hover:bg-laser-500/20 text-gray-300  hover:text-laser-400 font-semibold transition-all">
@@ -168,8 +168,8 @@
             <div class="flex items-center gap-3 px-4 py-3 rounded-lg bg-metal-800 border-2 border-metal-700 text-white">
                 <i class="fas fa-user-circle text-xl text-laser-400"></i>
                 <div class="flex-1">
-                    <div class="font-bold">{{ (authService.currentUser$ | async)?.username }}</div>
-                    <div class="text-xs text-gray-400">{{ (authService.currentUser$ | async)?.role }}</div>
+                    <div class="font-bold">{{ authService.currentUser()?.username }}</div>
+                    <div class="text-xs text-gray-400">{{ authService.currentUser()?.role }}</div>
                 </div>
             </div>
 

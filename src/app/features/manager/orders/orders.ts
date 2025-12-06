@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -15,7 +15,6 @@ import { Order } from '../../../core/models/order.model';
 import { Shift } from '../../../core/models/shift.model';
 import { AddOrderComponent } from '../add-order/add-order';
 import { OrderDetailsComponent } from '../order-details/order-details';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
@@ -34,88 +33,89 @@ import { Subscription } from 'rxjs';
   templateUrl: './orders.html',
   styleUrl: './orders.css'
 })
-export class OrdersComponent implements OnInit, OnDestroy {
+export class OrdersComponent implements OnInit {
   private orderService = inject(OrderService);
   private shiftService = inject(ShiftService);
   private realTimeService = inject(RealTimeService);
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
-  private updateSubscription?: Subscription;
 
   displayedColumns: string[] = ['id', 'customer_name', 'customer_phone', 'status', 'price', 'created_at', 'actions'];
-  orders: Order[] = [];
-  filteredOrders: Order[] = [];
-  isLoading = true;
-  selectedStatus: string | null = null;
-  searchTerm: string = '';
-  currentShift: Shift | null = null;
-  hasActiveShift = false;
-  isCheckingShift = true;
 
-  ngOnInit(): void {
-    this.checkShift();
-    this.startRealTimeUpdates();
-  }
+  // Convert all state to signals
+  orders = signal<Order[]>([]);
+  isLoading = signal(true);
+  selectedStatus = signal<string | null>(null);
+  searchTerm = signal('');
+  currentShift = signal<Shift | null>(null);
+  hasActiveShift = signal(false);
+  isCheckingShift = signal(true);
 
-  ngOnDestroy(): void {
-    this.stopRealTimeUpdates();
-  }
+  // Computed signals for derived state
+  filteredOrders = computed(() => {
+    const search = this.searchTerm();
+    const allOrders = this.orders();
 
-  startRealTimeUpdates(): void {
-    // Subscribe to real-time updates
-    this.updateSubscription = this.realTimeService.updates$.subscribe(update => {
-      if (update && update.type === 'order') {
-        // Silently reload orders without showing loading spinner
+    if (!search.trim()) {
+      return allOrders;
+    }
+
+    const searchLower = search.trim().toLowerCase();
+    return allOrders.filter(order =>
+      order.customer_phone.toLowerCase().includes(searchLower)
+    );
+  });
+
+  constructor() {
+    // Use effect for real-time updates instead of subscription
+    effect(() => {
+      const update = this.realTimeService.updates();
+      if (update?.type === 'order') {
         this.loadOrdersQuietly();
       }
     });
-
-    // Start polling
-    this.realTimeService.startPolling();
   }
 
-  stopRealTimeUpdates(): void {
-    if (this.updateSubscription) {
-      this.updateSubscription.unsubscribe();
-    }
-    this.realTimeService.stopPolling();
+  ngOnInit(): void {
+    this.checkShift();
+    // Removed auto-polling - Signals handle reactivity automatically in the background
+    // this.realTimeService.startPolling();
   }
 
   checkShift(): void {
-    this.isCheckingShift = true;
+    this.isCheckingShift.set(true);
     this.shiftService.getCurrentShift().subscribe({
       next: (shift) => {
-        this.currentShift = shift;
-        this.hasActiveShift = shift ? shift.is_active : false;
-        this.isCheckingShift = false;
+        this.currentShift.set(shift);
+        this.hasActiveShift.set(shift ? shift.is_active : false);
+        this.isCheckingShift.set(false);
 
-        if (this.hasActiveShift) {
+        if (this.hasActiveShift()) {
           this.loadOrders();
         } else {
-          this.isLoading = false;
+          this.isLoading.set(false);
         }
       },
       error: () => {
-        this.currentShift = null;
-        this.hasActiveShift = false;
-        this.isCheckingShift = false;
-        this.isLoading = false;
+        this.currentShift.set(null);
+        this.hasActiveShift.set(false);
+        this.isCheckingShift.set(false);
+        this.isLoading.set(false);
       }
     });
   }
 
   loadOrders(): void {
-    this.isLoading = true;
+    this.isLoading.set(true);
     this.orderService.getOrders().subscribe({
       next: (response) => {
-        this.orders = response.results || response;
-        this.filteredOrders = this.orders;
-        this.isLoading = false;
+        this.orders.set(response.results || response);
+        this.isLoading.set(false);
         // Reset real-time check timestamp after manual load
         this.realTimeService.resetCheckTime();
       },
       error: () => {
-        this.isLoading = false;
+        this.isLoading.set(false);
         this.snackBar.open('Error loading orders', 'Close', { duration: 3000 });
       }
     });
@@ -125,8 +125,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     // Load orders without showing the loading spinner (for real-time updates)
     this.orderService.getOrders().subscribe({
       next: (response) => {
-        this.orders = response.results || response;
-        this.filterOrders();
+        this.orders.set(response.results || response);
       },
       error: () => {
         // Silently fail for background updates
@@ -134,37 +133,29 @@ export class OrdersComponent implements OnInit, OnDestroy {
     });
   }
 
-  filterOrders(): void {
-    if (!this.searchTerm.trim()) {
-      this.filteredOrders = this.orders;
-    } else {
-      const searchLower = this.searchTerm.trim().toLowerCase();
-      this.filteredOrders = this.orders.filter(order =>
-        order.customer_phone.toLowerCase().includes(searchLower)
-      );
-    }
-  }
-
   loadCurrentShift(): void {
     this.shiftService.getCurrentShift().subscribe({
       next: (shift) => {
-        this.currentShift = shift;
+        this.currentShift.set(shift);
       },
       error: () => {
-        this.currentShift = null;
+        this.currentShift.set(null);
       }
     });
   }
 
-  getOrdersByStatus(status: string): Order[] {
-    const filteredByStatus = this.filteredOrders.filter(order => order.status === status);
+  getOrdersByStatus(status: string | null): Order[] {
+    if (!status) return [];
+
+    const filteredByStatus = this.filteredOrders().filter(order => order.status === status);
 
     // For DELIVERED status, only show orders delivered in current shift
-    if (status === 'DELIVERED' && this.currentShift) {
+    const shift = this.currentShift();
+    if (status === 'DELIVERED' && shift) {
       return filteredByStatus.filter(order => {
         if (!order.delivered_at) return false;
         const deliveredDate = new Date(order.delivered_at);
-        const shiftStart = new Date(this.currentShift!.opened_at);
+        const shiftStart = new Date(shift.opened_at);
         return deliveredDate >= shiftStart;
       });
     }
@@ -173,11 +164,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   selectStatus(status: string): void {
-    this.selectedStatus = status;
+    this.selectedStatus.set(status);
   }
 
   clearStatusFilter(): void {
-    this.selectedStatus = null;
+    this.selectedStatus.set(null);
   }
 
   openOrderDetails(order: Order): void {

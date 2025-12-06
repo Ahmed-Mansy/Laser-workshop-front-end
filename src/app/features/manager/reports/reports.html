@@ -28,21 +28,16 @@
                             Select Date
                         </label>
                         <div class="flex gap-4 items-center">
-                            <input type="date" [(ngModel)]="selectedDate" (change)="onDateChange()"
+                            <input type="date" [(ngModel)]="selectedDate"
                                 class="px-4 py-3 bg-metal-900 border-2 border-metal-700 rounded-lg text-white focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300">
-                            <button (click)="loadDailyReport()"
-                                class="px-6 py-3 bg-gradient-to-r from-laser-500 to-fire-500 text-white font-bold rounded-lg hover:shadow-fire hover:scale-105 transition-all duration-300">
-                                <i class="fas fa-sync-alt mr-2"></i>
-                                Refresh
-                            </button>
                         </div>
                     </div>
 
-                    @if (isLoadingDaily) {
+                    @if (isLoadingDaily()) {
                     <div class="flex justify-center items-center py-32">
                         <mat-spinner class="!border-laser-500"></mat-spinner>
                     </div>
-                    } @else if (dailyReport) {
+                    } @else if (dailyReport()) {
                     <!-- Daily Stats Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <!-- Total Revenue -->
@@ -54,7 +49,7 @@
                                     <i class="fas fa-dollar-sign text-2xl text-white"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-3xl font-black text-white">${{ dailyReport.total_revenue |
+                                    <h3 class="text-3xl font-black text-white">${{ dailyReport()!.total_revenue |
                                         number:'1.2-2' }}</h3>
                                     <p class="text-gray-400 font-semibold">Total Revenue</p>
                                 </div>
@@ -69,7 +64,7 @@
                                     <i class="fas fa-shopping-cart text-2xl text-white"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-3xl font-black text-white">{{ dailyReport.total_orders }}</h3>
+                                    <h3 class="text-3xl font-black text-white">{{ dailyReport()!.total_orders }}</h3>
                                     <p class="text-gray-400 font-semibold">Total Orders</p>
                                 </div>
                             </div>
@@ -84,7 +79,7 @@
                                     <i class="fas fa-chart-bar text-2xl text-white"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-3xl font-black text-white">${{ dailyReport.average_order_value |
+                                    <h3 class="text-3xl font-black text-white">${{ dailyReport()!.average_order_value |
                                         number:'1.2-2' }}</h3>
                                     <p class="text-gray-400 font-semibold">Average Order</p>
                                 </div>
@@ -101,22 +96,25 @@
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-fire-500">
                                 <p class="text-gray-400 text-sm">Under Work</p>
-                                <p class="text-2xl font-bold text-white">{{ dailyReport.orders_by_status?.['UNDER_WORK']
+                                <p class="text-2xl font-bold text-white">{{
+                                    dailyReport()!.orders_by_status?.['UNDER_WORK']
                                     || 0 }}</p>
                             </div>
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-spark-500">
                                 <p class="text-gray-400 text-sm">Designing</p>
-                                <p class="text-2xl font-bold text-white">{{ dailyReport.orders_by_status?.['DESIGNING']
+                                <p class="text-2xl font-bold text-white">{{
+                                    dailyReport()!.orders_by_status?.['DESIGNING']
                                     || 0 }}</p>
                             </div>
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-green-500">
                                 <p class="text-gray-400 text-sm">Design Completed</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    dailyReport.orders_by_status?.['DESIGN_COMPLETED'] || 0 }}</p>
+                                    dailyReport()!.orders_by_status?.['DESIGN_COMPLETED'] || 0 }}</p>
                             </div>
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-blue-500">
                                 <p class="text-gray-400 text-sm">Delivered</p>
-                                <p class="text-2xl font-bold text-white">{{ dailyReport.orders_by_status?.['DELIVERED']
+                                <p class="text-2xl font-bold text-white">{{
+                                    dailyReport()!.orders_by_status?.['DELIVERED']
                                     || 0 }}</p>
                             </div>
                         </div>
@@ -135,31 +133,26 @@
                             Select Month & Year
                         </label>
                         <div class="flex gap-4 items-center">
-                            <select [(ngModel)]="selectedMonth" (change)="onMonthYearChange()"
+                            <select [(ngModel)]="selectedMonth"
                                 class="px-4 py-3 bg-metal-900 border-2 border-metal-700 rounded-lg text-white focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 cursor-pointer">
                                 @for (month of months; track month.value) {
                                 <option [value]="month.value">{{ month.name }}</option>
                                 }
                             </select>
-                            <select [(ngModel)]="selectedYear" (change)="onMonthYearChange()"
+                            <select [(ngModel)]="selectedYear"
                                 class="px-4 py-3 bg-metal-900 border-2 border-metal-700 rounded-lg text-white focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 cursor-pointer">
                                 @for (year of years; track year) {
                                 <option [value]="year">{{ year }}</option>
                                 }
                             </select>
-                            <button (click)="loadMonthlyReport()"
-                                class="px-6 py-3 bg-gradient-to-r from-laser-500 to-fire-500 text-white font-bold rounded-lg hover:shadow-fire hover:scale-105 transition-all duration-300">
-                                <i class="fas fa-sync-alt mr-2"></i>
-                                Refresh
-                            </button>
                         </div>
                     </div>
 
-                    @if (isLoadingMonthly) {
+                    @if (isLoadingMonthly()) {
                     <div class="flex justify-center items-center py-32">
                         <mat-spinner class="!border-laser-500"></mat-spinner>
                     </div>
-                    } @else if (monthlyReport) {
+                    } @else if (monthlyReport()) {
                     <!-- Monthly Stats Grid -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <!-- Total Revenue -->
@@ -171,7 +164,7 @@
                                     <i class="fas fa-dollar-sign text-2xl text-white"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-3xl font-black text-white">${{ monthlyReport.total_revenue |
+                                    <h3 class="text-3xl font-black text-white">${{ monthlyReport()!.total_revenue |
                                         number:'1.2-2' }}</h3>
                                     <p class="text-gray-400 font-semibold">Total Revenue</p>
                                 </div>
@@ -186,7 +179,7 @@
                                     <i class="fas fa-shopping-cart text-2xl text-white"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-3xl font-black text-white">{{ monthlyReport.total_orders }}</h3>
+                                    <h3 class="text-3xl font-black text-white">{{ monthlyReport()!.total_orders }}</h3>
                                     <p class="text-gray-400 font-semibold">Total Orders</p>
                                 </div>
                             </div>
@@ -201,7 +194,8 @@
                                     <i class="fas fa-chart-bar text-2xl text-white"></i>
                                 </div>
                                 <div>
-                                    <h3 class="text-3xl font-black text-white">${{ monthlyReport.average_order_value |
+                                    <h3 class="text-3xl font-black text-white">${{ monthlyReport()!.average_order_value
+                                        |
                                         number:'1.2-2' }}</h3>
                                     <p class="text-gray-400 font-semibold">Average Order</p>
                                 </div>
@@ -219,22 +213,22 @@
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-fire-500">
                                 <p class="text-gray-400 text-sm">Under Work</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    monthlyReport.orders_by_status?.['UNDER_WORK'] || 0 }}</p>
+                                    monthlyReport()!.orders_by_status?.['UNDER_WORK'] || 0 }}</p>
                             </div>
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-spark-500">
                                 <p class="text-gray-400 text-sm">Designing</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    monthlyReport.orders_by_status?.['DESIGNING'] || 0 }}</p>
+                                    monthlyReport()!.orders_by_status?.['DESIGNING'] || 0 }}</p>
                             </div>
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-green-500">
                                 <p class="text-gray-400 text-sm">Design Completed</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    monthlyReport.orders_by_status?.['DESIGN_COMPLETED'] || 0 }}</p>
+                                    monthlyReport()!.orders_by_status?.['DESIGN_COMPLETED'] || 0 }}</p>
                             </div>
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-blue-500">
                                 <p class="text-gray-400 text-sm">Delivered</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    monthlyReport.orders_by_status?.['DELIVERED'] || 0 }}</p>
+                                    monthlyReport()!.orders_by_status?.['DELIVERED'] || 0 }}</p>
                             </div>
                         </div>
                     </div>

@@ -3,7 +3,7 @@
         <!-- Header -->
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
             <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
-                @if (selectedStatus) {
+                @if (selectedStatus()) {
                 <button (click)="clearStatusFilter()"
                     class="w-10 h-10 flex items-center justify-center bg-metal-800 hover:bg-metal-700 rounded-lg transition-all flex-shrink-0">
                     <i class="fas fa-arrow-left text-laser-500"></i>
@@ -15,16 +15,16 @@
                     <span class="break-words leading-tight">ORDER MANAGEMENT</span>
                 </h1>
             </div>
-            <button mat-raised-button (click)="openAddOrderDialog()" [disabled]="!hasActiveShift"
+            <button mat-raised-button (click)="openAddOrderDialog()" [disabled]="!hasActiveShift()"
                 class="w-full sm:w-auto !h-12 !px-4 sm:!px-6 !text-sm sm:!text-base !font-bold !bg-fire-gradient !text-white !rounded-lg fire-glow hover:!shadow-fire disabled:!opacity-50 disabled:!cursor-not-allowed disabled:hover:!shadow-none"
-                [attr.title]="!hasActiveShift ? 'Please ask manager to open a shift first' : 'Create new order'">
+                [attr.title]="!hasActiveShift() ? 'Please ask manager to open a shift first' : 'Create new order'">
                 <i class="fas fa-plus mr-2"></i>
                 <span class="whitespace-nowrap">NEW ORDER</span>
             </button>
         </div>
 
         <!-- No Active Shift Message -->
-        @if (!isCheckingShift && !hasActiveShift) {
+        @if (!isCheckingShift() && !hasActiveShift()) {
         <div class="flex items-center justify-center min-h-[50vh] sm:min-h-[60vh] px-4">
             <div class="max-w-2xl w-full">
                 <div
@@ -80,29 +80,28 @@
         }
 
         <!-- Orders Content (only shown when shift is active) -->
-        @if (isCheckingShift) {
+        @if (isCheckingShift()) {
         <div class="flex justify-center items-center py-32">
             <mat-spinner class="!border-laser-500"></mat-spinner>
         </div>
-        } @else if (hasActiveShift) {
+        } @else if (hasActiveShift()) {
         <!-- Search Bar -->
-        @if (selectedStatus) {
+        @if (selectedStatus()) {
         <div class="mb-6">
             <div class="relative max-w-md">
-                <input type="text" [(ngModel)]="searchTerm" (input)="filterOrders()"
-                    placeholder="Search by phone number..."
+                <input type="text" [(ngModel)]="searchTerm" placeholder="Search by phone number..."
                     class="w-full px-4 py-3 pl-12 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-gray-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all">
                 <i class="fas fa-phone absolute left-4 top-1/2 transform -translate-y-1/2 text-laser-500"></i>
             </div>
         </div>
         }
 
-        @if (isLoading) {
+        @if (isLoading()) {
         <div class="flex justify-center items-center py-32">
             <mat-spinner class="!border-laser-500"></mat-spinner>
         </div>
         } @else {
-        @if (!selectedStatus) {
+        @if (!selectedStatus()) {
         <!-- Dashboard View - Status Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- UNDER WORK Card -->
@@ -150,7 +149,7 @@
             </div>
         </div>
 
-        @if (orders.length === 0) {
+        @if (orders().length === 0) {
         <div class="text-center py-20 mt-8">
             <i class="fas fa-inbox text-6xl text-gray-600 mb-4"></i>
             <h3 class="text-2xl font-bold text-gray-400 mb-2">No Orders Yet</h3>
@@ -161,27 +160,27 @@
         <!-- Detail View - Orders List for Selected Status -->
         <div class="bg-metal-800 border-2 border-metal-700 rounded-xl overflow-hidden shadow-xl">
             <div class="px-6 py-4 border-b border-metal-700" [ngClass]="{
-                            'bg-gradient-to-r from-laser-600 to-laser-500': selectedStatus === 'UNDER_WORK',
-                            'bg-gradient-to-r from-fire-600 to-fire-500': selectedStatus === 'DESIGNING',
-                            'bg-gradient-to-r from-spark-600 to-spark-500': selectedStatus === 'DESIGN_COMPLETED',
-                            'bg-gradient-to-r from-green-600 to-green-500': selectedStatus === 'DELIVERED'
+                            'bg-gradient-to-r from-laser-600 to-laser-500': selectedStatus() === 'UNDER_WORK',
+                            'bg-gradient-to-r from-fire-600 to-fire-500': selectedStatus() === 'DESIGNING',
+                            'bg-gradient-to-r from-spark-600 to-spark-500': selectedStatus() === 'DESIGN_COMPLETED',
+                            'bg-gradient-to-r from-green-600 to-green-500': selectedStatus() === 'DELIVERED'
                         }">
                 <h2 class="text-2xl font-bold text-white flex items-center gap-3">
-                    <i class="fas" [class.fa-tools]="selectedStatus === 'UNDER_WORK'"
-                        [class.fa-pencil-ruler]="selectedStatus === 'DESIGNING'"
-                        [class.fa-check-circle]="selectedStatus === 'DESIGN_COMPLETED'"
-                        [class.fa-box-open]="selectedStatus === 'DELIVERED'"></i>
-                    {{selectedStatus === 'UNDER_WORK' ? 'UNDER WORK' :
-                    selectedStatus === 'DESIGNING' ? 'DESIGNING' :
-                    selectedStatus === 'DESIGN_COMPLETED' ? 'DESIGN COMPLETED' :
+                    <i class="fas" [class.fa-tools]="selectedStatus() === 'UNDER_WORK'"
+                        [class.fa-pencil-ruler]="selectedStatus() === 'DESIGNING'"
+                        [class.fa-check-circle]="selectedStatus() === 'DESIGN_COMPLETED'"
+                        [class.fa-box-open]="selectedStatus() === 'DELIVERED'"></i>
+                    {{selectedStatus() === 'UNDER_WORK' ? 'UNDER WORK' :
+                    selectedStatus() === 'DESIGNING' ? 'DESIGNING' :
+                    selectedStatus() === 'DESIGN_COMPLETED' ? 'DESIGN COMPLETED' :
                     'DELIVERED'}}
-                    <span class="ml-auto text-lg font-normal">{{getOrdersByStatus(selectedStatus).length}}
+                    <span class="ml-auto text-lg font-normal">{{getOrdersByStatus(selectedStatus()).length}}
                         Orders</span>
                 </h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
-                @for (order of getOrdersByStatus(selectedStatus); track order.id) {
+                @for (order of getOrdersByStatus(selectedStatus()); track order.id) {
                 <div (click)="openOrderDetails(order)"
                     class="bg-metal-900 border-2 border-metal-700 rounded-lg p-5 hover:border-laser-500 transition-all cursor-pointer">
                     <div class="flex justify-between items-start mb-3">
@@ -199,7 +198,7 @@
                         {{order.created_at | date:'short'}}
                     </p>
                     <div class="flex gap-2 pt-3 border-t border-metal-700" (click)="$event.stopPropagation()">
-                        @if (selectedStatus !== 'DELIVERED') {
+                        @if (selectedStatus() !== 'DELIVERED') {
                         <button mat-icon-button (click)="advanceOrderStatus(order)" title="Move to Next Stage"
                             class="!text-spark-400 hover:!text-spark-300">
                             <i class="fas fa-arrow-right"></i>

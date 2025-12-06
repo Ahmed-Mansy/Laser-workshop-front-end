@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -30,7 +30,7 @@ export class AddEmployeeComponent {
   private dialogRef = inject(MatDialogRef<AddEmployeeComponent>);
 
   employeeForm: FormGroup;
-  isLoading = false;
+  isLoading = signal(false);
 
   constructor() {
     this.employeeForm = this.fb.group({
@@ -54,16 +54,16 @@ export class AddEmployeeComponent {
 
   onSubmit(): void {
     if (this.employeeForm.valid) {
-      this.isLoading = true;
+      this.isLoading.set(true);
 
       this.http.post(`${environment.apiUrl}/auth/register/`, this.employeeForm.value).subscribe({
         next: () => {
-          this.isLoading = false;
+          this.isLoading.set(false);
           this.snackBar.open('Employee added successfully!', 'Close', { duration: 3000 });
           this.dialogRef.close(true);
         },
         error: (error) => {
-          this.isLoading = false;
+          this.isLoading.set(false);
           const errorMessage = error.error?.username?.[0] || error.error?.email?.[0] || 'Failed to add employee';
           this.snackBar.open(errorMessage, 'Close', { duration: 5000 });
         }

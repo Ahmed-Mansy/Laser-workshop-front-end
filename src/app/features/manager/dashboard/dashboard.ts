@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -40,27 +40,46 @@ export class DashboardComponent implements OnInit {
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
 
-  statistics = {
+  // Convert all state to signals
+  private baseStatistics = signal({
     total: 0,
     underWork: 0,
     designing: 0,
-    designCompleted: 0,
-    delivered: 0
-  };
+    designCompleted: 0
+  });
 
-  todayRevenue = 0;
-  todayOrders = 0;
-  isLoading = false;
-  employees: User[] = [];
-  isLoadingEmployees = false;
+  isLoading = signal(false);
+  employees = signal<User[]>([]);
+  isLoadingEmployees = signal(false);
+  currentShift = signal<Shift | null>(null);
+  isLoadingShift = signal(false);
 
-  // Shift management
-  currentShift: Shift | null = null;
-  isLoadingShift = false;
+  // Computed values that automatically update!
+  statistics = computed(() => {
+    const base = this.baseStatistics();
+    const shift = this.currentShift();
+
+    return {
+      total: base.total,
+      underWork: base.underWork,
+      designing: base.designing,
+      designCompleted: base.designCompleted,
+      delivered: (shift?.is_active ? shift.total_orders_delivered : 0)
+    };
+  });
+
+  todayRevenue = computed(() => {
+    const shift = this.currentShift();
+    return shift?.is_active ? shift.total_revenue : 0;
+  });
+
+  todayOrders = computed(() => {
+    const shift = this.currentShift();
+    return shift?.is_active ? shift.total_orders_delivered : 0;
+  });
 
   ngOnInit(): void {
     this.loadStatistics();
-    this.loadTodayReport();
     this.loadEmployees();
     this.loadCurrentShift();
   }
@@ -69,82 +88,58 @@ export class DashboardComponent implements OnInit {
     const today = new Date();
     this.orderService.getStatistics(today.getMonth() + 1, today.getFullYear()).subscribe({
       next: (stats) => {
-        this.statistics.total = stats.total;
-        this.statistics.underWork = stats.by_status['UNDER_WORK'] || 0;
-        this.statistics.designing = stats.by_status['DESIGNING'] || 0;
-        this.statistics.designCompleted = stats.by_status['DESIGN_COMPLETED'] || 0;
-
-        // Don't set delivered here - we'll get it from the shift
-        this.isLoading = false;
-        this.updateShiftBasedStatistics();
+        this.baseStatistics.set({
+          total: stats.total,
+          underWork: stats.by_status['UNDER_WORK'] || 0,
+          designing: stats.by_status['DESIGNING'] || 0,
+          designCompleted: stats.by_status['DESIGN_COMPLETED'] || 0
+        });
+        this.isLoading.set(false);
       },
       error: () => {
-        this.isLoading = false;
+        this.isLoading.set(false);
       }
     });
   }
 
-  updateShiftBasedStatistics(): void {
-    // Update delivered count and revenue based on current shift
-    if (this.currentShift && this.currentShift.is_active) {
-      this.statistics.delivered = this.currentShift.total_orders_delivered;
-      this.todayRevenue = this.currentShift.total_revenue;
-      this.todayOrders = this.currentShift.total_orders_delivered;
-    } else {
-      // No active shift - show zeros
-      this.statistics.delivered = 0;
-      this.todayRevenue = 0;
-      this.todayOrders = 0;
-    }
-  }
-
-  loadTodayReport(): void {
-    // We now use shift data for today's stats instead of daily report
-    // This method is called but does nothing - stats come from shift
-  }
-
   loadEmployees(): void {
-    this.isLoadingEmployees = true;
+    this.isLoadingEmployees.set(true);
     this.userService.getUsers().subscribe({
       next: (users) => {
-        this.employees = users;
-        this.isLoadingEmployees = false;
+        this.employees.set(users);
+        this.isLoadingEmployees.set(false);
       },
       error: () => {
-        this.isLoadingEmployees = false;
+        this.isLoadingEmployees.set(false);
       }
     });
   }
 
   loadCurrentShift(): void {
-    this.isLoadingShift = true;
+    this.isLoadingShift.set(true);
     this.shiftService.getCurrentShift().subscribe({
       next: (shift) => {
-        this.currentShift = shift;
-        this.isLoadingShift = false;
-        this.updateShiftBasedStatistics();
+        this.currentShift.set(shift);
+        this.isLoadingShift.set(false);
       },
       error: () => {
-        // Error getting shift
-        this.currentShift = null;
-        this.isLoadingShift = false;
-        this.updateShiftBasedStatistics();
+        this.currentShift.set(null);
+        this.isLoadingShift.set(false);
       }
     });
   }
 
   openNewShift(): void {
     if (confirm('This will close any active shift and open a new one. Continue?')) {
-      this.isLoadingShift = true;
+      this.isLoadingShift.set(true);
       this.shiftService.openNewShift().subscribe({
         next: (shift) => {
-          this.currentShift = shift;
-          this.isLoadingShift = false;
-          this.updateShiftBasedStatistics();
+          this.currentShift.set(shift);
+          this.isLoadingShift.set(false);
           this.snackBar.open('New shift opened successfully!', 'Close', { duration: 3000 });
         },
         error: () => {
-          this.isLoadingShift = false;
+          this.isLoadingShift.set(false);
           this.snackBar.open('Failed to open new shift', 'Close', { duration: 3000 });
         }
       });
@@ -152,15 +147,15 @@ export class DashboardComponent implements OnInit {
   }
 
   closeShift(): void {
-    if (!this.currentShift) return;
+    const shift = this.currentShift();
+    if (!shift) return;
 
     if (confirm('Close the current shift?')) {
-      this.isLoadingShift = true;
-      this.shiftService.closeShift(this.currentShift.id).subscribe({
+      this.isLoadingShift.set(true);
+      this.shiftService.closeShift(shift.id).subscribe({
         next: (response: any) => {
-          this.currentShift = response.shift;
-          this.isLoadingShift = false;
-          this.updateShiftBasedStatistics();
+          this.currentShift.set(response.shift);
+          this.isLoadingShift.set(false);
 
           // Open summary dialog with both shift and summary data
           this.dialog.open(ShiftSummaryDialogComponent, {
@@ -177,7 +172,7 @@ export class DashboardComponent implements OnInit {
           this.snackBar.open('Shift closed successfully!', 'Close', { duration: 3000 });
         },
         error: () => {
-          this.isLoadingShift = false;
+          this.isLoadingShift.set(false);
           this.snackBar.open('Failed to close shift', 'Close', { duration: 3000 });
         }
       });

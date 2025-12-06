@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -16,7 +16,7 @@ interface ShowcaseImage {
   templateUrl: './showcase.html',
   styleUrl: './showcase.css'
 })
-export class ShowcaseComponent implements OnInit {
+export class ShowcaseComponent implements OnInit, OnDestroy {
   showcaseImages: ShowcaseImage[] = [
     {
       title: 'Precision Wood Engraving',
@@ -44,8 +44,8 @@ export class ShowcaseComponent implements OnInit {
     }
   ];
 
-  currentSlide = 0;
-  isAutoPlaying = true;
+  currentSlide = signal(0);
+  isAutoPlaying = signal(true);
   private autoPlayInterval: any;
 
   ngOnInit(): void {
@@ -57,22 +57,21 @@ export class ShowcaseComponent implements OnInit {
   }
 
   nextSlide(): void {
-    this.currentSlide = (this.currentSlide + 1) % this.showcaseImages.length;
+    this.currentSlide.set((this.currentSlide() + 1) % this.showcaseImages.length);
   }
 
   previousSlide(): void {
-    this.currentSlide = this.currentSlide === 0
-      ? this.showcaseImages.length - 1
-      : this.currentSlide - 1;
+    const current = this.currentSlide();
+    this.currentSlide.set(current === 0 ? this.showcaseImages.length - 1 : current - 1);
   }
 
   goToSlide(index: number): void {
-    this.currentSlide = index;
+    this.currentSlide.set(index);
     this.resetAutoPlay();
   }
 
   startAutoPlay(): void {
-    if (this.isAutoPlaying) {
+    if (this.isAutoPlaying()) {
       this.autoPlayInterval = setInterval(() => {
         this.nextSlide();
       }, 5000); // Change slide every 5 seconds
@@ -91,8 +90,8 @@ export class ShowcaseComponent implements OnInit {
   }
 
   toggleAutoPlay(): void {
-    this.isAutoPlaying = !this.isAutoPlaying;
-    if (this.isAutoPlaying) {
+    this.isAutoPlaying.set(!this.isAutoPlaying());
+    if (this.isAutoPlaying()) {
       this.startAutoPlay();
     } else {
       this.stopAutoPlay();

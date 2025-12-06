@@ -6,20 +6,20 @@
             Back to Shift History
         </button>
 
-        @if (isLoading) {
+        @if (isLoading()) {
         <div class="flex justify-center items-center py-32">
             <mat-spinner class="!border-laser-500"></mat-spinner>
         </div>
-        } @else if (shift) {
+        } @else if (shift()) {
         <!-- Header -->
         <div class="mb-8">
             <h1 class="text-4xl md:text-5xl font-black text-fire flex items-center gap-3">
                 <i class="fas fa-receipt"></i>
-                SHIFT #{{ shift.id }} DETAILS
+                SHIFT #{{ shift()!.id }} DETAILS
             </h1>
             <p class="text-xl text-gray-400 mt-2">
-                {{ formatDate(shift.opened_at) }}
-                @if (shift.is_active) {
+                {{ formatDate(shift()!.opened_at) }}
+                @if (shift()!.is_active) {
                 <span class="text-green-400 ml-2">(Active)</span>
                 } @else {
                 <span class="text-gray-500 ml-2">(Closed)</span>
@@ -38,7 +38,7 @@
                             <i class="fas fa-clock text-xl text-white"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-black text-white">{{ shift.duration_hours }}h</h3>
+                            <h3 class="text-2xl font-black text-white">{{ shift()!.duration_hours }}h</h3>
                             <p class="text-gray-400 text-sm font-semibold">Duration</p>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                             <i class="fas fa-box text-xl text-white"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-black text-white">{{ shift.total_orders_delivered }}</h3>
+                            <h3 class="text-2xl font-black text-white">{{ shift()!.total_orders_delivered }}</h3>
                             <p class="text-gray-400 text-sm font-semibold">Orders Delivered</p>
                         </div>
                     </div>
@@ -68,7 +68,8 @@
                             <i class="fas fa-dollar-sign text-xl text-white"></i>
                         </div>
                         <div>
-                            <h3 class="text-2xl font-black text-white">${{ shift.total_revenue | number:'1.2-2' }}</h3>
+                            <h3 class="text-2xl font-black text-white">${{ shift()!.total_revenue | number:'1.2-2' }}
+                            </h3>
                             <p class="text-gray-400 text-sm font-semibold">Total Revenue</p>
                         </div>
                     </div>
@@ -85,8 +86,8 @@
                         </div>
                         <div>
                             <h3 class="text-2xl font-black text-white">
-                                ${{ shift.total_orders_delivered > 0 ? (shift.total_revenue /
-                                shift.total_orders_delivered) : 0 | number:'1.2-2' }}
+                                ${{ shift()!.total_orders_delivered > 0 ? (shift()!.total_revenue /
+                                shift()!.total_orders_delivered) : 0 | number:'1.2-2' }}
                             </h3>
                             <p class="text-gray-400 text-sm font-semibold">Avg per Order</p>
                         </div>
@@ -103,14 +104,14 @@
                     Delivered Orders
                 </h2>
 
-                @if (deliveredOrders.length === 0) {
+                @if (deliveredOrders().length === 0) {
                 <div class="text-center py-16">
                     <i class="fas fa-inbox text-4xl text-gray-600 mb-4"></i>
                     <p class="text-gray-400">No orders delivered in this shift</p>
                 </div>
                 } @else {
                 <div class="overflow-x-auto">
-                    <table mat-table [dataSource]="deliveredOrders" class="w-full">
+                    <table mat-table [dataSource]="deliveredOrders()" class="w-full">
                         <!-- ID Column -->
                         <ng-container matColumnDef="id">
                             <th mat-header-cell *matHeaderCellDef class="!bg-metal-900 !text-gray-400 !font-bold">Order

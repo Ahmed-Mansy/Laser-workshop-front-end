@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -31,9 +31,9 @@ export class ShiftDetailsComponent implements OnInit {
     private router = inject(Router);
     private dialog = inject(MatDialog);
 
-    shift: Shift | null = null;
-    deliveredOrders: any[] = [];
-    isLoading = true;
+    shift = signal<Shift | null>(null);
+    deliveredOrders = signal<any[]>([]);
+    isLoading = signal(true);
     displayedColumns: string[] = ['id', 'customer_name', 'customer_phone', 'price', 'delivered_at', 'actions'];
 
     ngOnInit(): void {
@@ -44,12 +44,12 @@ export class ShiftDetailsComponent implements OnInit {
     }
 
     loadShiftDetails(shiftId: number): void {
-        this.isLoading = true;
+        this.isLoading.set(true);
 
         // Load shift info
         this.shiftService.getShiftById(shiftId).subscribe({
             next: (shift) => {
-                this.shift = shift;
+                this.shift.set(shift);
             },
             error: () => {
                 this.router.navigate(['/manager/shift-history']);
@@ -59,11 +59,11 @@ export class ShiftDetailsComponent implements OnInit {
         // Load delivered orders
         this.shiftService.getDeliveredOrders(shiftId).subscribe({
             next: (orders) => {
-                this.deliveredOrders = orders;
-                this.isLoading = false;
+                this.deliveredOrders.set(orders);
+                this.isLoading.set(false);
             },
             error: () => {
-                this.isLoading = false;
+                this.isLoading.set(false);
             }
         });
     }

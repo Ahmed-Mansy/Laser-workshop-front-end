@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -25,16 +25,15 @@ import { DailyReport, MonthlyReport } from '../../../core/models/report.model';
 export class ReportsComponent implements OnInit {
     private reportService = inject(ReportService);
 
-    // Daily Report
-    selectedDate: string = '';
-    dailyReport: DailyReport | null = null;
-    isLoadingDaily = false;
+    // Convert all state to signals
+    selectedDate = signal(new Date().toISOString().split('T')[0]);
+    dailyReport = signal<DailyReport | null>(null);
+    isLoadingDaily = signal(false);
 
-    // Monthly Report
-    selectedYear: number = new Date().getFullYear();
-    selectedMonth: number = new Date().getMonth() + 1;
-    monthlyReport: MonthlyReport | null = null;
-    isLoadingMonthly = false;
+    selectedYear = signal(new Date().getFullYear());
+    selectedMonth = signal(new Date().getMonth() + 1);
+    monthlyReport = signal<MonthlyReport | null>(null);
+    isLoadingMonthly = signal(false);
 
     years: number[] = [];
     months = [
@@ -52,51 +51,52 @@ export class ReportsComponent implements OnInit {
         { value: 12, name: 'December' }
     ];
 
-    ngOnInit(): void {
-        // Set today's date for daily report
-        this.selectedDate = new Date().toISOString().split('T')[0];
+    constructor() {
+        // Effect: Auto-load daily report when date changes
+        effect(() => {
+            const date = this.selectedDate();
+            this.loadDailyReport(date);
+        });
 
+        // Effect: Auto-load monthly report when year/month changes
+        effect(() => {
+            const year = this.selectedYear();
+            const month = this.selectedMonth();
+            this.loadMonthlyReport(year, month);
+        });
+    }
+
+    ngOnInit(): void {
         // Generate years from 2020 to current year + 1
         const currentYear = new Date().getFullYear();
         for (let year = 2020; year <= currentYear + 1; year++) {
             this.years.push(year);
         }
-
-        this.loadDailyReport();
-        this.loadMonthlyReport();
     }
 
-    loadDailyReport(): void {
-        this.isLoadingDaily = true;
-        this.reportService.getDailyReport(this.selectedDate).subscribe({
+    private loadDailyReport(date: string): void {
+        this.isLoadingDaily.set(true);
+        this.reportService.getDailyReport(date).subscribe({
             next: (report) => {
-                this.dailyReport = report;
-                this.isLoadingDaily = false;
+                this.dailyReport.set(report);
+                this.isLoadingDaily.set(false);
             },
             error: () => {
-                this.isLoadingDaily = false;
+                this.isLoadingDaily.set(false);
             }
         });
     }
 
-    loadMonthlyReport(): void {
-        this.isLoadingMonthly = true;
-        this.reportService.getMonthlyReport(this.selectedYear, this.selectedMonth).subscribe({
+    private loadMonthlyReport(year: number, month: number): void {
+        this.isLoadingMonthly.set(true);
+        this.reportService.getMonthlyReport(year, month).subscribe({
             next: (report) => {
-                this.monthlyReport = report;
-                this.isLoadingMonthly = false;
+                this.monthlyReport.set(report);
+                this.isLoadingMonthly.set(false);
             },
             error: () => {
-                this.isLoadingMonthly = false;
+                this.isLoadingMonthly.set(false);
             }
         });
-    }
-
-    onDateChange(): void {
-        this.loadDailyReport();
-    }
-
-    onMonthYearChange(): void {
-        this.loadMonthlyReport();
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -26,22 +26,22 @@ export class ShiftHistoryComponent implements OnInit {
     private shiftService = inject(ShiftService);
     private router = inject(Router);
 
-    shifts: Shift[] = [];
-    isLoading = true;
+    shifts = signal<Shift[]>([]);
+    isLoading = signal(true);
 
     ngOnInit(): void {
         this.loadShifts();
     }
 
     loadShifts(): void {
-        this.isLoading = true;
+        this.isLoading.set(true);
         this.shiftService.getAllShifts().subscribe({
             next: (shifts) => {
-                this.shifts = shifts;
-                this.isLoading = false;
+                this.shifts.set(shifts);
+                this.isLoading.set(false);
             },
             error: () => {
-                this.isLoading = false;
+                this.isLoading.set(false);
             }
         });
     }

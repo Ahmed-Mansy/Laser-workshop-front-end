@@ -1,4 +1,4 @@
-import { Component, inject, Inject, Optional } from '@angular/core';
+import { Component, inject, Inject, Optional, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -25,8 +25,11 @@ export class AddOrderComponent {
   private dialogRef = inject(MatDialogRef<AddOrderComponent>);
 
   orderForm: FormGroup;
-  isLoading = false;
-  selectedFile: File | null = null;
+
+  // Convert to signals
+  isLoading = signal(false);
+  selectedFile = signal<File | null>(null);
+
   isEditMode: boolean = false;
   orderId?: number;
 
@@ -46,13 +49,13 @@ export class AddOrderComponent {
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      this.selectedFile = file;
+      this.selectedFile.set(file);
     }
   }
 
   onSubmit(): void {
     if (this.orderForm.valid) {
-      this.isLoading = true;
+      this.isLoading.set(true);
 
       const formValue = this.orderForm.value;
       const orderData: any = {
@@ -67,8 +70,9 @@ export class AddOrderComponent {
         orderData.price = parseFloat(formValue.price);
       }
 
-      if (this.selectedFile) {
-        orderData.image = this.selectedFile;
+      const file = this.selectedFile();
+      if (file) {
+        orderData.image = file;
       }
 
       const operation = this.isEditMode && this.orderId
@@ -77,13 +81,13 @@ export class AddOrderComponent {
 
       operation.subscribe({
         next: () => {
-          this.isLoading = false;
+          this.isLoading.set(false);
           const message = this.isEditMode ? 'Order updated successfully!' : 'Order created successfully!';
           this.snackBar.open(message, 'Close', { duration: 3000 });
           this.dialogRef.close(true);
         },
         error: (error) => {
-          this.isLoading = false;
+          this.isLoading.set(false);
           const message = this.isEditMode ? 'Failed to update order' : 'Failed to create order';
           this.snackBar.open(message, 'Close', { duration: 5000 });
         }

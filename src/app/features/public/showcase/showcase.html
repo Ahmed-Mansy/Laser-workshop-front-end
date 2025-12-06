@@ -14,8 +14,8 @@
         <!-- Main Image Display -->
         <div class="carousel-slides">
             @for (image of showcaseImages; track $index) {
-            <div class="carousel-slide" [class.active]="currentSlide === $index"
-                [style.transform]="'translateX(' + (($index - currentSlide) * 100) + '%)'">
+            <div class="carousel-slide" [class.active]="currentSlide() === $index"
+                [style.transform]="'translateX(' + (($index - currentSlide()) * 100) + '%)'">
                 <div class="image-wrapper">
                     <img [src]="image.imageUrl" [alt]="image.title" />
                     <div class="image-overlay">
@@ -46,14 +46,14 @@
         <!-- Dot Indicators -->
         <div class="carousel-indicators">
             @for (image of showcaseImages; track $index) {
-            <button class="indicator-dot" [class.active]="currentSlide === $index" (click)="goToSlide($index)">
+            <button class="indicator-dot" [class.active]="currentSlide() === $index" (click)="goToSlide($index)">
             </button>
             }
         </div>
 
         <!-- Auto-play Toggle -->
-        <button class="autoplay-toggle" (click)="toggleAutoPlay()" [title]="isAutoPlaying ? 'Pause' : 'Play'">
-            <i [class]="isAutoPlaying ? 'fas fa-pause' : 'fas fa-play'"></i>
+        <button class="autoplay-toggle" (click)="toggleAutoPlay()" [title]="isAutoPlaying() ? 'Pause' : 'Play'">
+            <i [class]="isAutoPlaying() ? 'fas fa-pause' : 'fas fa-play'"></i>
         </button>
     </div>
 

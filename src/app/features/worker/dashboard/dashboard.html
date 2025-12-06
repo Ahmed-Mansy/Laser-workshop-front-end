@@ -4,7 +4,7 @@
         <p>Manage your orders and track progress</p>
     </div>
 
-    @if (isLoading) {
+    @if (isLoading()) {
     <div class="loading-container">
         <mat-spinner></mat-spinner>
     </div>
@@ -16,7 +16,7 @@
                     <i class="fas fa-clipboard-list"></i>
                 </div>
                 <div class="stat-info">
-                    <h3>{{ myOrdersCount }}</h3>
+                    <h3>{{ myOrdersCount() }}</h3>
                     <p>Total Orders</p>
                 </div>
             </mat-card-content>
@@ -48,7 +48,7 @@
             </mat-card-header>
             <mat-card-content>
                 <mat-list>
-                    @for (order of recentOrders; track order.id) {
+                    @for (order of recentOrders(); track order.id) {
                     <mat-list-item>
                         <i class="fas fa-box" matListItemIcon></i>
                         <div matListItemTitle>{{ order.customer_name }}</div>

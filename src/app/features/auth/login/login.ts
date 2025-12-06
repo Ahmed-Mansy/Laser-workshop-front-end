@@ -43,14 +43,14 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           this.isLoading = false;
-          this.snackBar.open('Login successful!', 'Close', { duration: 3000 });
+          this.snackBar.open('Login successful! Redirecting...', 'Close', { duration: 2000 });
 
-          // Redirect based on role
-          if (response.user.role === 'MANAGER') {
-            this.router.navigate(['/manager']);
-          } else {
-            this.router.navigate(['/worker']);
-          }
+          // Reload page to ensure all auth state (signals, localStorage, guards) sync properly
+          // This is a standard pattern to avoid timing issues with async auth state
+          setTimeout(() => {
+            const targetUrl = response.user.role === 'MANAGER' ? '/manager' : '/worker';
+            window.location.href = targetUrl;
+          }, 500);
         },
         error: (error) => {
           this.isLoading = false;

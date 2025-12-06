@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -26,24 +26,25 @@ export class EmployeesComponent implements OnInit {
     private dialog = inject(MatDialog);
     private snackBar = inject(MatSnackBar);
 
-    employees: User[] = [];
-    isLoading = false;
+    // Convert to signals
+    employees = signal<User[]>([]);
+    isLoading = signal(false);
 
     ngOnInit(): void {
         this.loadEmployees();
     }
 
     loadEmployees(): void {
-        this.isLoading = true;
+        this.isLoading.set(true);
         this.userService.getUsers().subscribe({
             next: (users) => {
-                this.employees = users;
-                this.isLoading = false;
+                this.employees.set(users);
+                this.isLoading.set(false);
                 console.log('Loaded employees:', users);
             },
             error: (error) => {
                 console.error('Error loading employees:', error);
-                this.isLoading = false;
+                this.isLoading.set(false);
                 this.snackBar.open('Failed to load employees', 'Close', { duration: 3000 });
             }
         });

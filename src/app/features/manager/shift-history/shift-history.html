@@ -9,7 +9,7 @@
             <p class="text-xl text-gray-400 mt-2">View all past and current shifts</p>
         </div>
 
-        @if (isLoading) {
+        @if (isLoading()) {
         <div class="flex justify-center items-center py-32">
             <mat-spinner class="!border-laser-500"></mat-spinner>
         </div>
@@ -21,7 +21,7 @@
         } @else {
         <!-- Shifts Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            @for (shift of shifts; track shift.id) {
+            @for (shift of shifts(); track shift.id) {
             <mat-card
                 class="bg-metal-800 border-2 border-metal-700 hover:border-laser-500 transition-all cursor-pointer"
                 (click)="viewShiftDetails(shift.id)">

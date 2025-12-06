@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,9 +17,10 @@ import { Order } from '../../../core/models/order.model';
 export class DashboardComponent implements OnInit {
   private orderService = inject(OrderService);
 
-  recentOrders: Order[] = [];
-  myOrdersCount = 0;
-  isLoading = true;
+  // Convert to signals
+  recentOrders = signal<Order[]>([]);
+  myOrdersCount = signal(0);
+  isLoading = signal(true);
 
   ngOnInit(): void {
     this.loadRecentOrders();
@@ -28,12 +29,12 @@ export class DashboardComponent implements OnInit {
   loadRecentOrders(): void {
     this.orderService.getOrders().subscribe({
       next: (response) => {
-        this.recentOrders = (response.results || response).slice(0, 5);
-        this.myOrdersCount = response.count || response.length;
-        this.isLoading = false;
+        this.recentOrders.set((response.results || response).slice(0, 5));
+        this.myOrdersCount.set(response.count || response.length);
+        this.isLoading.set(false);
       },
       error: () => {
-        this.isLoading = false;
+        this.isLoading.set(false);
       }
     });
   }

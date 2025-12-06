@@ -1,7 +1,7 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, signal, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, interval, Subscription } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -15,12 +15,13 @@ export interface RealTimeUpdate {
     providedIn: 'root'
 })
 export class RealTimeService implements OnDestroy {
-    private updateSubject = new BehaviorSubject<RealTimeUpdate | null>(null);
-    public updates$: Observable<RealTimeUpdate | null> = this.updateSubject.asObservable();
+    // Convert from BehaviorSubject to Signal
+    readonly updates = signal<RealTimeUpdate | null>(null);
+    readonly lastUpdateTime = signal<Date | null>(null);
 
-    private pollingSubscription?: Subscription;
+    private pollingIntervalId?: any;
     private isPolling = false;
-    private pollingInterval = 3000; // 3 seconds
+    private pollingInterval = 10000; // 10 seconds - reduced frequency to avoid constant refreshes
     private lastOrderCheck?: Date;
     private lastShiftCheck?: Date;
 
@@ -42,35 +43,44 @@ export class RealTimeService implements OnDestroy {
         if (this.isPolling) return;
 
         this.isPolling = true;
-        this.pollingSubscription = interval(this.pollingInterval)
-            .pipe(
-                switchMap(() => this.checkForUpdates()),
-                catchError(error => {
+
+        // Use setInterval instead of RxJS interval
+        this.pollingIntervalId = setInterval(() => {
+            this.checkForUpdates().subscribe({
+                next: (update) => {
+                    if (update) {
+                        this.updates.set(update);
+                        this.lastUpdateTime.set(new Date());
+                    }
+                },
+                error: (error) => {
                     console.error('Polling error:', error);
-                    return of(null);
-                })
-            )
-            .subscribe(update => {
-                if (update) {
-                    this.updateSubject.next(update);
                 }
             });
+        }, this.pollingInterval);
+
+        // Do initial check immediately
+        this.checkForUpdates().subscribe({
+            next: (update) => {
+                if (update) {
+                    this.updates.set(update);
+                    this.lastUpdateTime.set(new Date());
+                }
+            }
+        });
     }
 
     /**
      * Stop polling for updates
      */
     stopPolling(): void {
-        if (this.pollingSubscription) {
-            this.pollingSubscription.unsubscribe();
-            this.pollingSubscription = undefined;
+        if (this.pollingIntervalId) {
+            clearInterval(this.pollingIntervalId);
+            this.pollingIntervalId = undefined;
         }
         this.isPolling = false;
     }
 
-    /**
-     * Check for updates from backend
-     */
     private checkForUpdates(): Observable<RealTimeUpdate | null> {
         const params: any = {};
 
@@ -94,14 +104,23 @@ export class RealTimeService implements OnDestroy {
                                     return this.lastOrderCheck && updatedAt > this.lastOrderCheck;
                                 });
 
+                                // Only notify if there are actual updates
                                 if (hasUpdates) {
                                     observer.next({
                                         type: 'order',
                                         timestamp: now,
                                         data: response.results
                                     });
+                                } else {
+                                    // No updates, complete without notifying
+                                    observer.next(null);
                                 }
+                            } else {
+                                // First check, don't notify
+                                observer.next(null);
                             }
+                        } else {
+                            observer.next(null);
                         }
 
                         this.lastOrderCheck = now;
@@ -122,7 +141,8 @@ export class RealTimeService implements OnDestroy {
     forceCheck(): void {
         this.checkForUpdates().subscribe(update => {
             if (update) {
-                this.updateSubject.next(update);
+                this.updates.set(update);
+                this.lastUpdateTime.set(new Date());
             }
         });
     }
