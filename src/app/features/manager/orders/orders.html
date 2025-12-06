@@ -1,39 +1,40 @@
 <div class="min-h-screen bg-gradient-to-b from-metal-900 to-black p-6">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
-        <div class="flex justify-between items-center mb-8">
-            <div class="flex items-center gap-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
+            <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
                 @if (selectedStatus) {
                 <button (click)="clearStatusFilter()"
-                    class="w-10 h-10 flex items-center justify-center bg-metal-800 hover:bg-metal-700 rounded-lg transition-all">
+                    class="w-10 h-10 flex items-center justify-center bg-metal-800 hover:bg-metal-700 rounded-lg transition-all flex-shrink-0">
                     <i class="fas fa-arrow-left text-laser-500"></i>
                 </button>
                 }
-                <h1 class="text-4xl md:text-5xl font-black text-fire flex items-center gap-3">
-                    <i class="fas fa-clipboard-list"></i>
-                    ORDER MANAGEMENT
+                <h1
+                    class="text-3xl sm:text-4xl md:text-5xl font-black text-fire flex items-center gap-2 sm:gap-3 flex-1">
+                    <i class="fas fa-clipboard-list text-2xl sm:text-3xl md:text-4xl"></i>
+                    <span class="break-words leading-tight">ORDER MANAGEMENT</span>
                 </h1>
             </div>
             <button mat-raised-button (click)="openAddOrderDialog()" [disabled]="!hasActiveShift"
-                class="!h-12 !px-6 !text-base !font-bold !bg-fire-gradient !text-white !rounded-lg fire-glow hover:!shadow-fire disabled:!opacity-50 disabled:!cursor-not-allowed disabled:hover:!shadow-none"
+                class="w-full sm:w-auto !h-12 !px-4 sm:!px-6 !text-sm sm:!text-base !font-bold !bg-fire-gradient !text-white !rounded-lg fire-glow hover:!shadow-fire disabled:!opacity-50 disabled:!cursor-not-allowed disabled:hover:!shadow-none"
                 [attr.title]="!hasActiveShift ? 'Please ask manager to open a shift first' : 'Create new order'">
                 <i class="fas fa-plus mr-2"></i>
-                NEW ORDER
+                <span class="whitespace-nowrap">NEW ORDER</span>
             </button>
         </div>
 
         <!-- No Active Shift Message -->
         @if (!isCheckingShift && !hasActiveShift) {
-        <div class="flex items-center justify-center min-h-[60vh]">
+        <div class="flex items-center justify-center min-h-[50vh] sm:min-h-[60vh] px-4">
             <div class="max-w-2xl w-full">
                 <div
-                    class="relative overflow-hidden bg-gradient-to-br from-metal-900 via-black to-metal-900 rounded-3xl border-2 border-laser-500/50 shadow-2xl shadow-laser-500/20 p-12">
+                    class="relative overflow-hidden bg-gradient-to-br from-metal-900 via-black to-metal-900 rounded-2xl sm:rounded-3xl border-2 border-laser-500/50 shadow-2xl shadow-laser-500/20 p-6 sm:p-8 md:p-12">
                     <!-- Animated Background Effects -->
                     <div class="absolute inset-0 overflow-hidden pointer-events-none">
                         <div
-                            class="absolute top-0 right-0 w-64 h-64 bg-laser-500/20 rounded-full blur-3xl animate-pulse">
+                            class="absolute top-0 right-0 w-32 h-32 sm:w-64 sm:h-64 bg-laser-500/20 rounded-full blur-3xl animate-pulse">
                         </div>
-                        <div class="absolute bottom-0 left-0 w-64 h-64 bg-fire-500/20 rounded-full blur-3xl animate-pulse"
+                        <div class="absolute bottom-0 left-0 w-32 h-32 sm:w-64 sm:h-64 bg-fire-500/20 rounded-full blur-3xl animate-pulse"
                             style="animation-delay: 1s;"></div>
                     </div>
 
@@ -41,29 +42,33 @@
                     <div class="relative text-center">
                         <!-- Icon -->
                         <div
-                            class="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-gradient-to-br from-fire-500 to-laser-500 mb-6 fire-glow">
-                            <i class="fas fa-exclamation-triangle text-5xl text-white"></i>
+                            class="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-xl sm:rounded-2xl bg-gradient-to-br from-fire-500 to-laser-500 mb-4 sm:mb-6 fire-glow">
+                            <i class="fas fa-exclamation-triangle text-3xl sm:text-4xl md:text-5xl text-white"></i>
                         </div>
 
                         <!-- Title -->
                         <h2
-                            class="text-4xl font-black bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent mb-4">
+                            class="text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent mb-3 sm:mb-4">
                             No Active Shift
                         </h2>
 
                         <!-- Message -->
-                        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
-                            Orders management requires an active shift to be open.<br>
-                            Please ask your manager to open a new shift to continue.
+                        <p class="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed px-2">
+                            Orders management requires an active shift to be open.<br class="hidden sm:inline">
+                            <span class="block sm:inline"> </span>Please ask your manager to open a new shift to
+                            continue.
                         </p>
 
                         <!-- Info Box -->
-                        <div class="bg-metal-800/50 border-2 border-metal-700 rounded-xl p-6 backdrop-blur-sm">
-                            <div class="flex items-center gap-3 text-gray-400">
-                                <i class="fas fa-info-circle text-laser-400 text-2xl"></i>
+                        <div
+                            class="bg-metal-800/50 border-2 border-metal-700 rounded-lg sm:rounded-xl p-4 sm:p-6 backdrop-blur-sm">
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 text-gray-400">
+                                <i class="fas fa-info-circle text-laser-400 text-xl sm:text-2xl flex-shrink-0"></i>
                                 <p class="text-left">
-                                    <span class="block text-white font-bold mb-1">Why do I need a shift?</span>
-                                    <span class="text-sm">Shifts help track orders and revenue for each work period.
+                                    <span class="block text-white font-bold mb-1 text-sm sm:text-base">Why do I need a
+                                        shift?</span>
+                                    <span class="text-xs sm:text-sm">Shifts help track orders and revenue for each work
+                                        period.
                                         Your manager controls shift management from the dashboard.</span>
                                 </p>
                             </div>

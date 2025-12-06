@@ -1,18 +1,18 @@
 <div class="min-h-screen bg-gradient-to-b from-metal-900 to-black p-6">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
-        <div class="flex justify-between items-center mb-8">
-            <div>
-                <h1 class="text-4xl md:text-5xl font-black text-fire flex items-center gap-3">
-                    <i class="fas fa-users"></i>
-                    EMPLOYEE MANAGEMENT
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
+            <div class="w-full sm:w-auto">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-fire flex items-center gap-2 sm:gap-3">
+                    <i class="fas fa-users text-2xl sm:text-3xl md:text-4xl"></i>
+                    <span class="break-words">EMPLOYEE MANAGEMENT</span>
                 </h1>
-                <p class="text-xl text-gray-400 mt-2">Manage your team members</p>
+                <p class="text-base sm:text-lg md:text-xl text-gray-400 mt-2">Manage your team members</p>
             </div>
             <button (click)="openAddEmployeeDialog()"
-                class="px-6 py-3 bg-gradient-to-r from-laser-500 to-fire-500 text-white text-lg font-bold rounded-lg hover:shadow-fire hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                class="w-full sm:w-auto px-4 sm:px-6 py-3 bg-gradient-to-r from-laser-500 to-fire-500 text-white text-base sm:text-lg font-bold rounded-lg hover:shadow-fire hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap">
                 <i class="fas fa-user-plus"></i>
-                Add Employee
+                <span>Add Employee</span>
             </button>
         </div>
 
@@ -39,12 +39,12 @@
                 class="bg-metal-900 border-2 border-metal-700 rounded-xl p-6 hover:border-laser-500 transition-all duration-300 hover:shadow-laser">
                 <!-- Employee Header -->
                 <div class="flex items-start gap-4 mb-5">
-                    <div
-                        class="w-16 h-16 rounded-full bg-gradient-to-br from-laser-500 to-fire-500 flex items-center justify-center fire-glow flex-shrink-0">
-                        <i class="fas fa-user text-2xl text-white"></i>
-                    </div>
+                    <img [src]="'https://ui-avatars.com/api/?name=' + employee.first_name + '+' + employee.last_name + '&background=f97316&color=fff&size=128&bold=true&font-size=0.5'"
+                        [alt]="employee.first_name + ' ' + employee.last_name"
+                        class="w-16 h-16 rounded-full border-2 border-laser-500 fire-glow flex-shrink-0 object-cover"
+                        onerror="this.src='https://ui-avatars.com/api/?name=User&background=f97316&color=fff&size=128&bold=true'">
                     <div class="flex-1 min-w-0">
-                        <h3 class="text-white font-bold text-xl mb-1 truncate">
+                        <h3 class="text-white font-bold text-lg sm:text-xl mb-1 truncate">
                             {{employee.first_name}} {{employee.last_name}}
                         </h3>
                         <p class="text-gray-400 text-sm truncate">@{{employee.username}}</p>
