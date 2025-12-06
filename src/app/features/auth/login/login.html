@@ -1,0 +1,92 @@
+<div class="min-h-screen bg-gradient-to-br from-black via-metal-900 to-metal-800 flex items-center justify-center p-6">
+  <!-- Background Effects -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-laser-500/10 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-fire-500/10 rounded-full blur-3xl animate-pulse"
+      style="animation-delay: 1s;"></div>
+  </div>
+
+  <!-- Login Card -->
+  <div class="relative w-full max-w-md">
+    <!-- Logo & Title -->
+    <div class="text-center mb-8">
+      <div
+        class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-laser-500 to-fire-500 rounded-2xl mb-4 fire-glow">
+        <i class="fas fa-fire text-4xl text-white"></i>
+      </div>
+      <h1 class="text-4xl font-black text-fire mb-2">LASER SHOP</h1>
+      <p class="text-gray-400 text-lg">{{ 'auth.welcomeBack' | translate }}</p>
+    </div>
+
+    <!-- Login Form Card -->
+    <div class="bg-metal-900 border-2 border-metal-700 rounded-2xl overflow-hidden shadow-2xl">
+      <!-- Card Header -->
+      <div class="bg-gradient-to-r from-laser-600 to-fire-600 px-6 py-4 border-b-2 border-laser-500">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+          <i class="fas fa-bolt"></i>
+          {{ 'auth.signIn' | translate }}
+        </h2>
+      </div>
+
+      <!-- Form Content -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-8 space-y-6">
+        <!--Username Field -->
+        <div>
+          <label class="block text-sm font-medium text-metal-300 mb-2">
+            <i class="fas fa-user text-fire-500 mr-2"></i>
+            {{ 'auth.username' | translate }}
+          </label>
+          <input type="text" formControlName="username" [disabled]="isLoading"
+            class="w-full px-4 py-3 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 disabled:opacity-50"
+            placeholder="Enter your username">
+          @if (loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched) {
+          <p class="text-laser-500 text-sm mt-1">{{ 'auth.usernameRequired' | translate }}</p>
+          }
+        </div>
+
+        <!-- Password Field -->
+        <div>
+          <label class="block text-sm font-medium text-metal-300 mb-2">
+            <i class="fas fa-lock text-fire-500 mr-2"></i>
+            {{ 'auth.password' | translate }}
+          </label>
+          <input type="password" formControlName="password" [disabled]="isLoading"
+            class="w-full px-4 py-3 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 disabled:opacity-50"
+            placeholder="Enter your password">
+          @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
+          <p class="text-laser-500 text-sm mt-1">{{ 'auth.passwordRequired' | translate }}</p>
+          }
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="loginForm.invalid || isLoading"
+          class="w-full px-6 py-4 bg-gradient-to-r from-laser-500 to-fire-500 text-white text-lg font-bold rounded-lg hover:shadow-fire hover:scale-105 transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
+          @if (isLoading) {
+          <i class="fas fa-spinner fa-spin text-xl"></i>
+          <span>{{ 'auth.signingIn' | translate }}</span>
+          } @else {
+          <i class="fas fa-bolt text-xl"></i>
+          <span>{{ 'auth.signIn' | translate }}</span>
+          }
+        </button>
+      </form>
+
+      <!-- Card Footer -->
+      <div class="px-8 pb-8">
+        <div class="flex items-center gap-2 text-sm text-gray-400">
+          <i class="fas fa-info-circle text-spark-500"></i>
+          <span>{{ 'auth.contactManager' | translate }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back to Home Link -->
+    <div class="text-center mt-6">
+      <a routerLink="/"
+        class="inline-flex items-center gap-2 text-gray-400 hover:text-laser-400 transition-colors duration-300">
+        <i class="fas fa-arrow-left"></i>
+        <span>{{ 'auth.backToHome' | translate }}</span>
+      </a>
+    </div>
+  </div>
+</div>

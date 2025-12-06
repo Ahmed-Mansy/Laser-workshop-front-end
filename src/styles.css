@@ -1,0 +1,124 @@
+/* Google Fonts - must be first */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Scrollbar */
+@layer base {
+    ::-webkit-scrollbar {
+        @apply w-3 h-3;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-metal-900;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-gradient-to-br from-laser-500 to-fire-500 rounded-md;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        @apply from-laser-600 to-fire-600;
+    }
+
+    html,
+    body {
+        @apply h-full m-0 p-0 font-['Inter'] bg-black text-white;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-['Rajdhani'] font-bold;
+    }
+}
+
+/* Fire glow effect */
+@layer utilities {
+    .fire-glow {
+        animation: fireGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes fireGlow {
+
+        0%,
+        100% {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.5), 0 0 40px rgba(249, 115, 22, 0.3);
+        }
+
+        50% {
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.7), 0 0 60px rgba(249, 115, 22, 0.5);
+        }
+    }
+
+    .text-fire {
+        @apply bg-gradient-to-r from-laser-500 via-fire-500 to-spark-500 bg-clip-text text-transparent;
+    }
+
+    .bg-fire-gradient {
+        @apply bg-gradient-to-r from-laser-500 via-fire-500 to-spark-500;
+    }
+
+    .bg-laser-gradient {
+        @apply bg-gradient-to-r from-laser-600 to-fire-600;
+    }
+
+    .bg-spark-gradient {
+        @apply bg-gradient-to-r from-spark-500 to-fire-500;
+    }
+
+    .shadow-fire {
+        box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.39);
+    }
+
+    .shadow-laser {
+        box-shadow: 0 4px 14px 0 rgba(249, 115, 22, 0.39);
+    }
+}
+
+/* Angular Material overrides */
+@layer components {
+    .mat-mdc-raised-button.mat-primary {
+        @apply !bg-gradient-to-r !from-laser-500 !to-fire-500;
+    }
+
+    .mat-mdc-raised-button.mat-accent {
+        @apply !bg-gradient-to-r !from-fire-500 !to-spark-500;
+    }
+
+    .mat-toolbar.mat-primary {
+        @apply !bg-gradient-to-r !from-metal-900 !to-metal-800 !border-b-2 !border-laser-500;
+    }
+
+    mat-card {
+        @apply !bg-metal-800 !border !border-metal-700 !text-white;
+    }
+}
+
+/* Material Dialog Container Overrides - Fix for Tailwind dialogs */
+.custom-dialog-container .mat-mdc-dialog-container {
+    padding: 0 !important;
+    background: transparent !important;
+    box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2),
+        0 24px 38px 3px rgba(0, 0, 0, 0.14),
+        0 9px 46px 8px rgba(0, 0, 0, 0.12) !important;
+}
+
+.custom-dialog-container .mat-mdc-dialog-surface {
+    padding: 0 !important;
+    background: transparent !important;
+    overflow: visible !important;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__content {
+    padding: 0 !important;
+    overflow-y: visible !important;
+    max-height: none !important;
+}

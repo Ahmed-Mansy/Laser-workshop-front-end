@@ -1,0 +1,151 @@
+{
+    "navbar": {
+        "home": "الرئيسية",
+        "showcase": "معرض الأعمال",
+        "login": "تسجيل الدخول",
+        "logout": "تسجيل الخروج",
+        "dashboard": "لوحة التحكم",
+        "orders": "الطلبات",
+        "employees": "الموظفين",
+        "welcome": "مرحباً"
+    },
+    "auth": {
+        "loginTitle": "تسجيل الدخول",
+        "loginSubtitle": "مرحباً بعودتك إلى ورشة الليزر",
+        "username": "اسم المستخدم",
+        "password": "كلمة المرور",
+        "rememberMe": "تذكرني",
+        "forgotPassword": "نسيت كلمة المرور؟",
+        "signIn": "تسجيل الدخول",
+        "signingIn": "جاري تسجيل الدخول...",
+        "noAccount": "ليس لديك حساب؟",
+        "createAccount": "إنشاء حساب",
+        "usernameRequired": "اسم المستخدم مطلوب",
+        "passwordRequired": "كلمة المرور مطلوبة",
+        "welcomeBack": "مرحباً بعودتك",
+        "contactManager": "يرجى التواصل مع المدير للحصول على بيانات الدخول",
+        "backToHome": "العودة للرئيسية"
+    },
+    "common": {
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "delete": "حذف",
+        "edit": "تعديل",
+        "add": "إضافة",
+        "search": "بحث",
+        "filter": "تصفية",
+        "loading": "جاري التحميل...",
+        "error": "خطأ",
+        "success": "نجح",
+        "confirm": "تأكيد",
+        "close": "إغلاق",
+        "back": "رجوع",
+        "next": "التالي",
+        "previous": "السابق",
+        "submit": "إرسال",
+        "view": "عرض"
+    },
+    "home": {
+        "heroTitle": "ورشة الليزر",
+        "heroSubtitle": "نظام احترافي لإدارة طلبات القطع بالليزر",
+        "viewWork": "عرض أعمالنا",
+        "staffLogin": "دخول الموظفين",
+        "featuresTitle": "القوة والدقة",
+        "featuresSubtitle": "أدوات متقدمة لإدارة ورشة الليزر",
+        "ctaTitle": "اشعل سير عملك",
+        "ctaSubtitle": "حول ورشة الليزر الخاصة بك بأدوات إدارة متطورة",
+        "getStartedNow": "ابدأ الآن",
+        "features": {
+            "orderManagement": {
+                "title": "إدارة الطلبات",
+                "description": "تتبع الطلبات من الإنشاء إلى التسليم باستخدام نظام سير العمل الشامل."
+            },
+            "financialReports": {
+                "title": "التقارير المالية",
+                "description": "عرض التقارير المالية اليومية والشهرية مع تتبع تفصيلي للإيرادات."
+            },
+            "teamCollaboration": {
+                "title": "التعاون الجماعي",
+                "description": "وصول قائم على الأدوار للمديرين والعمال لتبسيط العمليات."
+            },
+            "showcaseGallery": {
+                "title": "معرض الأعمال",
+                "description": "اعرض أعمالك المنجزة للعملاء المحتملين في معرض جميل."
+            }
+        }
+    },
+    "dashboard": {
+        "managerTitle": "مركز قيادة المدير",
+        "managerSubtitle": "راقب وتحكم في عمليات ورشة الليزر",
+        "workerTitle": "لوحة تحكم العامل",
+        "workerSubtitle": "عرض مهامك وتتبع التقدم",
+        "shiftManagement": "إدارة الورديات",
+        "status": "الحالة",
+        "duration": "المدة",
+        "orders": "الطلبات",
+        "revenue": "الإيرادات",
+        "open": "مفتوحة",
+        "closeShift": "إغلاق الوردية",
+        "openNew": "فتح جديدة",
+        "noShift": "لا توجد وردية نشطة. ابدأ وردية جديدة لتتبع الطلبات.",
+        "startNewShift": "بدء وردية جديدة",
+        "totalOrders": "إجمالي الطلبات",
+        "underWork": "قيد العمل",
+        "designing": "قيد التصميم",
+        "designCompleted": "اكتمل التصميم",
+        "delivered": "تم التسليم",
+        "todayRevenue": "إيرادات اليوم",
+        "quickActions": "إجراءات سريعة",
+        "manageOrders": "إدارة الطلبات",
+        "manageEmployees": "إدارة الموظفين",
+        "viewReports": "عرض التقارير"
+    },
+    "orders": {
+        "title": "إدارة الطلبات",
+        "newOrder": "طلب جديد",
+        "orderDetails": "تفاصيل الطلب",
+        "orderNumber": "رقم الطلب",
+        "customer": "العميل",
+        "status": "الحالة",
+        "date": "التاريخ",
+        "total": "الإجمالي",
+        "pending": "قيد الانتظار",
+        "processing": "قيد المعالجة",
+        "completed": "مكتمل",
+        "cancelled": "ملغى",
+        "underWork": "قيد العمل",
+        "designing": "قيد التصميم",
+        "designCompleted": "اكتمل التصميم",
+        "delivered": "تم التسليم"
+    },
+    "employees": {
+        "title": "إدارة الموظفين",
+        "addEmployee": "إضافة موظف",
+        "employeeDetails": "تفاصيل الموظف",
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "role": "الدور",
+        "phone": "الهاتف",
+        "address": "العنوان",
+        "manager": "مدير",
+        "worker": "عامل"
+    },
+    "showcase": {
+        "title": "معرض أعمالنا",
+        "subtitle": "استكشف أفضل مشاريع النقش والقطع بالليزر لدينا"
+    },
+    "shifts": {
+        "title": "سجل الورديات",
+        "details": "تفاصيل الوردية",
+        "startTime": "وقت البدء",
+        "endTime": "وقت الانتهاء",
+        "duration": "المدة",
+        "totalOrders": "إجمالي الطلبات",
+        "totalRevenue": "إجمالي الإيرادات"
+    },
+    "contact": {
+        "title": "تواصل معنا",
+        "subtitle": "اختر الطريقة المفضلة للتواصل معنا",
+        "clickToConnect": "اضغط للتواصل"
+    }
+}

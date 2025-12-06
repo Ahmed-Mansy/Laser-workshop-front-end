@@ -1,0 +1,226 @@
+<div class="min-h-screen bg-gradient-to-b from-metal-900 to-black p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div class="flex items-center gap-4">
+                @if (selectedStatus) {
+                <button (click)="clearStatusFilter()"
+                    class="w-10 h-10 flex items-center justify-center bg-metal-800 hover:bg-metal-700 rounded-lg transition-all">
+                    <i class="fas fa-arrow-left text-laser-500"></i>
+                </button>
+                }
+                <h1 class="text-4xl md:text-5xl font-black text-fire flex items-center gap-3">
+                    <i class="fas fa-clipboard-list"></i>
+                    ORDER MANAGEMENT
+                </h1>
+            </div>
+            <button mat-raised-button (click)="openAddOrderDialog()" [disabled]="!hasActiveShift"
+                class="!h-12 !px-6 !text-base !font-bold !bg-fire-gradient !text-white !rounded-lg fire-glow hover:!shadow-fire disabled:!opacity-50 disabled:!cursor-not-allowed disabled:hover:!shadow-none"
+                [attr.title]="!hasActiveShift ? 'Please ask manager to open a shift first' : 'Create new order'">
+                <i class="fas fa-plus mr-2"></i>
+                NEW ORDER
+            </button>
+        </div>
+
+        <!-- No Active Shift Message -->
+        @if (!isCheckingShift && !hasActiveShift) {
+        <div class="flex items-center justify-center min-h-[60vh]">
+            <div class="max-w-2xl w-full">
+                <div
+                    class="relative overflow-hidden bg-gradient-to-br from-metal-900 via-black to-metal-900 rounded-3xl border-2 border-laser-500/50 shadow-2xl shadow-laser-500/20 p-12">
+                    <!-- Animated Background Effects -->
+                    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                        <div
+                            class="absolute top-0 right-0 w-64 h-64 bg-laser-500/20 rounded-full blur-3xl animate-pulse">
+                        </div>
+                        <div class="absolute bottom-0 left-0 w-64 h-64 bg-fire-500/20 rounded-full blur-3xl animate-pulse"
+                            style="animation-delay: 1s;"></div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="relative text-center">
+                        <!-- Icon -->
+                        <div
+                            class="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-gradient-to-br from-fire-500 to-laser-500 mb-6 fire-glow">
+                            <i class="fas fa-exclamation-triangle text-5xl text-white"></i>
+                        </div>
+
+                        <!-- Title -->
+                        <h2
+                            class="text-4xl font-black bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent mb-4">
+                            No Active Shift
+                        </h2>
+
+                        <!-- Message -->
+                        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                            Orders management requires an active shift to be open.<br>
+                            Please ask your manager to open a new shift to continue.
+                        </p>
+
+                        <!-- Info Box -->
+                        <div class="bg-metal-800/50 border-2 border-metal-700 rounded-xl p-6 backdrop-blur-sm">
+                            <div class="flex items-center gap-3 text-gray-400">
+                                <i class="fas fa-info-circle text-laser-400 text-2xl"></i>
+                                <p class="text-left">
+                                    <span class="block text-white font-bold mb-1">Why do I need a shift?</span>
+                                    <span class="text-sm">Shifts help track orders and revenue for each work period.
+                                        Your manager controls shift management from the dashboard.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+
+        <!-- Orders Content (only shown when shift is active) -->
+        @if (isCheckingShift) {
+        <div class="flex justify-center items-center py-32">
+            <mat-spinner class="!border-laser-500"></mat-spinner>
+        </div>
+        } @else if (hasActiveShift) {
+        <!-- Search Bar -->
+        @if (selectedStatus) {
+        <div class="mb-6">
+            <div class="relative max-w-md">
+                <input type="text" [(ngModel)]="searchTerm" (input)="filterOrders()"
+                    placeholder="Search by phone number..."
+                    class="w-full px-4 py-3 pl-12 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-gray-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all">
+                <i class="fas fa-phone absolute left-4 top-1/2 transform -translate-y-1/2 text-laser-500"></i>
+            </div>
+        </div>
+        }
+
+        @if (isLoading) {
+        <div class="flex justify-center items-center py-32">
+            <mat-spinner class="!border-laser-500"></mat-spinner>
+        </div>
+        } @else {
+        @if (!selectedStatus) {
+        <!-- Dashboard View - Status Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- UNDER WORK Card -->
+            <div (click)="selectStatus('UNDER_WORK')"
+                class="bg-gradient-to-br from-laser-600 to-laser-500 rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <i class="fas fa-tools text-5xl text-white/90"></i>
+                    <span class="text-6xl font-black text-white">{{getOrdersByStatus('UNDER_WORK').length}}</span>
+                </div>
+                <h3 class="text-xl font-bold text-white">UNDER WORK</h3>
+                <p class="text-white/80 text-sm mt-1">Orders being processed</p>
+            </div>
+
+            <!-- DESIGNING Card -->
+            <div (click)="selectStatus('DESIGNING')"
+                class="bg-gradient-to-br from-fire-600 to-fire-500 rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <i class="fas fa-pencil-ruler text-5xl text-white/90"></i>
+                    <span class="text-6xl font-black text-white">{{getOrdersByStatus('DESIGNING').length}}</span>
+                </div>
+                <h3 class="text-xl font-bold text-white">DESIGNING</h3>
+                <p class="text-white/80 text-sm mt-1">In design phase</p>
+            </div>
+
+            <!-- DESIGN COMPLETED Card -->
+            <div (click)="selectStatus('DESIGN_COMPLETED')"
+                class="bg-gradient-to-br from-spark-600 to-spark-500 rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <i class="fas fa-check-circle text-5xl text-white/90"></i>
+                    <span class="text-6xl font-black text-white">{{getOrdersByStatus('DESIGN_COMPLETED').length}}</span>
+                </div>
+                <h3 class="text-xl font-bold text-white">DESIGN COMPLETED</h3>
+                <p class="text-white/80 text-sm mt-1">Ready for delivery</p>
+            </div>
+
+            <!-- DELIVERED Card -->
+            <div (click)="selectStatus('DELIVERED')"
+                class="bg-gradient-to-br from-green-600 to-green-500 rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                <div class="flex items-center justify-between mb-4">
+                    <i class="fas fa-box-open text-5xl text-white/90"></i>
+                    <span class="text-6xl font-black text-white">{{getOrdersByStatus('DELIVERED').length}}</span>
+                </div>
+                <h3 class="text-xl font-bold text-white">DELIVERED</h3>
+                <p class="text-white/80 text-sm mt-1">Completed orders</p>
+            </div>
+        </div>
+
+        @if (orders.length === 0) {
+        <div class="text-center py-20 mt-8">
+            <i class="fas fa-inbox text-6xl text-gray-600 mb-4"></i>
+            <h3 class="text-2xl font-bold text-gray-400 mb-2">No Orders Yet</h3>
+            <p class="text-gray-500">Click "NEW ORDER" to create your first order</p>
+        </div>
+        }
+        } @else {
+        <!-- Detail View - Orders List for Selected Status -->
+        <div class="bg-metal-800 border-2 border-metal-700 rounded-xl overflow-hidden shadow-xl">
+            <div class="px-6 py-4 border-b border-metal-700" [ngClass]="{
+                            'bg-gradient-to-r from-laser-600 to-laser-500': selectedStatus === 'UNDER_WORK',
+                            'bg-gradient-to-r from-fire-600 to-fire-500': selectedStatus === 'DESIGNING',
+                            'bg-gradient-to-r from-spark-600 to-spark-500': selectedStatus === 'DESIGN_COMPLETED',
+                            'bg-gradient-to-r from-green-600 to-green-500': selectedStatus === 'DELIVERED'
+                        }">
+                <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+                    <i class="fas" [class.fa-tools]="selectedStatus === 'UNDER_WORK'"
+                        [class.fa-pencil-ruler]="selectedStatus === 'DESIGNING'"
+                        [class.fa-check-circle]="selectedStatus === 'DESIGN_COMPLETED'"
+                        [class.fa-box-open]="selectedStatus === 'DELIVERED'"></i>
+                    {{selectedStatus === 'UNDER_WORK' ? 'UNDER WORK' :
+                    selectedStatus === 'DESIGNING' ? 'DESIGNING' :
+                    selectedStatus === 'DESIGN_COMPLETED' ? 'DESIGN COMPLETED' :
+                    'DELIVERED'}}
+                    <span class="ml-auto text-lg font-normal">{{getOrdersByStatus(selectedStatus).length}}
+                        Orders</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
+                @for (order of getOrdersByStatus(selectedStatus); track order.id) {
+                <div (click)="openOrderDetails(order)"
+                    class="bg-metal-900 border-2 border-metal-700 rounded-lg p-5 hover:border-laser-500 transition-all cursor-pointer">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="text-lg text-white font-bold">#{{order.id}}</span>
+                        <span class="text-xl text-spark-400 font-bold">{{order.price ? ('$' + order.price) :
+                            '-'}}</span>
+                    </div>
+                    <h3 class="text-white font-bold text-lg mb-1">{{order.customer_name}}</h3>
+                    <p class="text-gray-400 mb-1">
+                        <i class="fas fa-phone text-fire-500 mr-2"></i>
+                        {{order.customer_phone}}
+                    </p>
+                    <p class="text-gray-500 text-sm mb-4">
+                        <i class="fas fa-calendar text-fire-500 mr-2"></i>
+                        {{order.created_at | date:'short'}}
+                    </p>
+                    <div class="flex gap-2 pt-3 border-t border-metal-700" (click)="$event.stopPropagation()">
+                        @if (selectedStatus !== 'DELIVERED') {
+                        <button mat-icon-button (click)="advanceOrderStatus(order)" title="Move to Next Stage"
+                            class="!text-spark-400 hover:!text-spark-300">
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        }
+                        <button mat-icon-button (click)="openEditOrderDialog(order)" title="Edit"
+                            class="!text-laser-400 hover:!text-laser-300">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button mat-icon-button (click)="deleteOrder(order.id)" title="Delete"
+                            class="!text-red-500 hover:!text-red-400">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                } @empty {
+                <div class="col-span-full text-center py-20">
+                    <i class="fas fa-inbox text-6xl text-gray-600 mb-4"></i>
+                    <h3 class="text-2xl font-bold text-gray-400 mb-2">No Orders in this Category</h3>
+                    <p class="text-gray-500">Orders will appear here when added</p>
+                </div>
+                }
+            </div>
+        </div>
+        }
+        }
+        }
+    </div>
+</div>

@@ -1,0 +1,208 @@
+<div class="min-h-screen bg-gradient-to-b from-metal-900 to-black p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-4xl md:text-5xl font-black text-fire mb-2">
+                <i class="fas fa-fire-alt mr-3"></i>
+                {{ 'dashboard.managerTitle' | translate }}
+            </h1>
+            <p class="text-xl text-gray-400">{{ 'dashboard.managerSubtitle' | translate }}</p>
+        </div>
+
+        <!-- Shift Management Widget -->
+        <mat-card class="!bg-metal-800 !border-2 !border-fire-600 !rounded-xl !mb-8">
+            <mat-card-content class="p-6">
+                <h2 class="text-2xl font-black text-white flex items-center gap-3 mb-4">
+                    <i class="fas fa-clock text-fire-500"></i>
+                    {{ 'dashboard.shiftManagement' | translate }}
+                </h2>
+
+                @if (isLoadingShift) {
+                <div class="flex justify-center py-8">
+                    <mat-spinner class="!border-laser-500" [diameter]="40"></mat-spinner>
+                </div>
+                } @else if (currentShift && currentShift.is_active) {
+                <!-- Active Shift -->
+                <div class="bg-metal-900 rounded-xl p-6 border-2 border-laser-600">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="text-center">
+                            <p class="text-gray-400 text-sm mb-1">{{ 'dashboard.status' | translate }}</p>
+                            <p class="text-xl font-bold text-laser-500">
+                                <i class="fas fa-circle animate-pulse mr-2"></i>{{ 'dashboard.open' | translate }}
+                            </p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-gray-400 text-sm mb-1">{{ 'dashboard.duration' | translate }}</p>
+                            <p class="text-xl font-bold text-white">{{ currentShift.duration_hours }}h</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-gray-400 text-sm mb-1">{{ 'dashboard.orders' | translate }}</p>
+                            <p class="text-xl font-bold text-spark-500">{{ currentShift.total_orders_delivered }}</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-gray-400 text-sm mb-1">{{ 'dashboard.revenue' | translate }}</p>
+                            <p class="text-xl font-bold text-green-500">${{ currentShift.total_revenue | number:'1.2-2'
+                                }}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <button mat-raised-button (click)="closeShift()"
+                            class="flex-1 !h-12 !font-bold !bg-gradient-to-r !from-laser-500 !to-fire-500 !text-white !rounded-lg">
+                            <i class="fas fa-door-closed mr-2"></i>{{ 'dashboard.closeShift' | translate }}
+                        </button>
+                        <button mat-raised-button (click)="openNewShift()"
+                            class="!h-12 !px-8 !font-bold !bg-metal-700 !text-white !rounded-lg !border-2 !border-metal-600">
+                            <i class="fas fa-sync-alt mr-2"></i>{{ 'dashboard.openNew' | translate }}
+                        </button>
+                    </div>
+                </div>
+                } @else {
+                <!-- No Shift -->
+                <div class="bg-metal-900 rounded-xl p-8 border-2 border-dashed border-metal-700 text-center">
+                    <i class="fas fa-calendar-times text-5xl text-gray-600 mb-4"></i>
+                    <p class="text-gray-400 mb-6">{{ 'dashboard.noShift' | translate }}</p>
+                    <button mat-raised-button (click)="openNewShift()"
+                        class="!h-12 !px-12 !font-bold !bg-gradient-to-r !from-laser-500 !to-fire-500 !text-white !rounded-lg">
+                        <i class="fas fa-play-circle mr-2"></i>{{ 'dashboard.startNewShift' | translate }}
+                    </button>
+                </div>
+                }
+            </mat-card-content>
+        </mat-card>
+
+        @if (isLoading) {
+        <div class="flex justify-center items-center py-32">
+            <mat-spinner class="!border-laser-500"></mat-spinner>
+        </div>
+        } @else {
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Total Orders -->
+            <mat-card
+                class="!bg-gradient-to-br !from-metal-800 !to-metal-900 !border-2 !border-laser-600 hover:!border-laser-400 !rounded-xl">
+                <mat-card-content class="p-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-lg bg-laser-gradient flex items-center justify-center fire-glow">
+                            <i class="fas fa-box text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-black text-white">{{ statistics.total }}</h3>
+                            <p class="text-gray-400 font-semibold">Total Orders</p>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Under Work -->
+            <mat-card
+                class="!bg-gradient-to-br !from-metal-800 !to-metal-900 !border-2 !border-fire-600 hover:!border-fire-400 !rounded-xl">
+                <mat-card-content class="p-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-lg bg-fire-gradient flex items-center justify-center">
+                            <i class="fas fa-tools text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-black text-white">{{ statistics.underWork }}</h3>
+                            <p class="text-gray-400 font-semibold">Under Work</p>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Designing -->
+            <mat-card
+                class="!bg-gradient-to-br !from-metal-800 !to-metal-900 !border-2 !border-spark-600 hover:!border-spark-400 !rounded-xl">
+                <mat-card-content class="p-6">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-16 h-16 rounded-lg bg-gradient-to-br from-spark-500 to-fire-500 flex items-center justify-center">
+                            <i class="fas fa-drafting-compass text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-black text-white">{{ statistics.designing }}</h3>
+                            <p class="text-gray-400 font-semibold">Designing</p>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Design Completed -->
+            <mat-card
+                class="!bg-gradient-to-br !from-metal-800 !to-metal-900 !border-2 !border-green-600 hover:!border-green-400 !rounded-xl">
+                <mat-card-content class="p-6">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-16 h-16 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
+                            <i class="fas fa-check-circle text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-black text-white">{{ statistics.designCompleted }}</h3>
+                            <p class="text-gray-400 font-semibold">Design Completed</p>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Delivered -->
+            <mat-card
+                class="!bg-gradient-to-br !from-metal-800 !to-metal-900 !border-2 !border-blue-600 hover:!border-blue-400 !rounded-xl">
+                <mat-card-content class="p-6">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-16 h-16 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                            <i class="fas fa-shipping-fast text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-black text-white">{{ statistics.delivered }}</h3>
+                            <p class="text-gray-400 font-semibold">{{ 'dashboard.delivered' | translate }}</p>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <!-- Today's Revenue -->
+            <mat-card
+                class="!bg-gradient-to-br !from-laser-900 !to-fire-900 !border-2 !border-spark-500 hover:!border-spark-300 !rounded-xl fire-glow">
+                <mat-card-content class="p-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-lg bg-spark-gradient flex items-center justify-center">
+                            <i class="fas fa-dollar-sign text-2xl text-white"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-3xl font-black text-white">${{ todayRevenue | number:'1.2-2' }}</h3>
+                            <p class="text-gray-300 font-semibold">Today's Revenue ({{ todayOrders }} orders)</p>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <!-- Quick Actions -->
+        <mat-card class="!bg-metal-800 !border-2 !border-metal-700 !rounded-xl">
+            <mat-card-content class="p-8">
+                <h2 class="text-2xl font-black text-white mb-6 flex items-center gap-3">
+                    <i class="fas fa-bolt text-laser-500"></i>
+                    {{ 'dashboard.quickActions' | translate }}
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button mat-raised-button routerLink="/manager/orders"
+                        class="!h-14 !text-base !font-bold !bg-laser-gradient !text-white !rounded-lg hover:!shadow-laser">
+                        <i class="fas fa-list mr-2"></i>
+                        {{ 'dashboard.manageOrders' | translate }}
+                    </button>
+                    <button mat-raised-button routerLink="/manager/employees"
+                        class="!h-14 !text-base !font-bold !bg-fire-gradient !text-white !rounded-lg hover:!shadow-fire">
+                        <i class="fas fa-users mr-2"></i>
+                        {{ 'dashboard.manageEmployees' | translate }}
+                    </button>
+                    <button mat-raised-button routerLink="/manager/reports"
+                        class="!h-14 !text-base !font-bold !bg-gradient-to-r !from-spark-500 !to-fire-500 !text-white !rounded-lg">
+                        <i class="fas fa-chart-line mr-2"></i>
+                        {{ 'dashboard.viewReports' | translate }}
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        }
+    </div>
+</div>

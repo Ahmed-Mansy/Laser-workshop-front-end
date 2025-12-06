@@ -1,0 +1,108 @@
+<div class="min-h-screen bg-gradient-to-b from-metal-900 to-black p-6">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-black text-fire flex items-center gap-3">
+                    <i class="fas fa-users"></i>
+                    EMPLOYEE MANAGEMENT
+                </h1>
+                <p class="text-xl text-gray-400 mt-2">Manage your team members</p>
+            </div>
+            <button (click)="openAddEmployeeDialog()"
+                class="px-6 py-3 bg-gradient-to-r from-laser-500 to-fire-500 text-white text-lg font-bold rounded-lg hover:shadow-fire hover:scale-105 transition-all duration-300 flex items-center gap-2">
+                <i class="fas fa-user-plus"></i>
+                Add Employee
+            </button>
+        </div>
+
+        @if (isLoading) {
+        <div class="flex justify-center items-center py-32">
+            <mat-spinner class="!border-laser-500"></mat-spinner>
+        </div>
+        } @else if (employees.length === 0) {
+        <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-20 text-center">
+            <i class="fas fa-users text-8xl text-gray-600 mb-6"></i>
+            <h3 class="text-3xl font-bold text-gray-400 mb-3">No Employees Yet</h3>
+            <p class="text-gray-500 text-lg mb-6">Click "Add Employee" to add your first team member</p>
+            <button (click)="openAddEmployeeDialog()"
+                class="px-8 py-4 bg-gradient-to-r from-laser-500 to-fire-500 text-white text-lg font-bold rounded-lg hover:shadow-fire hover:scale-105 transition-all duration-300">
+                <i class="fas fa-user-plus mr-2"></i>
+                Add Your First Employee
+            </button>
+        </div>
+        } @else {
+        <!-- Employee Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @for (employee of employees; track employee.id) {
+            <div
+                class="bg-metal-900 border-2 border-metal-700 rounded-xl p-6 hover:border-laser-500 transition-all duration-300 hover:shadow-laser">
+                <!-- Employee Header -->
+                <div class="flex items-start gap-4 mb-5">
+                    <div
+                        class="w-16 h-16 rounded-full bg-gradient-to-br from-laser-500 to-fire-500 flex items-center justify-center fire-glow flex-shrink-0">
+                        <i class="fas fa-user text-2xl text-white"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="text-white font-bold text-xl mb-1 truncate">
+                            {{employee.first_name}} {{employee.last_name}}
+                        </h3>
+                        <p class="text-gray-400 text-sm truncate">@{{employee.username}}</p>
+                    </div>
+                </div>
+
+                <!-- Employee Info -->
+                <div class="bg-metal-800 rounded-lg p-4 space-y-3 mb-5">
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-envelope text-fire-500 w-5"></i>
+                        <span class="text-gray-300 text-sm truncate">{{employee.email}}</span>
+                    </div>
+                    @if (employee.phone) {
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-phone text-fire-500 w-5"></i>
+                        <span class="text-gray-300 text-sm">{{employee.phone}}</span>
+                    </div>
+                    }
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-user-tag text-fire-500 w-5"></i>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold inline-block"
+                            [class.bg-laser-500/20]="employee.role === 'MANAGER'"
+                            [class.text-laser-400]="employee.role === 'MANAGER'"
+                            [class.border-2]="employee.role === 'MANAGER'"
+                            [class.border-laser-500]="employee.role === 'MANAGER'"
+                            [class.bg-fire-500/20]="employee.role === 'WORKER'"
+                            [class.text-fire-400]="employee.role === 'WORKER'"
+                            [class.border-2]="employee.role === 'WORKER'"
+                            [class.border-fire-500]="employee.role === 'WORKER'">
+                            {{employee.role}}
+                        </span>
+                    </div>
+                    @if (employee.created_at) {
+                    <div class="flex items-center gap-3">
+                        <i class="fas fa-calendar text-fire-500 w-5"></i>
+                        <span class="text-gray-400 text-xs">Joined {{employee.created_at | date:'mediumDate'}}</span>
+                    </div>
+                    }
+                </div>
+
+                <!-- Actions -->
+                <div class="flex gap-2">
+                    <button (click)="deleteEmployee(employee)"
+                        class="flex-1 px-4 py-2 bg-red-500/20 text-red-400 border-2 border-red-500 rounded-lg font-semibold hover:bg-red-500/30 transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fas fa-trash"></i>
+                        Delete
+                    </button>
+                </div>
+            </div>
+            }
+        </div>
+
+        <!-- Employee Count -->
+        <div class="mt-8 text-center">
+            <p class="text-gray-400 text-lg">
+                Total Employees: <span class="text-laser-400 font-bold text-2xl">{{employees.length}}</span>
+            </p>
+        </div>
+        }
+    </div>
+</div>

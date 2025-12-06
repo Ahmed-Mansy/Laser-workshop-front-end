@@ -1,0 +1,21 @@
+/* Customize Material Tabs for fire theme */
+::ng-deep .fire-tabs .mat-mdc-tab-labels {
+    background: linear-gradient(to right, #991b1b, #9a3412) !important;
+    border-radius: 0.75rem 0.75rem 0 0;
+}
+
+::ng-deep .fire-tabs .mat-mdc-tab-label {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-weight: 600 !important;
+}
+
+::ng-deep .fire-tabs .mat-mdc-tab-label-active {
+    color: white !important;
+}
+
+::ng-deep .fire-tabs .mat-mdc-tab-body-wrapper {
+    background: #1e1e2e;
+    border-radius: 0 0 0.75rem 0.75rem;
+    border: 2px solid #374151;
+    border-top: none;
+}

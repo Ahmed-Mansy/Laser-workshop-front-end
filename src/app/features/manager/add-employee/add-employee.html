@@ -1,0 +1,160 @@
+<div class="bg-metal-900 rounded-lg overflow-visible w-full max-w-2xl">
+    <!-- Header -->
+    <div
+        class="flex justify-between items-center px-6 py-5 bg-gradient-to-r from-metal-900 to-metal-800 border-b-2 border-laser-500">
+        <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+            <i class="fas fa-user-plus text-laser-500"></i>
+            Add New Employee
+        </h2>
+        <button type="button" (click)="onCancel()" [disabled]="isLoading"
+            class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-laser-500/20 transition-all duration-300 hover:rotate-90 disabled:opacity-50">
+            <i class="fas fa-times text-laser-500 text-xl"></i>
+        </button>
+    </div>
+
+    <!-- Content - Reduced Height -->
+    <div class="px-6 py-4 max-h-[45vh] overflow-y-auto">
+        <form [formGroup]="employeeForm" class="space-y-4">
+            <!-- Username -->
+            <div>
+                <label class="block text-sm font-medium text-metal-300 mb-2">
+                    <i class="fas fa-user text-fire-500 mr-2"></i>
+                    Username
+                </label>
+                <input type="text" formControlName="username"
+                    class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
+                    placeholder="Enter username">
+                @if (employeeForm.get('username')?.hasError('required') && employeeForm.get('username')?.touched) {
+                <p class="text-laser-500 text-sm mt-1">Username is required</p>
+                }
+                @if (employeeForm.get('username')?.hasError('minlength')) {
+                <p class="text-laser-500 text-sm mt-1">Username must be at least 3 characters</p>
+                }
+            </div>
+
+            <!-- Email -->
+            <div>
+                <label class="block text-sm font-medium text-metal-300 mb-2">
+                    <i class="fas fa-envelope text-fire-500 mr-2"></i>
+                    Email
+                </label>
+                <input type="email" formControlName="email"
+                    class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
+                    placeholder="Enter email address">
+                @if (employeeForm.get('email')?.hasError('required') && employeeForm.get('email')?.touched) {
+                <p class="text-laser-500 text-sm mt-1">Email is required</p>
+                }
+                @if (employeeForm.get('email')?.hasError('email')) {
+                <p class="text-laser-500 text-sm mt-1">Invalid email format</p>
+                }
+            </div>
+
+            <!-- First Name & Last Name -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-metal-300 mb-2">
+                        <i class="fas fa-id-badge text-fire-500 mr-2"></i>
+                        First Name
+                    </label>
+                    <input type="text" formControlName="first_name"
+                        class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
+                        placeholder="First name">
+                    @if (employeeForm.get('first_name')?.hasError('required') &&
+                    employeeForm.get('first_name')?.touched) {
+                    <p class="text-laser-500 text-sm mt-1">Required</p>
+                    }
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-metal-300 mb-2">
+                        <i class="fas fa-id-badge text-fire-500 mr-2"></i>
+                        Last Name
+                    </label>
+                    <input type="text" formControlName="last_name"
+                        class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
+                        placeholder="Last name">
+                    @if (employeeForm.get('last_name')?.hasError('required') && employeeForm.get('last_name')?.touched)
+                    {
+                    <p class="text-laser-500 text-sm mt-1">Required</p>
+                    }
+                </div>
+            </div>
+
+            <!-- Role & Phone -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-metal-300 mb-2">
+                        <i class="fas fa-user-tag text-fire-500 mr-2"></i>
+                        Role
+                    </label>
+                    <select formControlName="role"
+                        class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 cursor-pointer">
+                        <option value="WORKER">Worker</option>
+                        <option value="MANAGER">Manager</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-metal-300 mb-2">
+                        <i class="fas fa-phone text-fire-500 mr-2"></i>
+                        Phone (Optional)
+                    </label>
+                    <input type="tel" formControlName="phone"
+                        class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
+                        placeholder="Phone number">
+                </div>
+            </div>
+
+            <!-- Password & Confirm Password -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-metal-300 mb-2">
+                        <i class="fas fa-lock text-fire-500 mr-2"></i>
+                        Password
+                    </label>
+                    <input type="password" formControlName="password"
+                        class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
+                        placeholder="Enter password">
+                    @if (employeeForm.get('password')?.hasError('required') && employeeForm.get('password')?.touched) {
+                    <p class="text-laser-500 text-sm mt-1">Required</p>
+                    }
+                    @if (employeeForm.get('password')?.hasError('minlength')) {
+                    <p class="text-laser-500 text-sm mt-1">Min 6 chars</p>
+                    }
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-metal-300 mb-2">
+                        <i class="fas fa-lock text-fire-500 mr-2"></i>
+                        Confirm Password
+                    </label>
+                    <input type="password" formControlName="password2"
+                        class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
+                        placeholder="Confirm password">
+                    @if (employeeForm.hasError('passwordMismatch') && employeeForm.get('password2')?.touched) {
+                    <p class="text-laser-500 text-sm mt-1">Passwords do not match</p>
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Actions - ALWAYS VISIBLE -->
+    <div class="flex justify-end gap-3 px-6 py-4 bg-metal-800/50 border-t border-metal-700">
+        <button type="button" (click)="onCancel()" [disabled]="isLoading"
+            class="px-6 py-2.5 bg-metal-800 text-white rounded-lg font-semibold hover:bg-metal-700 transition-all duration-300 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed border border-metal-600">
+            <i class="fas fa-times"></i>
+            Cancel
+        </button>
+        <button type="button" (click)="onSubmit()" [disabled]="employeeForm.invalid || isLoading"
+            class="px-6 py-2.5 bg-gradient-to-r from-laser-500 to-fire-500 text-white rounded-lg font-semibold hover:shadow-fire hover:scale-105 transition-all duration-300 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
+            @if (isLoading) {
+            <i class="fas fa-spinner fa-spin"></i>
+            <span>Adding...</span>
+            } @else {
+            <i class="fas fa-check"></i>
+            <span>Add Employee</span>
+            }
+        </button>
+    </div>
+</div>

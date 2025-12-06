@@ -1,0 +1,113 @@
+<div class="min-h-screen bg-gradient-to-b from-metal-900 to-black">
+    <!-- Hero Section - Fire themed -->
+    <section
+        class="relative overflow-hidden bg-gradient-to-br from-metal-900 via-metal-800 to-black border-b-4 border-laser-500">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-laser-500 rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-fire-500 rounded-full filter blur-3xl"></div>
+        </div>
+
+        <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 text-center">
+            <h1 class="text-5xl md:text-7xl font-black mb-6 text-fire leading-tight">
+                {{ 'home.heroTitle' | translate }}
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto font-light">
+                {{ 'home.heroSubtitle' | translate }}
+            </p>
+            <div class="flex gap-6 justify-center flex-wrap">
+                <a mat-raised-button routerLink="/showcase"
+                    class="!h-14 !px-8 !text-lg !font-bold !bg-fire-gradient !text-white !rounded-lg hover:shadow-fire !transform !transition">
+                    <i class="fas fa-fire mr-2"></i>
+                    {{ 'home.viewWork' | translate }}
+                </a>
+                <a mat-stroked-button routerLink="/login"
+                    class="!h-14 !px-8 !text-lg !font-bold !border-2 !border-laser-500 !text-laser-400 !rounded-lg hover:!bg-laser-500/10">
+                    <i class="fas fa-bolt mr-2"></i>
+                    {{ 'home.staffLogin' | translate }}
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black mb-4 text-fire">
+                    {{ 'home.featuresTitle' | translate }}
+                </h2>
+                <p class="text-xl text-gray-400">{{ 'home.featuresSubtitle' | translate }}</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                @for (feature of features; track feature.title) {
+                <mat-card
+                    class="!bg-metal-800 !border-2 !border-metal-700 hover:!border-laser-500 !rounded-xl overflow-hidden group cursor-pointer transform transition hover:-translate-y-2 hover:shadow-laser">
+                    <mat-card-content class="p-8 text-center">
+                        <div
+                            class="w-20 h-20 mx-auto mb-6 rounded-full bg-fire-gradient flex items-center justify-center fire-glow">
+                            <i class="fas {{ feature.icon }} text-3xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3 text-white group-hover:text-fire-400 transition">
+                            {{ feature.title }}
+                        </h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            {{ feature.description }}
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 px-6 bg-gradient-to-r from-laser-900 via-fire-900 to-spark-900 border-y-2 border-laser-500">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-black mb-6 text-white">
+                {{ 'home.ctaTitle' | translate }}
+            </h2>
+            <p class="text-xl text-gray-300 mb-10 font-light">
+                {{ 'home.ctaSubtitle' | translate }}
+            </p>
+            <button mat-raised-button (click)="openContactDialog()"
+                class="!h-16 !px-12 !text-xl !font-black !bg-fire-gradient !text-white !rounded-lg fire-glow !transform !transition hover:scale-105">
+                <i class="fas fa-rocket mr-3"></i>
+                {{ 'home.getStartedNow' | translate }}
+            </button>
+        </div>
+    </section>
+
+    <!-- Developer Footer -->
+    <section class="py-12 px-6 bg-black border-t-2 border-laser-500/30">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex justify-center">
+                <div
+                    class="px-8 py-4 rounded-2xl bg-gradient-to-r from-metal-900/80 via-black/80 to-metal-900/80 backdrop-blur-sm border border-metal-700/50 shadow-lg">
+                    <div class="flex items-center gap-4">
+                        <!-- Fire Icon -->
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-br from-fire-500 to-laser-500 flex items-center justify-center fire-glow">
+                            <i class="fas fa-fire text-base text-white"></i>
+                        </div>
+
+                        <!-- Text -->
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-sm font-semibold text-gray-500 uppercase tracking-wider">Powered by</span>
+                            <span
+                                class="text-lg font-black bg-gradient-to-r from-laser-400 via-fire-400 to-spark-400 bg-clip-text text-transparent">
+                                Eng\ Ahmed Mansy
+                            </span>
+                        </div>
+
+                        <!-- Spark Icon -->
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gradient-to-br from-laser-500 to-fire-500 flex items-center justify-center fire-glow">
+                            <i class="fas fa-bolt text-base text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

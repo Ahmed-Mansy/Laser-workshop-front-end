@@ -1,0 +1,151 @@
+{
+    "navbar": {
+        "home": "Home",
+        "showcase": "Showcase",
+        "login": "Login",
+        "logout": "Logout",
+        "dashboard": "Dashboard",
+        "orders": "Orders",
+        "employees": "Employees",
+        "welcome": "Welcome"
+    },
+    "auth": {
+        "loginTitle": "Sign In",
+        "loginSubtitle": "Welcome back to Laser Workshop",
+        "username": "Username",
+        "password": "Password",
+        "rememberMe": "Remember me",
+        "forgotPassword": "Forgot password?",
+        "signIn": "Sign In",
+        "signingIn": "Signing In...",
+        "noAccount": "Don't have an account?",
+        "createAccount": "Create one",
+        "usernameRequired": "Username is required",
+        "passwordRequired": "Password is required",
+        "welcomeBack": "Welcome Back",
+        "contactManager": "Please contact your manager for login credentials",
+        "backToHome": "Back to Home"
+    },
+    "common": {
+        "save": "Save",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "add": "Add",
+        "search": "Search",
+        "filter": "Filter",
+        "loading": "Loading...",
+        "error": "Error",
+        "success": "Success",
+        "confirm": "Confirm",
+        "close": "Close",
+        "back": "Back",
+        "next": "Next",
+        "previous": "Previous",
+        "submit": "Submit",
+        "view": "View"
+    },
+    "home": {
+        "heroTitle": "LASER WORKSHOP",
+        "heroSubtitle": "Professional order management system for laser cutting operations",
+        "viewWork": "View Our Work",
+        "staffLogin": "Staff Login",
+        "featuresTitle": "POWER & PRECISION",
+        "featuresSubtitle": "Advanced tools for laser workshop management",
+        "ctaTitle": "IGNITE YOUR WORKFLOW",
+        "ctaSubtitle": "Transform your laser workshop with cutting-edge management tools",
+        "getStartedNow": "GET STARTED NOW",
+        "features": {
+            "orderManagement": {
+                "title": "Order Management",
+                "description": "Track orders from creation to delivery with our comprehensive workflow system."
+            },
+            "financialReports": {
+                "title": "Financial Reports",
+                "description": "View daily and monthly financial reports with detailed revenue tracking."
+            },
+            "teamCollaboration": {
+                "title": "Team Collaboration",
+                "description": "Role-based access for managers and workers to streamline operations."
+            },
+            "showcaseGallery": {
+                "title": "Showcase Gallery",
+                "description": "Display your finished work to potential customers in a beautiful gallery."
+            }
+        }
+    },
+    "dashboard": {
+        "managerTitle": "MANAGER COMMAND CENTER",
+        "managerSubtitle": "Monitor and control your laser workshop operations",
+        "workerTitle": "WORKER DASHBOARD",
+        "workerSubtitle": "View your tasks and track progress",
+        "shiftManagement": "SHIFT MANAGEMENT",
+        "status": "Status",
+        "duration": "Duration",
+        "orders": "Orders",
+        "revenue": "Revenue",
+        "open": "OPEN",
+        "closeShift": "Close Shift",
+        "openNew": "Open New",
+        "noShift": "No active shift. Start a new shift to track orders.",
+        "startNewShift": "Start New Shift",
+        "totalOrders": "Total Orders",
+        "underWork": "Under Work",
+        "designing": "Designing",
+        "designCompleted": "Design Completed",
+        "delivered": "Delivered",
+        "todayRevenue": "Today's Revenue",
+        "quickActions": "QUICK ACTIONS",
+        "manageOrders": "Manage Orders",
+        "manageEmployees": "Manage Employees",
+        "viewReports": "View Reports"
+    },
+    "orders": {
+        "title": "Orders Management",
+        "newOrder": "New Order",
+        "orderDetails": "Order Details",
+        "orderNumber": "Order Number",
+        "customer": "Customer",
+        "status": "Status",
+        "date": "Date",
+        "total": "Total",
+        "pending": "Pending",
+        "processing": "Processing",
+        "completed": "Completed",
+        "cancelled": "Cancelled",
+        "underWork": "Under Work",
+        "designing": "Designing",
+        "designCompleted": "Design Completed",
+        "delivered": "Delivered"
+    },
+    "employees": {
+        "title": "Employees Management",
+        "addEmployee": "Add Employee",
+        "employeeDetails": "Employee Details",
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "phone": "Phone",
+        "address": "Address",
+        "manager": "Manager",
+        "worker": "Worker"
+    },
+    "showcase": {
+        "title": "Our Work Showcase",
+        "subtitle": "Explore our finest laser engraving and cutting projects"
+    },
+    "shifts": {
+        "title": "Shift History",
+        "details": "Shift Details",
+        "startTime": "Start Time",
+        "endTime": "End Time",
+        "duration": "Duration",
+        "totalOrders": "Total Orders",
+        "totalRevenue": "Total Revenue"
+    },
+    "contact": {
+        "title": "GET IN TOUCH",
+        "subtitle": "Choose your preferred way to connect with us",
+        "clickToConnect": "Click to connect"
+    }
+}
