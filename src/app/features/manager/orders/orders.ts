@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -7,12 +7,15 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { OrderService } from '../../../core/services/order.service';
 import { ShiftService } from '../../../core/services/shift.service';
+import { RealTimeService } from '../../../core/services/real-time.service';
 import { Order } from '../../../core/models/order.model';
 import { Shift } from '../../../core/models/shift.model';
 import { AddOrderComponent } from '../add-order/add-order';
 import { OrderDetailsComponent } from '../order-details/order-details';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-orders',
@@ -25,16 +28,19 @@ import { OrderDetailsComponent } from '../order-details/order-details';
     MatChipsModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule
   ],
   templateUrl: './orders.html',
   styleUrl: './orders.css'
 })
-export class OrdersComponent implements OnInit {
+export class OrdersComponent implements OnInit, OnDestroy {
   private orderService = inject(OrderService);
   private shiftService = inject(ShiftService);
+  private realTimeService = inject(RealTimeService);
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
+  private updateSubscription?: Subscription;
 
   displayedColumns: string[] = ['id', 'customer_name', 'customer_phone', 'status', 'price', 'created_at', 'actions'];
   orders: Order[] = [];
@@ -48,6 +54,31 @@ export class OrdersComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkShift();
+    this.startRealTimeUpdates();
+  }
+
+  ngOnDestroy(): void {
+    this.stopRealTimeUpdates();
+  }
+
+  startRealTimeUpdates(): void {
+    // Subscribe to real-time updates
+    this.updateSubscription = this.realTimeService.updates$.subscribe(update => {
+      if (update && update.type === 'order') {
+        // Silently reload orders without showing loading spinner
+        this.loadOrdersQuietly();
+      }
+    });
+
+    // Start polling
+    this.realTimeService.startPolling();
+  }
+
+  stopRealTimeUpdates(): void {
+    if (this.updateSubscription) {
+      this.updateSubscription.unsubscribe();
+    }
+    this.realTimeService.stopPolling();
   }
 
   checkShift(): void {
@@ -80,10 +111,25 @@ export class OrdersComponent implements OnInit {
         this.orders = response.results || response;
         this.filteredOrders = this.orders;
         this.isLoading = false;
+        // Reset real-time check timestamp after manual load
+        this.realTimeService.resetCheckTime();
       },
       error: () => {
         this.isLoading = false;
         this.snackBar.open('Error loading orders', 'Close', { duration: 3000 });
+      }
+    });
+  }
+
+  loadOrdersQuietly(): void {
+    // Load orders without showing the loading spinner (for real-time updates)
+    this.orderService.getOrders().subscribe({
+      next: (response) => {
+        this.orders = response.results || response;
+        this.filterOrders();
+      },
+      error: () => {
+        // Silently fail for background updates
       }
     });
   }

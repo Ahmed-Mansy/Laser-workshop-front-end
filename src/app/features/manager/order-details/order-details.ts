@@ -46,7 +46,8 @@ export class OrderDetailsComponent {
         if (!this.order.image) return '';
         // If image already has http/https, return as is
         if (this.order.image.startsWith('http')) return this.order.image;
-        // Otherwise prepend backend URL
-        return `http://localhost:8000${this.order.image}`;
+        // Otherwise prepend backend URL from environment
+        const baseUrl = environment.apiUrl.replace('/api', ''); // Remove /api suffix
+        return `${baseUrl}${this.order.image}`;
     }
 }
