@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ReportService } from '../../../core/services/report.service';
 import { DailyReport, MonthlyReport } from '../../../core/models/report.model';
+import { TranslatePipe } from '../../../core/pipes/translate.pipe';
 
 @Component({
     selector: 'app-reports',
@@ -17,7 +18,8 @@ import { DailyReport, MonthlyReport } from '../../../core/models/report.model';
         FormsModule,
         MatButtonModule,
         MatProgressSpinnerModule,
-        MatTabsModule
+        MatTabsModule,
+        TranslatePipe
     ],
     templateUrl: './reports.html',
     styleUrl: './reports.css'
@@ -98,5 +100,10 @@ export class ReportsComponent implements OnInit {
                 this.isLoadingMonthly.set(false);
             }
         });
+    }
+
+    getOrderCount(report: DailyReport | MonthlyReport | null, status: string): number {
+        if (!report?.orders_by_status) return 0;
+        return report.orders_by_status[status] || 0;
     }
 }

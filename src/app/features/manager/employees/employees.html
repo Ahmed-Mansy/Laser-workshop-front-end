@@ -5,14 +5,16 @@
             <div class="w-full sm:w-auto">
                 <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-fire flex items-center gap-2 sm:gap-3">
                     <i class="fas fa-users text-2xl sm:text-3xl md:text-4xl"></i>
-                    <span class="break-words">EMPLOYEE MANAGEMENT</span>
+                    <span class="break-words">{{ 'employeeManagement.pageTitle' | translate }}</span>
                 </h1>
-                <p class="text-base sm:text-lg md:text-xl text-gray-400 mt-2">Manage your team members</p>
+                <p class="text-base sm:text-lg md:text-xl text-gray-400 mt-2">{{ 'employeeManagement.subtitle' |
+                    translate
+                    }}</p>
             </div>
             <button (click)="openAddEmployeeDialog()"
                 class="w-full sm:w-auto px-4 sm:px-6 py-3 bg-gradient-to-r from-laser-500 to-fire-500 text-white text-base sm:text-lg font-bold rounded-lg hover:shadow-fire hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 whitespace-nowrap">
                 <i class="fas fa-user-plus"></i>
-                <span>Add Employee</span>
+                <span>{{ 'employeeManagement.addEmployee' | translate }}</span>
             </button>
         </div>
 
@@ -23,12 +25,12 @@
         } @else if (employees().length === 0) {
         <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-20 text-center">
             <i class="fas fa-users text-8xl text-gray-600 mb-6"></i>
-            <h3 class="text-3xl font-bold text-gray-400 mb-3">No Employees Yet</h3>
-            <p class="text-gray-500 text-lg mb-6">Click "Add Employee" to add your first team member</p>
+            <h3 class="text-3xl font-bold text-gray-400 mb-3">{{ 'employeeManagement.noEmployees' | translate }}</h3>
+            <p class="text-gray-500 text-lg mb-6">{{ 'employeeManagement.clickAddEmployee' | translate }}</p>
             <button (click)="openAddEmployeeDialog()"
                 class="px-8 py-4 bg-gradient-to-r from-laser-500 to-fire-500 text-white text-lg font-bold rounded-lg hover:shadow-fire hover:scale-105 transition-all duration-300">
                 <i class="fas fa-user-plus mr-2"></i>
-                Add Your First Employee
+                {{ 'employeeManagement.addFirstEmployee' | translate }}
             </button>
         </div>
         } @else {
@@ -80,7 +82,8 @@
                     @if (employee.created_at) {
                     <div class="flex items-center gap-3">
                         <i class="fas fa-calendar text-fire-500 w-5"></i>
-                        <span class="text-gray-400 text-xs">Joined {{employee.created_at | date:'mediumDate'}}</span>
+                        <span class="text-gray-400 text-xs">{{ 'employeeManagement.joined' | translate }}
+                            {{employee.created_at | date:'mediumDate'}}</span>
                     </div>
                     }
                 </div>
@@ -90,7 +93,7 @@
                     <button (click)="deleteEmployee(employee)"
                         class="flex-1 px-4 py-2 bg-red-500/20 text-red-400 border-2 border-red-500 rounded-lg font-semibold hover:bg-red-500/30 transition-all duration-300 flex items-center justify-center gap-2">
                         <i class="fas fa-trash"></i>
-                        Delete
+                        {{ 'employeeManagement.delete' | translate }}
                     </button>
                 </div>
             </div>
@@ -100,7 +103,8 @@
         <!-- Employee Count -->
         <div class="mt-8 text-center">
             <p class="text-gray-400 text-lg">
-                Total Employees: <span class="text-laser-400 font-bold text-2xl">{{employees().length}}</span>
+                {{ 'employeeManagement.totalEmployees' | translate }}: <span
+                    class="text-laser-400 font-bold text-2xl">{{employees().length}}</span>
             </p>
         </div>
         }

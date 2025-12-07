@@ -12,14 +12,14 @@
                 <h1
                     class="text-3xl sm:text-4xl md:text-5xl font-black text-fire flex items-center gap-2 sm:gap-3 flex-1">
                     <i class="fas fa-clipboard-list text-2xl sm:text-3xl md:text-4xl"></i>
-                    <span class="break-words leading-tight">ORDER MANAGEMENT</span>
+                    <span class="break-words leading-tight">{{ 'orderManagement.pageTitle' | translate }}</span>
                 </h1>
             </div>
             <button mat-raised-button (click)="openAddOrderDialog()" [disabled]="!hasActiveShift()"
                 class="w-full sm:w-auto !h-12 !px-4 sm:!px-6 !text-sm sm:!text-base !font-bold !bg-fire-gradient !text-white !rounded-lg fire-glow hover:!shadow-fire disabled:!opacity-50 disabled:!cursor-not-allowed disabled:hover:!shadow-none"
-                [attr.title]="!hasActiveShift() ? 'Please ask manager to open a shift first' : 'Create new order'">
+                [attr.title]="!hasActiveShift() ? ('orderManagement.shiftRequired' | translate) : 'orderManagement.newOrder' | translate">
                 <i class="fas fa-plus mr-2"></i>
-                <span class="whitespace-nowrap">NEW ORDER</span>
+                <span class="whitespace-nowrap">{{ 'orderManagement.newOrder' | translate }}</span>
             </button>
         </div>
 
@@ -49,14 +49,12 @@
                         <!-- Title -->
                         <h2
                             class="text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent mb-3 sm:mb-4">
-                            No Active Shift
+                            {{ 'orderManagement.noActiveShift' | translate }}
                         </h2>
 
                         <!-- Message -->
                         <p class="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 leading-relaxed px-2">
-                            Orders management requires an active shift to be open.<br class="hidden sm:inline">
-                            <span class="block sm:inline"> </span>Please ask your manager to open a new shift to
-                            continue.
+                            {{ 'orderManagement.noActiveShiftMessage' | translate }}
                         </p>
 
                         <!-- Info Box -->
@@ -65,11 +63,10 @@
                             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 text-gray-400">
                                 <i class="fas fa-info-circle text-laser-400 text-xl sm:text-2xl flex-shrink-0"></i>
                                 <p class="text-left">
-                                    <span class="block text-white font-bold mb-1 text-sm sm:text-base">Why do I need a
-                                        shift?</span>
-                                    <span class="text-xs sm:text-sm">Shifts help track orders and revenue for each work
-                                        period.
-                                        Your manager controls shift management from the dashboard.</span>
+                                    <span class="block text-white font-bold mb-1 text-sm sm:text-base">{{
+                                        'orderManagement.whyNeedShift' | translate }}</span>
+                                    <span class="text-xs sm:text-sm">{{ 'orderManagement.shiftExplanation' | translate
+                                        }}</span>
                                 </p>
                             </div>
                         </div>
@@ -89,7 +86,7 @@
         @if (selectedStatus()) {
         <div class="mb-6">
             <div class="relative max-w-md">
-                <input type="text" [(ngModel)]="searchTerm" placeholder="Search by phone number..."
+                <input type="text" [(ngModel)]="searchTerm" [placeholder]="'orderManagement.searchByPhone' | translate"
                     class="w-full px-4 py-3 pl-12 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-gray-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all">
                 <i class="fas fa-phone absolute left-4 top-1/2 transform -translate-y-1/2 text-laser-500"></i>
             </div>
@@ -111,8 +108,8 @@
                     <i class="fas fa-tools text-5xl text-white/90"></i>
                     <span class="text-6xl font-black text-white">{{getOrdersByStatus('UNDER_WORK').length}}</span>
                 </div>
-                <h3 class="text-xl font-bold text-white">UNDER WORK</h3>
-                <p class="text-white/80 text-sm mt-1">Orders being processed</p>
+                <h3 class="text-xl font-bold text-white">{{ 'orderManagement.underWork' | translate }}</h3>
+                <p class="text-white/80 text-sm mt-1">{{ 'orderManagement.underWorkDesc' | translate }}</p>
             </div>
 
             <!-- DESIGNING Card -->
@@ -122,8 +119,8 @@
                     <i class="fas fa-pencil-ruler text-5xl text-white/90"></i>
                     <span class="text-6xl font-black text-white">{{getOrdersByStatus('DESIGNING').length}}</span>
                 </div>
-                <h3 class="text-xl font-bold text-white">DESIGNING</h3>
-                <p class="text-white/80 text-sm mt-1">In design phase</p>
+                <h3 class="text-xl font-bold text-white">{{ 'orderManagement.designing' | translate }}</h3>
+                <p class="text-white/80 text-sm mt-1">{{ 'orderManagement.designingDesc' | translate }}</p>
             </div>
 
             <!-- DESIGN COMPLETED Card -->
@@ -133,8 +130,8 @@
                     <i class="fas fa-check-circle text-5xl text-white/90"></i>
                     <span class="text-6xl font-black text-white">{{getOrdersByStatus('DESIGN_COMPLETED').length}}</span>
                 </div>
-                <h3 class="text-xl font-bold text-white">DESIGN COMPLETED</h3>
-                <p class="text-white/80 text-sm mt-1">Ready for delivery</p>
+                <h3 class="text-xl font-bold text-white">{{ 'orderManagement.designCompleted' | translate }}</h3>
+                <p class="text-white/80 text-sm mt-1">{{ 'orderManagement.designCompletedDesc' | translate }}</p>
             </div>
 
             <!-- DELIVERED Card -->
@@ -144,16 +141,16 @@
                     <i class="fas fa-box-open text-5xl text-white/90"></i>
                     <span class="text-6xl font-black text-white">{{getOrdersByStatus('DELIVERED').length}}</span>
                 </div>
-                <h3 class="text-xl font-bold text-white">DELIVERED</h3>
-                <p class="text-white/80 text-sm mt-1">Completed orders</p>
+                <h3 class="text-xl font-bold text-white">{{ 'orderManagement.delivered' | translate }}</h3>
+                <p class="text-white/80 text-sm mt-1">{{ 'orderManagement.deliveredDesc' | translate }}</p>
             </div>
         </div>
 
         @if (orders().length === 0) {
         <div class="text-center py-20 mt-8">
             <i class="fas fa-inbox text-6xl text-gray-600 mb-4"></i>
-            <h3 class="text-2xl font-bold text-gray-400 mb-2">No Orders Yet</h3>
-            <p class="text-gray-500">Click "NEW ORDER" to create your first order</p>
+            <h3 class="text-2xl font-bold text-gray-400 mb-2">{{ 'orderManagement.noOrdersYet' | translate }}</h3>
+            <p class="text-gray-500">{{ 'orderManagement.clickNewOrder' | translate }}</p>
         </div>
         }
         } @else {
@@ -175,7 +172,7 @@
                     selectedStatus() === 'DESIGN_COMPLETED' ? 'DESIGN COMPLETED' :
                     'DELIVERED'}}
                     <span class="ml-auto text-lg font-normal">{{getOrdersByStatus(selectedStatus()).length}}
-                        Orders</span>
+                        {{ 'orderManagement.ordersCount' | translate }}</span>
                 </h2>
             </div>
 

@@ -11,10 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { OrderService } from '../../../core/services/order.service';
 import { ShiftService } from '../../../core/services/shift.service';
 import { WebSocketService } from '../../../core/services/websocket.service';
+import { LanguageService } from '../../../core/services/language.service';
 import { Order } from '../../../core/models/order.model';
 import { Shift } from '../../../core/models/shift.model';
 import { AddOrderComponent } from '../add-order/add-order';
 import { OrderDetailsComponent } from '../order-details/order-details';
+import { TranslatePipe } from '../../../core/pipes/translate.pipe';
 
 @Component({
   selector: 'app-orders',
@@ -28,7 +30,8 @@ import { OrderDetailsComponent } from '../order-details/order-details';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    TranslatePipe
   ],
   templateUrl: './orders.html',
   styleUrl: './orders.css'
@@ -40,6 +43,7 @@ export class OrdersComponent implements OnInit {
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
   private ngZone = inject(NgZone);
+  private languageService = inject(LanguageService);
 
   displayedColumns: string[] = ['id', 'customer_name', 'customer_phone', 'status', 'price', 'created_at', 'actions'];
 
@@ -128,7 +132,7 @@ export class OrdersComponent implements OnInit {
       },
       error: () => {
         this.isLoading.set(false);
-        this.snackBar.open('Error loading orders', 'Close', { duration: 3000 });
+        this.snackBar.open(this.languageService.translate('messages.errorLoadingOrders'), this.languageService.translate('common.close'), { duration: 3000 });
       }
     });
   }
@@ -228,7 +232,7 @@ export class OrdersComponent implements OnInit {
     const currentIndex = statusFlow.indexOf(order.status);
 
     if (currentIndex === -1 || currentIndex === statusFlow.length - 1) {
-      this.snackBar.open('Order is already at final stage', 'Close', { duration: 3000 });
+      this.snackBar.open(this.languageService.translate('messages.orderFinalStage'), this.languageService.translate('common.close'), { duration: 3000 });
       return;
     }
 
@@ -237,24 +241,24 @@ export class OrdersComponent implements OnInit {
     // Use dedicated status update endpoint (works for both managers and workers)
     this.orderService.updateOrderStatus(order.id, { status: nextStatus }).subscribe({
       next: () => {
-        this.snackBar.open('Order status updated successfully!', 'Close', { duration: 3000 });
+        this.snackBar.open(this.languageService.translate('messages.orderStatusUpdated'), this.languageService.translate('common.close'), { duration: 3000 });
         this.loadOrders();
       },
       error: () => {
-        this.snackBar.open('Failed to update order status', 'Close', { duration: 3000 });
+        this.snackBar.open(this.languageService.translate('messages.errorUpdatingStatus'), this.languageService.translate('common.close'), { duration: 3000 });
       }
     });
   }
 
   deleteOrder(id: number): void {
-    if (confirm('Are you sure you want to delete this order?')) {
+    if (confirm(this.languageService.translate('messages.deleteOrderConfirm'))) {
       this.orderService.deleteOrder(id).subscribe({
         next: () => {
-          this.snackBar.open('Order deleted successfully', 'Close', { duration: 3000 });
+          this.snackBar.open(this.languageService.translate('messages.orderDeleted'), this.languageService.translate('common.close'), { duration: 3000 });
           this.loadOrders();
         },
         error: () => {
-          this.snackBar.open('Error deleting order', 'Close', { duration: 3000 });
+          this.snackBar.open(this.languageService.translate('messages.errorDeletingOrder'), this.languageService.translate('common.close'), { duration: 3000 });
         }
       });
     }

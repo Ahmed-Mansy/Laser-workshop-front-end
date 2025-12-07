@@ -1,101 +1,90 @@
-<div class="relative min-w-[500px]">
-    <!-- Animated Background -->
-    <div class="absolute inset-0 overflow-hidden rounded-3xl pointer-events-none">
-        <div
-            class="absolute -top-20 -right-20 w-80 h-80 bg-gradient-to-br from-green-500/30 to-laser-500/30 rounded-full blur-3xl animate-pulse">
-        </div>
-        <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-gradient-to-br from-fire-500/30 to-green-500/30 rounded-full blur-3xl animate-pulse"
-            style="animation-delay: 1.5s;"></div>
-    </div>
-
+<div class="relative w-full md:min-w-[500px]">
     <!-- Main Content -->
     <div
-        class="relative backdrop-blur-xl bg-gradient-to-br from-metal-900/95 via-black/95 to-metal-900/95 rounded-3xl border-2 border-green-500/50 shadow-2xl shadow-green-500/20 overflow-hidden">
+        class="relative backdrop-blur-xl bg-gradient-to-br from-metal-900/95 via-black/95 to-metal-900/95 rounded-2xl md:rounded-3xl border-2 border-green-500/50 shadow-2xl shadow-green-500/20 overflow-hidden">
 
         <!-- Header -->
         <div class="relative overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-r from-green-600 via-laser-600 to-green-600 animate-gradient-x">
             </div>
 
-            <div class="relative px-8 py-6 backdrop-blur-sm bg-black/20 border-b-2 border-green-500/30">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-5">
+            <div class="relative px-3 md:px-8 py-3 md:py-6 backdrop-blur-sm bg-black/20 border-b-2 border-green-500/30">
+                <div class="flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2 md:gap-5 flex-1 min-w-0">
                         <!-- Success Icon -->
-                        <div class="relative">
+                        <div class="relative flex-shrink-0">
                             <div
-                                class="absolute inset-0 bg-gradient-to-br from-green-400 to-laser-400 rounded-2xl blur-xl opacity-60 animate-pulse">
-                            </div>
-                            <div
-                                class="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 to-laser-500 flex items-center justify-center shadow-lg fire-glow">
-                                <i class="fas fa-check-circle text-3xl text-white"></i>
+                                class="relative w-10 h-10 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-gradient-to-br from-green-500 to-laser-500 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-check-circle text-lg md:text-3xl text-white"></i>
                             </div>
                         </div>
 
-                        <div>
+                        <div class="flex-1 min-w-0">
                             <h2
-                                class="text-4xl font-black bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent mb-1">
-                                Shift Closed Successfully
+                                class="text-base md:text-4xl font-black bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent mb-0.5 md:mb-1 leading-tight">
+                                {{ 'shiftSummary.shiftClosed' | translate }}
                             </h2>
-                            <p class="text-gray-300 text-sm font-semibold">
-                                Shift #{{ data.shift.id }} Summary
+                            <p class="text-gray-300 text-xs md:text-sm font-semibold truncate">
+                                {{ 'shiftSummary.shiftId' | translate }} #{{ data.shift.id }}
                             </p>
                         </div>
                     </div>
 
                     <button (click)="close()"
-                        class="group w-11 h-11 rounded-xl bg-black/40 hover:bg-green-500/20 border-2 border-white/10 hover:border-green-500/50 flex items-center justify-center transition-all duration-300 hover:rotate-90 hover:scale-110">
-                        <i class="fas fa-times text-lg text-gray-300 group-hover:text-green-400 transition-colors"></i>
+                        class="group w-8 h-8 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-black/40 hover:bg-green-500/20 border-2 border-white/10 hover:border-green-500/50 flex items-center justify-center transition-all duration-300 hover:rotate-90 flex-shrink-0">
+                        <i
+                            class="fas fa-times text-sm md:text-lg text-gray-300 group-hover:text-green-400 transition-colors"></i>
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- Summary Content -->
-        <div class="p-8">
-            <!-- Statistics Grid -->
-            <div class="grid grid-cols-2 gap-5 mb-6">
+        <div class="p-4 md:p-8">
+            <!-- Statistics Grid - Duration and Orders -->
+            <div class="grid grid-cols-2 gap-2 md:gap-5 mb-3 md:mb-6">
                 <!-- Duration Card -->
-                <div
-                    class="bg-gradient-to-br from-metal-800/90 to-metal-900/90 border-2 border-metal-700 rounded-2xl p-6 hover:border-laser-500 transition-all duration-300">
-                    <div class="flex items-center gap-4 mb-3">
+                <div class="bg-metal-800/80 border border-metal-700 rounded-xl p-3 md:p-6">
+                    <div class="flex items-center gap-2 md:gap-4">
                         <div
-                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-laser-500 to-fire-500 flex items-center justify-center fire-glow">
-                            <i class="fas fa-clock text-xl text-white"></i>
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-laser-500 to-fire-500 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-clock text-sm md:text-xl text-white"></i>
                         </div>
-                        <div>
-                            <p class="text-gray-400 text-sm font-semibold">Duration</p>
-                            <p class="text-3xl font-black text-white">{{ data.shift.duration_hours }}h</p>
+                        <div class="min-w-0">
+                            <p class="text-gray-400 text-xs md:text-sm font-semibold">{{ 'shiftSummary.duration' |
+                                translate }}</p>
+                            <p class="text-xl md:text-3xl font-black text-white">{{ data.shift.duration_hours }}h</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Orders Card -->
-                <div
-                    class="bg-gradient-to-br from-metal-800/90 to-metal-900/90 border-2 border-metal-700 rounded-2xl p-6 hover:border-laser-500 transition-all duration-300">
-                    <div class="flex items-center gap-4 mb-3">
+                <div class="bg-metal-800/80 border border-metal-700 rounded-xl p-3 md:p-6">
+                    <div class="flex items-center gap-2 md:gap-4">
                         <div
-                            class="w-12 h-12 rounded-xl bg-gradient-to-br from-fire-500 to-spark-500 flex items-center justify-center fire-glow">
-                            <i class="fas fa-box text-xl text-white"></i>
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-fire-500 to-spark-500 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-box text-sm md:text-xl text-white"></i>
                         </div>
-                        <div>
-                            <p class="text-gray-400 text-sm font-semibold">Orders Delivered</p>
-                            <p class="text-3xl font-black text-spark-400">{{ data.summary.total_orders_delivered }}</p>
+                        <div class="min-w-0">
+                            <p class="text-gray-400 text-xs md:text-sm font-semibold">{{ 'shiftSummary.orders' |
+                                translate }}</p>
+                            <p class="text-xl md:text-3xl font-black text-spark-400">{{
+                                data.summary.total_orders_delivered }}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Revenue Display - Full Width -->
+            <!-- Revenue Display -->
             <div
-                class="relative overflow-hidden bg-gradient-to-br from-green-900/50 to-green-800/50 border-2 border-green-500/50 rounded-2xl p-8 mb-6">
-                <div class="absolute inset-0 bg-gradient-to-r from-green-500/10 via-transparent to-green-500/10"></div>
-
-                <div class="relative text-center">
-                    <p class="text-gray-400 text-sm font-bold uppercase tracking-wider mb-2">Total Revenue</p>
-                    <div class="flex items-center justify-center gap-2">
-                        <i class="fas fa-dollar-sign text-4xl text-green-400"></i>
+                class="bg-gradient-to-br from-green-900/50 to-green-800/50 border-2 border-green-500/50 rounded-xl p-3 md:p-8 mb-3 md:mb-6">
+                <div class="text-center">
+                    <p class="text-gray-400 text-xs md:text-sm font-bold uppercase mb-1 md:mb-2">{{
+                        'shiftSummary.revenue' | translate }}</p>
+                    <div class="flex items-center justify-center gap-1 md:gap-2">
+                        <i class="fas fa-dollar-sign text-xl md:text-4xl text-green-400"></i>
                         <p
-                            class="text-6xl font-black bg-gradient-to-r from-green-400 via-green-300 to-green-400 bg-clip-text text-transparent">
+                            class="text-3xl md:text-6xl font-black bg-gradient-to-r from-green-400 to-green-300 bg-clip-text text-transparent">
                             {{ data.summary.total_revenue | number:'1.2-2' }}
                         </p>
                     </div>
@@ -103,15 +92,15 @@
             </div>
 
             <!-- Time Details -->
-            <div class="bg-metal-800/50 border border-metal-700 rounded-xl p-4 mb-6">
-                <div class="grid grid-cols-2 gap-4 text-sm">
+            <div class="bg-metal-800/50 border border-metal-700 rounded-lg p-2 md:p-4 mb-3 md:mb-6">
+                <div class="grid grid-cols-2 gap-2 md:gap-4 text-xs md:text-sm">
                     <div>
-                        <p class="text-gray-500 mb-1">Opened At</p>
-                        <p class="text-white font-semibold">{{ data.shift.opened_at | date:'short' }}</p>
+                        <p class="text-gray-500 mb-0.5 md:mb-1">{{ 'shiftSummary.opened' | translate }}</p>
+                        <p class="text-white font-semibold truncate">{{ data.shift.opened_at | date:'short' }}</p>
                     </div>
                     <div>
-                        <p class="text-gray-500 mb-1">Closed At</p>
-                        <p class="text-white font-semibold">{{ data.shift.closed_at | date:'short' }}</p>
+                        <p class="text-gray-500 mb-0.5 md:mb-1">{{ 'shiftSummary.closed' | translate }}</p>
+                        <p class="text-white font-semibold truncate">{{ data.shift.closed_at | date:'short' }}</p>
                     </div>
                 </div>
             </div>
@@ -119,16 +108,9 @@
             <!-- Close Button -->
             <div class="flex justify-center">
                 <button mat-raised-button (click)="close()"
-                    class="group !h-14 !px-12 !font-black !text-base !bg-gradient-to-r !from-green-600 !to-green-500 !text-white !rounded-xl !border-2 !border-green-500 !shadow-lg hover:!shadow-green-500/50 !transition-all !duration-500 hover:!scale-105 relative overflow-hidden">
-
-                    <div
-                        class="absolute inset-0 bg-gradient-to-r from-green-400/0 via-green-400/20 to-green-400/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    </div>
-
-                    <span class="relative flex items-center gap-3">
-                        <i class="fas fa-check-circle"></i>
-                        Close
-                    </span>
+                    class="!h-11 md:!h-14 !px-8 md:!px-12 !font-black !text-sm md:!text-base !bg-gradient-to-r !from-green-600 !to-green-500 !text-white !rounded-lg md:!rounded-xl !border-2 !border-green-500 !shadow-lg hover:!shadow-green-500/50 !transition-all">
+                    <i class="fas fa-check-circle mr-2"></i>
+                    {{ 'shiftSummary.close' | translate }}
                 </button>
             </div>
         </div>

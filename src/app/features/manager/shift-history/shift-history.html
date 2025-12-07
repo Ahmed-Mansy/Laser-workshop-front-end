@@ -4,9 +4,9 @@
         <div class="mb-8">
             <h1 class="text-4xl md:text-5xl font-black text-fire flex items-center gap-3">
                 <i class="fas fa-history"></i>
-                SHIFT HISTORY
+                {{ 'shifts.title' | translate }}
             </h1>
-            <p class="text-xl text-gray-400 mt-2">View all past and current shifts</p>
+            <p class="text-xl text-gray-400 mt-2">{{ 'shifts.subtitle' | translate }}</p>
         </div>
 
         @if (isLoading()) {
@@ -16,7 +16,7 @@
         } @else if (shifts().length === 0) {
         <div class="text-center py-32">
             <i class="fas fa-inbox text-6xl text-gray-600 mb-4"></i>
-            <p class="text-xl text-gray-400">No shifts found</p>
+            <p class="text-xl text-gray-400">{{ 'shifts.noShifts' | translate }}</p>
         </div>
         } @else {
         <!-- Shifts Grid -->
@@ -28,15 +28,16 @@
                 <div class="p-6">
                     <!-- Status Badge -->
                     <div class="flex items-center justify-between mb-4">
-                        <div class="text-sm font-bold text-gray-400">Shift #{{ shift.id }}</div>
+                        <div class="text-sm font-bold text-gray-400">{{ 'shifts.shiftId' | translate }} #{{ shift.id }}
+                        </div>
                         @if (shift.is_active) {
                         <mat-chip class="!bg-green-500/20 !text-green-400 !border-green-500">
                             <i class="fas fa-circle mr-2 text-xs"></i>
-                            ACTIVE
+                            {{ 'shifts.active' | translate }}
                         </mat-chip>
                         } @else {
                         <mat-chip class="!bg-gray-500/20 !text-gray-400 !border-gray-500">
-                            CLOSED
+                            {{ 'shifts.closedStatus' | translate }}
                         </mat-chip>
                         }
                     </div>
@@ -45,13 +46,13 @@
                     <div class="mb-4">
                         <div class="text-sm text-gray-500 mb-1">
                             <i class="fas fa-calendar mr-2"></i>
-                            Opened
+                            {{ 'shifts.openedLabel' | translate }}
                         </div>
                         <div class="text-white font-semibold">{{ formatDate(shift.opened_at) }}</div>
                         @if (shift.closed_at) {
                         <div class="text-sm text-gray-500 mt-2 mb-1">
                             <i class="fas fa-calendar-check mr-2"></i>
-                            Closed
+                            {{ 'shifts.closedLabel' | translate }}
                         </div>
                         <div class="text-white font-semibold">{{ formatDate(shift.closed_at) }}</div>
                         }
@@ -61,7 +62,7 @@
                     <div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-metal-700">
                         <!-- Orders -->
                         <div>
-                            <div class="text-xs text-gray-500 mb-1">Orders</div>
+                            <div class="text-xs text-gray-500 mb-1">{{ 'shifts.totalOrders' | translate }}</div>
                             <div class="text-2xl font-bold text-fire-500">
                                 {{ shift.total_orders_delivered }}
                             </div>
@@ -69,7 +70,7 @@
 
                         <!-- Revenue -->
                         <div>
-                            <div class="text-xs text-gray-500 mb-1">Revenue</div>
+                            <div class="text-xs text-gray-500 mb-1">{{ 'shifts.totalRevenue' | translate }}</div>
                             <div class="text-2xl font-bold text-green-400">
                                 ${{ shift.total_revenue | number:'1.2-2' }}
                             </div>
@@ -80,7 +81,7 @@
                     <div class="mt-4 pt-4 border-t border-metal-700">
                         <div class="text-xs text-gray-500 mb-1">
                             <i class="fas fa-clock mr-2"></i>
-                            Duration
+                            {{ 'shifts.duration' | translate }}
                         </div>
                         <div class="text-white font-semibold">{{ shift.duration_hours }} hours</div>
                     </div>
@@ -89,7 +90,7 @@
                     <button mat-raised-button
                         class="w-full mt-4 !bg-gradient-to-r !from-laser-500 !to-fire-500 !text-white !font-bold">
                         <i class="fas fa-eye mr-2"></i>
-                        View Details
+                        {{ 'shifts.viewDetails' | translate }}
                     </button>
                 </div>
             </mat-card>

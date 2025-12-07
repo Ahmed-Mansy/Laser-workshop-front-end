@@ -1,11 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoadingService } from '../../core/services/loading.service';
+import { TranslatePipe } from '../../core/pipes/translate.pipe';
+import { LanguageService } from '../../core/services/language.service';
 
 @Component({
   selector: 'app-loading',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   template: `
     @if (loadingService.loading$ | async) {
     <div class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm">
@@ -20,7 +22,7 @@ import { LoadingService } from '../../core/services/loading.service';
           </div>
         </div>
         <div class="text-transparent bg-clip-text bg-gradient-to-r from-laser-500 via-fire-500 to-laser-500 font-black text-2xl animate-pulse">
-          LASER CUTTING...
+          {{ 'common.loadingText' | translate }}
         </div>
       </div>
     </div>
@@ -152,4 +154,5 @@ import { LoadingService } from '../../core/services/loading.service';
 })
 export class LoadingComponent {
   loadingService = inject(LoadingService);
+  languageService = inject(LanguageService);
 }

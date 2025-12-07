@@ -4,7 +4,9 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { OrderService } from '../../../core/services/order.service';
+import { LanguageService } from '../../../core/services/language.service';
 import { Order } from '../../../core/models/order.model';
+import { TranslatePipe } from '../../../core/pipes/translate.pipe';
 
 @Component({
   selector: 'app-add-order',
@@ -13,7 +15,8 @@ import { Order } from '../../../core/models/order.model';
     CommonModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    TranslatePipe
   ],
   templateUrl: './add-order.html',
   styleUrl: './add-order.css'
@@ -23,6 +26,7 @@ export class AddOrderComponent {
   private orderService = inject(OrderService);
   private snackBar = inject(MatSnackBar);
   private dialogRef = inject(MatDialogRef<AddOrderComponent>);
+  private languageService = inject(LanguageService);
 
   orderForm: FormGroup;
 
@@ -82,14 +86,18 @@ export class AddOrderComponent {
       operation.subscribe({
         next: () => {
           this.isLoading.set(false);
-          const message = this.isEditMode ? 'Order updated successfully!' : 'Order created successfully!';
-          this.snackBar.open(message, 'Close', { duration: 3000 });
+          const message = this.isEditMode ?
+            this.languageService.translate('messages.orderUpdated') :
+            this.languageService.translate('messages.orderCreated');
+          this.snackBar.open(message, this.languageService.translate('common.close'), { duration: 3000 });
           this.dialogRef.close(true);
         },
         error: (error) => {
           this.isLoading.set(false);
-          const message = this.isEditMode ? 'Failed to update order' : 'Failed to create order';
-          this.snackBar.open(message, 'Close', { duration: 5000 });
+          const message = this.isEditMode ?
+            this.languageService.translate('messages.errorUpdatingOrder') :
+            this.languageService.translate('messages.errorCreatingOrder');
+          this.snackBar.open(message, this.languageService.translate('common.close'), { duration: 5000 });
         }
       });
     }

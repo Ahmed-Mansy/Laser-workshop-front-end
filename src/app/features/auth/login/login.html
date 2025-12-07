@@ -38,7 +38,7 @@
           </label>
           <input type="text" formControlName="username" [disabled]="isLoading"
             class="w-full px-4 py-3 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 disabled:opacity-50"
-            placeholder="Enter your username">
+            [placeholder]="'auth.usernamePlaceholder' | translate">
           @if (loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched) {
           <p class="text-laser-500 text-sm mt-1">{{ 'auth.usernameRequired' | translate }}</p>
           }
@@ -52,7 +52,7 @@
           </label>
           <input type="password" formControlName="password" [disabled]="isLoading"
             class="w-full px-4 py-3 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 disabled:opacity-50"
-            placeholder="Enter your password">
+            [placeholder]="'auth.passwordPlaceholder' | translate">
           @if (loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched) {
           <p class="text-laser-500 text-sm mt-1">{{ 'auth.passwordRequired' | translate }}</p>
           }

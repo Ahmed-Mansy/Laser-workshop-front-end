@@ -7,6 +7,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../../core/services/auth.service';
 import { LanguageService } from '../../core/services/language.service';
+import { LoadingService } from '../../core/services/loading.service';
 import { TranslatePipe } from '../../core/pipes/translate.pipe';
 
 @Component({
@@ -28,10 +29,16 @@ export class NavbarComponent {
   authService = inject(AuthService);
   router = inject(Router);
   languageService = inject(LanguageService);
+  loadingService = inject(LoadingService);
   mobileMenuOpen = false;
 
   toggleLanguage(): void {
+    this.loadingService.show();
     this.languageService.toggleLanguage();
+    // Hide loading after a short delay
+    setTimeout(() => {
+      this.loadingService.hide();
+    }, 500);
   }
 
   toggleMobileMenu(): void {

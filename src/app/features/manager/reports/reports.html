@@ -1,31 +1,31 @@
 <div class="min-h-screen bg-gradient-to-b from-metal-900 to-black p-6">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
-        <div class="mb-8 flex justify-between items-center">
+        <div class="mb-8 flex flex-wrap justify-between items-center ">
             <div>
                 <h1 class="text-4xl md:text-5xl font-black text-fire flex items-center gap-3">
                     <i class="fas fa-chart-line"></i>
-                    FINANCIAL REPORTS
+                    {{ 'reports.title' | translate }}
                 </h1>
-                <p class="text-xl text-gray-400 mt-2">View your daily and monthly revenue reports</p>
+                <p class="text-xl text-gray-400 mt-2">{{ 'reports.subtitle' | translate }}</p>
             </div>
             <a routerLink="/manager/shift-history"
                 class="px-6 py-3 bg-gradient-to-r from-laser-500 to-fire-500 text-white rounded-lg font-bold hover:shadow-fire hover:scale-105 transition-all flex items-center gap-2">
                 <i class="fas fa-history"></i>
-                View Shift History
+                {{ 'reports.viewShiftHistory' | translate }}
             </a>
         </div>
 
         <!-- Tabs -->
         <mat-tab-group class="fire-tabs" backgroundColor="primary">
             <!-- Daily Report Tab -->
-            <mat-tab label="Daily Report">
+            <mat-tab [label]="'reports.dailyReport' | translate">
                 <div class="pt-6">
                     <!-- Date Selector -->
                     <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-6 mb-6">
                         <label class="block text-sm font-medium text-metal-300 mb-3">
                             <i class="fas fa-calendar text-fire-500 mr-2"></i>
-                            Select Date
+                            {{ 'reports.selectDate' | translate }}
                         </label>
                         <div class="flex gap-4 items-center">
                             <input type="date" [(ngModel)]="selectedDate"
@@ -51,7 +51,7 @@
                                 <div>
                                     <h3 class="text-3xl font-black text-white">${{ dailyReport()!.total_revenue |
                                         number:'1.2-2' }}</h3>
-                                    <p class="text-gray-400 font-semibold">Total Revenue</p>
+                                    <p class="text-gray-400 font-semibold">{{ 'reports.totalRevenue' | translate }}</p>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                 </div>
                                 <div>
                                     <h3 class="text-3xl font-black text-white">{{ dailyReport()!.total_orders }}</h3>
-                                    <p class="text-gray-400 font-semibold">Total Orders</p>
+                                    <p class="text-gray-400 font-semibold">{{ 'reports.totalOrders' | translate }}</p>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                                 <div>
                                     <h3 class="text-3xl font-black text-white">${{ dailyReport()!.average_order_value |
                                         number:'1.2-2' }}</h3>
-                                    <p class="text-gray-400 font-semibold">Average Order</p>
+                                    <p class="text-gray-400 font-semibold">{{ 'reports.averageOrder' | translate }}</p>
                                 </div>
                             </div>
                         </div>
@@ -91,31 +91,28 @@
                     <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-6 mt-6">
                         <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
                             <i class="fas fa-list text-laser-500"></i>
-                            Order Breakdown by Status
+                            {{ 'reports.orderBreakdown' | translate }}
                         </h3>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-fire-500">
-                                <p class="text-gray-400 text-sm">Under Work</p>
+                                <p class="text-gray-400 text-sm">{{ 'orders.underWork' | translate }}</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    dailyReport()!.orders_by_status?.['UNDER_WORK']
-                                    || 0 }}</p>
+                                    getOrderCount(dailyReport(), 'UNDER_WORK') }}</p>
                             </div>
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-spark-500">
-                                <p class="text-gray-400 text-sm">Designing</p>
+                                <p class="text-gray-400 text-sm">{{ 'orders.designing' | translate }}</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    dailyReport()!.orders_by_status?.['DESIGNING']
-                                    || 0 }}</p>
+                                    getOrderCount(dailyReport(), 'DESIGNING') }}</p>
                             </div>
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-green-500">
-                                <p class="text-gray-400 text-sm">Design Completed</p>
+                                <p class="text-gray-400 text-sm">{{ 'orders.designCompleted' | translate }}</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    dailyReport()!.orders_by_status?.['DESIGN_COMPLETED'] || 0 }}</p>
+                                    getOrderCount(dailyReport(), 'DESIGN_COMPLETED') }}</p>
                             </div>
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-blue-500">
-                                <p class="text-gray-400 text-sm">Delivered</p>
+                                <p class="text-gray-400 text-sm">{{ 'orders.delivered' | translate }}</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    dailyReport()!.orders_by_status?.['DELIVERED']
-                                    || 0 }}</p>
+                                    getOrderCount(dailyReport(), 'DELIVERED') }}</p>
                             </div>
                         </div>
                     </div>
@@ -124,19 +121,20 @@
             </mat-tab>
 
             <!-- Monthly Report Tab -->
-            <mat-tab label="Monthly Report">
+            <mat-tab [label]="'reports.monthlyReport' | translate">
                 <div class="pt-6">
                     <!-- Month/Year Selector -->
                     <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-6 mb-6">
                         <label class="block text-sm font-medium text-metal-300 mb-3">
                             <i class="fas fa-calendar-alt text-fire-500 mr-2"></i>
-                            Select Month & Year
+                            {{ 'reports.selectMonthYear' | translate }}
                         </label>
                         <div class="flex gap-4 items-center">
                             <select [(ngModel)]="selectedMonth"
                                 class="px-4 py-3 bg-metal-900 border-2 border-metal-700 rounded-lg text-white focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 cursor-pointer">
                                 @for (month of months; track month.value) {
-                                <option [value]="month.value">{{ month.name }}</option>
+                                <option [value]="month.value">{{ 'reports.months.' + month.name.toLowerCase() |
+                                    translate }}</option>
                                 }
                             </select>
                             <select [(ngModel)]="selectedYear"
@@ -211,24 +209,24 @@
                         </h3>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-fire-500">
-                                <p class="text-gray-400 text-sm">Under Work</p>
+                                <p class="text-gray-400 text-sm">{{ 'orders.underWork' | translate }}</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    monthlyReport()!.orders_by_status?.['UNDER_WORK'] || 0 }}</p>
+                                    getOrderCount(monthlyReport(), 'UNDER_WORK') }}</p>
                             </div>
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-spark-500">
-                                <p class="text-gray-400 text-sm">Designing</p>
+                                <p class="text-gray-400 text-sm">{{ 'orders.designing' | translate }}</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    monthlyReport()!.orders_by_status?.['DESIGNING'] || 0 }}</p>
+                                    getOrderCount(monthlyReport(), 'DESIGNING') }}</p>
                             </div>
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-green-500">
-                                <p class="text-gray-400 text-sm">Design Completed</p>
+                                <p class="text-gray-400 text-sm">{{ 'orders.designCompleted' | translate }}</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    monthlyReport()!.orders_by_status?.['DESIGN_COMPLETED'] || 0 }}</p>
+                                    getOrderCount(monthlyReport(), 'DESIGN_COMPLETED') }}</p>
                             </div>
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-blue-500">
-                                <p class="text-gray-400 text-sm">Delivered</p>
+                                <p class="text-gray-400 text-sm">{{ 'orders.delivered' | translate }}</p>
                                 <p class="text-2xl font-bold text-white">{{
-                                    monthlyReport()!.orders_by_status?.['DELIVERED'] || 0 }}</p>
+                                    getOrderCount(monthlyReport(), 'DELIVERED') }}</p>
                             </div>
                         </div>
                     </div>

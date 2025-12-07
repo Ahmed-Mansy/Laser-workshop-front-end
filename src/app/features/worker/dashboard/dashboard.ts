@@ -6,11 +6,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { OrderService } from '../../../core/services/order.service';
 import { Order } from '../../../core/models/order.model';
+import { TranslatePipe } from '../../../core/pipes/translate.pipe';
 
 @Component({
   selector: 'app-worker-dashboard',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatListModule, MatProgressSpinnerModule],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatListModule, MatProgressSpinnerModule, TranslatePipe],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css'
 })
@@ -37,5 +38,15 @@ export class DashboardComponent implements OnInit {
         this.isLoading.set(false);
       }
     });
+  }
+
+  getStatusKey(status: string): string {
+    const statusMap: { [key: string]: string } = {
+      'UNDER_WORK': 'underWork',
+      'DESIGNING': 'designing',
+      'DESIGN_COMPLETED': 'designCompleted',
+      'DELIVERED': 'delivered'
+    };
+    return statusMap[status] || status.toLowerCase();
   }
 }

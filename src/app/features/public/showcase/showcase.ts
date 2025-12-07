@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy, HostListener, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { TranslatePipe } from '../../../core/pipes/translate.pipe';
+import { LanguageService } from '../../../core/services/language.service';
 
 interface ShowcaseImage {
   title: string;
@@ -12,7 +14,7 @@ interface ShowcaseImage {
 @Component({
   selector: 'app-showcase',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, TranslatePipe],
   templateUrl: './showcase.html',
   styleUrl: './showcase.css'
 })

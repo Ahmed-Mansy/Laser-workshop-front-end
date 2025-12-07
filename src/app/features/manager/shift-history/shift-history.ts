@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { ShiftService } from '../../../core/services/shift.service';
 import { Shift } from '../../../core/models/shift.model';
+import { TranslatePipe } from '../../../core/pipes/translate.pipe';
 
 @Component({
     selector: 'app-shift-history',
@@ -17,7 +18,8 @@ import { Shift } from '../../../core/models/shift.model';
         MatCardModule,
         MatButtonModule,
         MatProgressSpinnerModule,
-        MatChipsModule
+        MatChipsModule,
+        TranslatePipe
     ],
     templateUrl: './shift-history.html',
     styleUrl: './shift-history.css'

@@ -9,6 +9,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ShiftService } from '../../../core/services/shift.service';
 import { Shift } from '../../../core/models/shift.model';
 import { OrderDetailsComponent } from '../order-details/order-details';
+import { TranslatePipe } from '../../../core/pipes/translate.pipe';
 
 @Component({
     selector: 'app-shift-details',
@@ -20,7 +21,8 @@ import { OrderDetailsComponent } from '../order-details/order-details';
         MatButtonModule,
         MatProgressSpinnerModule,
         MatTableModule,
-        MatDialogModule
+        MatDialogModule,
+        TranslatePipe
     ],
     templateUrl: './shift-details.html',
     styleUrl: './shift-details.css'

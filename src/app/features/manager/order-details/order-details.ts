@@ -4,11 +4,12 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatButtonModule } from '@angular/material/button';
 import { Order } from '../../../core/models/order.model';
 import { environment } from '../../../../environments/environment';
+import { TranslatePipe } from '../../../core/pipes/translate.pipe';
 
 @Component({
     selector: 'app-order-details',
     standalone: true,
-    imports: [CommonModule, MatDialogModule, MatButtonModule],
+    imports: [CommonModule, MatDialogModule, MatButtonModule, TranslatePipe],
     templateUrl: './order-details.html',
     styleUrl: './order-details.css'
 })
@@ -24,10 +25,10 @@ export class OrderDetailsComponent {
 
     getStatusDisplay(): string {
         const statusMap: { [key: string]: string } = {
-            'UNDER_WORK': 'Under Work',
-            'DESIGNING': 'Designing',
-            'DESIGN_COMPLETED': 'Design Completed',
-            'DELIVERED': 'Delivered'
+            'UNDER_WORK': 'underWork',
+            'DESIGNING': 'designing',
+            'DESIGN_COMPLETED': 'designCompleted',
+            'DELIVERED': 'delivered'
         };
         return statusMap[this.order.status] || this.order.status;
     }

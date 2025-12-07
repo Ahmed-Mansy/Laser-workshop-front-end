@@ -4,7 +4,7 @@
         class="flex justify-between items-center px-6 py-5 bg-gradient-to-r from-metal-900 to-metal-800 border-b-2 border-laser-500">
         <h2 class="text-2xl font-bold text-white flex items-center gap-3">
             <i class="fas fa-user-plus text-laser-500"></i>
-            Add New Employee
+            {{ 'employeeManagement.addNewEmployee' | translate }}
         </h2>
         <button type="button" (click)="onCancel()" [disabled]="isLoading()"
             class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-laser-500/20 transition-all duration-300 hover:rotate-90 disabled:opacity-50">
@@ -19,16 +19,16 @@
             <div>
                 <label class="block text-sm font-medium text-metal-300 mb-2">
                     <i class="fas fa-user text-fire-500 mr-2"></i>
-                    Username
+                    {{ 'employeeManagement.username' | translate }}
                 </label>
                 <input type="text" formControlName="username"
                     class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
-                    placeholder="Enter username">
+                    [placeholder]="'employeeManagement.usernamePlaceholder' | translate">
                 @if (employeeForm.get('username')?.hasError('required') && employeeForm.get('username')?.touched) {
-                <p class="text-laser-500 text-sm mt-1">Username is required</p>
+                <p class="text-laser-500 text-sm mt-1">{{ 'employeeManagement.usernameRequired' | translate }}</p>
                 }
                 @if (employeeForm.get('username')?.hasError('minlength')) {
-                <p class="text-laser-500 text-sm mt-1">Username must be at least 3 characters</p>
+                <p class="text-laser-500 text-sm mt-1">{{ 'employeeManagement.usernameMinLength' | translate }}</p>
                 }
             </div>
 
@@ -36,16 +36,16 @@
             <div>
                 <label class="block text-sm font-medium text-metal-300 mb-2">
                     <i class="fas fa-envelope text-fire-500 mr-2"></i>
-                    Email
+                    {{ 'employeeManagement.email' | translate }}
                 </label>
                 <input type="email" formControlName="email"
                     class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
-                    placeholder="Enter email address">
+                    [placeholder]="'employeeManagement.emailPlaceholder' | translate">
                 @if (employeeForm.get('email')?.hasError('required') && employeeForm.get('email')?.touched) {
-                <p class="text-laser-500 text-sm mt-1">Email is required</p>
+                <p class="text-laser-500 text-sm mt-1">{{ 'employeeManagement.emailRequired' | translate }}</p>
                 }
                 @if (employeeForm.get('email')?.hasError('email')) {
-                <p class="text-laser-500 text-sm mt-1">Invalid email format</p>
+                <p class="text-laser-500 text-sm mt-1">{{ 'employeeManagement.emailInvalid' | translate }}</p>
                 }
             </div>
 
@@ -54,28 +54,28 @@
                 <div>
                     <label class="block text-sm font-medium text-metal-300 mb-2">
                         <i class="fas fa-id-badge text-fire-500 mr-2"></i>
-                        First Name
+                        {{ 'employeeManagement.firstName' | translate }}
                     </label>
                     <input type="text" formControlName="first_name"
                         class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
-                        placeholder="First name">
+                        [placeholder]="'employeeManagement.firstNamePlaceholder' | translate">
                     @if (employeeForm.get('first_name')?.hasError('required') &&
                     employeeForm.get('first_name')?.touched) {
-                    <p class="text-laser-500 text-sm mt-1">Required</p>
+                    <p class="text-laser-500 text-sm mt-1">{{ 'common.required' | translate }}</p>
                     }
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-metal-300 mb-2">
                         <i class="fas fa-id-badge text-fire-500 mr-2"></i>
-                        Last Name
+                        {{ 'employeeManagement.lastName' | translate }}
                     </label>
                     <input type="text" formControlName="last_name"
                         class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
-                        placeholder="Last name">
+                        [placeholder]="'employeeManagement.lastNamePlaceholder' | translate">
                     @if (employeeForm.get('last_name')?.hasError('required') && employeeForm.get('last_name')?.touched)
                     {
-                    <p class="text-laser-500 text-sm mt-1">Required</p>
+                    <p class="text-laser-500 text-sm mt-1">{{ 'common.required' | translate }}</p>
                     }
                 </div>
             </div>
@@ -85,23 +85,23 @@
                 <div>
                     <label class="block text-sm font-medium text-metal-300 mb-2">
                         <i class="fas fa-user-tag text-fire-500 mr-2"></i>
-                        Role
+                        {{ 'employees.role' | translate }}
                     </label>
                     <select formControlName="role"
                         class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 cursor-pointer">
-                        <option value="WORKER">Worker</option>
-                        <option value="MANAGER">Manager</option>
+                        <option value="WORKER">{{ 'employees.worker' | translate }}</option>
+                        <option value="MANAGER">{{ 'employees.manager' | translate }}</option>
                     </select>
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-metal-300 mb-2">
                         <i class="fas fa-phone text-fire-500 mr-2"></i>
-                        Phone (Optional)
+                        {{ 'employeeManagement.phoneOptional' | translate }}
                     </label>
                     <input type="tel" formControlName="phone"
                         class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
-                        placeholder="Phone number">
+                        [placeholder]="'employeeManagement.phonePlaceholder' | translate">
                 </div>
             </div>
 
@@ -110,29 +110,29 @@
                 <div>
                     <label class="block text-sm font-medium text-metal-300 mb-2">
                         <i class="fas fa-lock text-fire-500 mr-2"></i>
-                        Password
+                        {{ 'employeeManagement.password' | translate }}
                     </label>
                     <input type="password" formControlName="password"
                         class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
-                        placeholder="Enter password">
+                        [placeholder]="'employeeManagement.passwordPlaceholder' | translate">
                     @if (employeeForm.get('password')?.hasError('required') && employeeForm.get('password')?.touched) {
-                    <p class="text-laser-500 text-sm mt-1">Required</p>
+                    <p class="text-laser-500 text-sm mt-1">{{ 'common.required' | translate }}</p>
                     }
                     @if (employeeForm.get('password')?.hasError('minlength')) {
-                    <p class="text-laser-500 text-sm mt-1">Min 6 chars</p>
+                    <p class="text-laser-500 text-sm mt-1">{{ 'employeeManagement.minChars' | translate }}</p>
                     }
                 </div>
 
                 <div>
                     <label class="block text-sm font-medium text-metal-300 mb-2">
                         <i class="fas fa-lock text-fire-500 mr-2"></i>
-                        Confirm Password
+                        {{ 'employeeManagement.confirmPassword' | translate }}
                     </label>
                     <input type="password" formControlName="password2"
                         class="w-full px-4 py-2.5 bg-metal-800 border-2 border-metal-700 rounded-lg text-white placeholder-metal-500 focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300"
-                        placeholder="Confirm password">
+                        [placeholder]="'employeeManagement.confirmPasswordPlaceholder' | translate">
                     @if (employeeForm.hasError('passwordMismatch') && employeeForm.get('password2')?.touched) {
-                    <p class="text-laser-500 text-sm mt-1">Passwords do not match</p>
+                    <p class="text-laser-500 text-sm mt-1">{{ 'employeeManagement.passwordMismatch' | translate }}</p>
                     }
                 </div>
             </div>
@@ -144,16 +144,16 @@
         <button type="button" (click)="onCancel()" [disabled]="isLoading()"
             class="px-6 py-2.5 bg-metal-800 text-white rounded-lg font-semibold hover:bg-metal-700 transition-all duration-300 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed border border-metal-600">
             <i class="fas fa-times"></i>
-            Cancel
+            {{ 'common.cancel' | translate }}
         </button>
         <button type="button" (click)="onSubmit()" [disabled]="employeeForm.invalid || isLoading"
             class="px-6 py-2.5 bg-gradient-to-r from-laser-500 to-fire-500 text-white rounded-lg font-semibold hover:shadow-fire hover:scale-105 transition-all duration-300 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100">
             @if (isLoading()) {
             <i class="fas fa-spinner fa-spin"></i>
-            <span>Adding...</span>
+            <span>{{ 'common.adding' | translate }}</span>
             } @else {
             <i class="fas fa-check"></i>
-            <span>Add Employee</span>
+            <span>{{ 'employeeManagement.addEmployee' | translate }}</span>
             }
         </button>
     </div>

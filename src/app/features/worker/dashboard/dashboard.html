@@ -1,7 +1,7 @@
 <div class="dashboard-container">
     <div class="dashboard-header">
-        <h1>Worker Dashboard</h1>
-        <p>Manage your orders and track progress</p>
+        <h1>{{ 'workerDashboard.title' | translate }}</h1>
+        <p>{{ 'workerDashboard.subtitle' | translate }}</p>
     </div>
 
     @if (isLoading()) {
@@ -17,7 +17,7 @@
                 </div>
                 <div class="stat-info">
                     <h3>{{ myOrdersCount() }}</h3>
-                    <p>Total Orders</p>
+                    <p>{{ 'workerDashboard.totalOrders' | translate }}</p>
                 </div>
             </mat-card-content>
         </mat-card>
@@ -27,16 +27,16 @@
         <!-- Quick Actions -->
         <mat-card class="action-card">
             <mat-card-header>
-                <mat-card-title>Quick Actions</mat-card-title>
+                <mat-card-title>{{ 'workerDashboard.quickActions' | translate }}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
                 <button mat-raised-button color="primary" class="action-button">
                     <i class="fas fa-plus-circle"></i>
-                    Add New Order
+                    {{ 'workerDashboard.addNewOrder' | translate }}
                 </button>
                 <button mat-raised-button class="action-button">
                     <i class="fas fa-list"></i>
-                    View All Orders
+                    {{ 'workerDashboard.viewAllOrders' | translate }}
                 </button>
             </mat-card-content>
         </mat-card>
@@ -44,7 +44,7 @@
         <!-- Recent Orders -->
         <mat-card class="recent-orders-card">
             <mat-card-header>
-                <mat-card-title>Recent Orders</mat-card-title>
+                <mat-card-title>{{ 'workerDashboard.recentOrders' | translate }}</mat-card-title>
             </mat-card-header>
             <mat-card-content>
                 <mat-list>
@@ -52,10 +52,10 @@
                     <mat-list-item>
                         <i class="fas fa-box" matListItemIcon></i>
                         <div matListItemTitle>{{ order.customer_name }}</div>
-                        <div matListItemLine>{{ order.status_display }}</div>
+                        <div matListItemLine>{{ 'orders.' + getStatusKey(order.status) | translate }}</div>
                     </mat-list-item>
                     } @empty {
-                    <p class="empty-message">No orders yet</p>
+                    <p class="empty-message">{{ 'workerDashboard.noOrdersYet' | translate }}</p>
                     }
                 </mat-list>
             </mat-card-content>

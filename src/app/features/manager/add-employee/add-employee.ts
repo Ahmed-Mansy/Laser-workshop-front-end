@@ -10,6 +10,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { TranslatePipe } from '../../../core/pipes/translate.pipe';
+import { LanguageService } from '../../../core/services/language.service';
 
 @Component({
   selector: 'app-add-employee',
@@ -18,7 +20,8 @@ import { environment } from '../../../../environments/environment';
     CommonModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    TranslatePipe
   ],
   templateUrl: './add-employee.html',
   styleUrl: './add-employee.css'
@@ -28,6 +31,7 @@ export class AddEmployeeComponent {
   private http = inject(HttpClient);
   private snackBar = inject(MatSnackBar);
   private dialogRef = inject(MatDialogRef<AddEmployeeComponent>);
+  private languageService = inject(LanguageService);
 
   employeeForm: FormGroup;
   isLoading = signal(false);
@@ -59,13 +63,13 @@ export class AddEmployeeComponent {
       this.http.post(`${environment.apiUrl}/auth/register/`, this.employeeForm.value).subscribe({
         next: () => {
           this.isLoading.set(false);
-          this.snackBar.open('Employee added successfully!', 'Close', { duration: 3000 });
+          this.snackBar.open(this.languageService.translate('messages.employeeAdded'), this.languageService.translate('common.close'), { duration: 3000 });
           this.dialogRef.close(true);
         },
         error: (error) => {
           this.isLoading.set(false);
-          const errorMessage = error.error?.username?.[0] || error.error?.email?.[0] || 'Failed to add employee';
-          this.snackBar.open(errorMessage, 'Close', { duration: 5000 });
+          const errorMessage = error.error?.username?.[0] || error.error?.email?.[0] || this.languageService.translate('messages.errorAddingEmployee');
+          this.snackBar.open(errorMessage, this.languageService.translate('common.close'), { duration: 5000 });
         }
       });
     }

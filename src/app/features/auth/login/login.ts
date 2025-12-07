@@ -54,7 +54,7 @@ export class LoginComponent {
         },
         error: (error) => {
           this.isLoading = false;
-          this.snackBar.open(error.error?.error || 'Login failed. Please check your credentials.', 'Close', { duration: 5000 });
+          this.snackBar.open(error.error?.error || 'Login failed. Username or password is incorrect.', 'Close', { duration: 5000 });
         }
       });
     }
