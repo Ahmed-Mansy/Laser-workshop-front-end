@@ -42,17 +42,16 @@
                         <div class="text-center">
                             <p class="text-gray-400 text-sm mb-1">{{ 'dashboard.revenue' | translate }}</p>
                             <p class="text-xl font-bold text-green-500">${{ currentShift()!.total_revenue |
-                                number:'1.2-2'
-                                }}</p>
+                                number:'1.2-2' }}</p>
                         </div>
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
                         <button mat-raised-button (click)="closeShift()"
-                            class="flex-1 !h-12 !font-bold !bg-gradient-to-r !from-laser-500 !to-fire-500 !text-white !rounded-lg">
+                            class="w-full sm:flex-1 !h-12 !font-bold !bg-gradient-to-r !from-laser-500 !to-fire-500 !text-white !rounded-lg">
                             <i class="fas fa-door-closed mr-2"></i>{{ 'dashboard.closeShift' | translate }}
                         </button>
                         <button mat-raised-button (click)="openNewShift()"
-                            class="!h-12 !px-8 !font-bold !bg-metal-700 !text-white !rounded-lg !border-2 !border-metal-600">
+                            class="w-full sm:w-auto !h-12 !px-8 !font-bold !bg-metal-700 !text-white !rounded-lg !border-2 !border-metal-600">
                             <i class="fas fa-sync-alt mr-2"></i>{{ 'dashboard.openNew' | translate }}
                         </button>
                     </div>

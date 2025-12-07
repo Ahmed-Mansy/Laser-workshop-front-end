@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed, effect } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, effect, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
@@ -10,7 +10,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { OrderService } from '../../../core/services/order.service';
 import { ShiftService } from '../../../core/services/shift.service';
-import { RealTimeService } from '../../../core/services/real-time.service';
+import { WebSocketService } from '../../../core/services/websocket.service';
 import { Order } from '../../../core/models/order.model';
 import { Shift } from '../../../core/models/shift.model';
 import { AddOrderComponent } from '../add-order/add-order';
@@ -36,9 +36,10 @@ import { OrderDetailsComponent } from '../order-details/order-details';
 export class OrdersComponent implements OnInit {
   private orderService = inject(OrderService);
   private shiftService = inject(ShiftService);
-  private realTimeService = inject(RealTimeService);
+  private websocketService = inject(WebSocketService);
   private snackBar = inject(MatSnackBar);
   private dialog = inject(MatDialog);
+  private ngZone = inject(NgZone);
 
   displayedColumns: string[] = ['id', 'customer_name', 'customer_phone', 'status', 'price', 'created_at', 'actions'];
 
@@ -67,19 +68,32 @@ export class OrdersComponent implements OnInit {
   });
 
   constructor() {
-    // Use effect for real-time updates instead of subscription
+    // WebSocket effect for instant order updates
     effect(() => {
-      const update = this.realTimeService.updates();
-      if (update?.type === 'order') {
-        this.loadOrdersQuietly();
+      const update = this.websocketService.orderUpdate();
+      if (update) {
+        // Run inside Angular zone for proper change detection
+        this.ngZone.run(() => {
+          this.loadOrdersQuietly();
+        });
       }
     });
+
+    // WebSocket effect for shift updates
+    effect(() => {
+      const update = this.websocketService.shiftUpdate();
+      if (update) {
+        this.checkShift();
+      }
+    });
+
+    // Auto-connect to WebSocket
+    this.websocketService.connect();
   }
 
   ngOnInit(): void {
     this.checkShift();
-    // Removed auto-polling - Signals handle reactivity automatically in the background
-    // this.realTimeService.startPolling();
+    // WebSocket handles real-time updates automatically
   }
 
   checkShift(): void {
@@ -111,8 +125,6 @@ export class OrdersComponent implements OnInit {
       next: (response) => {
         this.orders.set(response.results || response);
         this.isLoading.set(false);
-        // Reset real-time check timestamp after manual load
-        this.realTimeService.resetCheckTime();
       },
       error: () => {
         this.isLoading.set(false);

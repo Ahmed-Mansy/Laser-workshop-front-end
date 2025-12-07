@@ -21,7 +21,7 @@ export class RealTimeService implements OnDestroy {
 
     private pollingIntervalId?: any;
     private isPolling = false;
-    private pollingInterval = 10000; // 10 seconds - reduced frequency to avoid constant refreshes
+    private pollingInterval = 30000; // 30 seconds - balanced for real-time updates without excessive requests
     private lastOrderCheck?: Date;
     private lastShiftCheck?: Date;
 
@@ -90,7 +90,7 @@ export class RealTimeService implements OnDestroy {
 
         return new Observable(observer => {
             // Check for order updates
-            this.http.get<any>(`${environment.apiUrl}/orders/orders/`, { params })
+            this.http.get<any>(`${environment.apiUrl}/orders/`, { params })
                 .subscribe({
                     next: (response) => {
                         const now = new Date();

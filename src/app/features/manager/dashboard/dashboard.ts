@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, effect, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
@@ -10,6 +10,7 @@ import { OrderService } from '../../../core/services/order.service';
 import { ReportService } from '../../../core/services/report.service';
 import { UserService } from '../../../core/services/user.service';
 import { ShiftService } from '../../../core/services/shift.service';
+import { WebSocketService } from '../../../core/services/websocket.service';
 import { User } from '../../../core/models/user.model';
 import { Shift } from '../../../core/models/shift.model';
 import { AddEmployeeComponent } from '../add-employee/add-employee';
@@ -37,8 +38,10 @@ export class DashboardComponent implements OnInit {
   private reportService = inject(ReportService);
   private userService = inject(UserService);
   private shiftService = inject(ShiftService);
+  private websocketService = inject(WebSocketService);
   private dialog = inject(MatDialog);
   private snackBar = inject(MatSnackBar);
+  private ngZone = inject(NgZone);
 
   // Convert all state to signals
   private baseStatistics = signal({
@@ -77,6 +80,24 @@ export class DashboardComponent implements OnInit {
     const shift = this.currentShift();
     return shift?.is_active ? shift.total_orders_delivered : 0;
   });
+
+
+  constructor() {
+    // WebSocket effect for real-time statistics updates
+    effect(() => {
+      const update = this.websocketService.orderUpdate();
+      if (update) {
+        // Run inside Angular zone for proper change detection
+        this.ngZone.run(() => {
+          this.loadStatistics();
+          this.loadCurrentShift(); // Also refresh shift info
+        });
+      }
+    });
+
+    // Auto-connect to WebSocket
+    this.websocketService.connect();
+  }
 
   ngOnInit(): void {
     this.loadStatistics();
