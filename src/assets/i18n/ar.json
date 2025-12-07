@@ -340,7 +340,13 @@
     "messages": {
         "orderCreated": "تم إنشاء طلب جديد بنجاح",
         "orderStatusUpdated": "تم تحديث حالة الطلب بنجاح",
-        "errorUpdatingStatus": "حدث خطأ أثناء تحديث حالة الطلب"
+        "errorUpdatingStatus": "حدث خطأ أثناء تحديث حالة الطلب",
+        "priceRequired": "لا يمكن التسليم: سعر الطلب مطلوب. يرجى تعديل الطلب لإضافة السعر أولاً.",
+        "orderFinalStage": "الطلب في المرحلة النهائية بالفعل",
+        "deleteOrderConfirm": "هل أنت متأكد من حذف هذا الطلب؟",
+        "orderDeleted": "تم حذف الطلب بنجاح",
+        "errorDeletingOrder": "حدث خطأ أثناء حذف الطلب",
+        "errorLoadingOrders": "حدث خطأ أثناء تحميل الطلبات"
     },
     "errors": {
         "clientError": "خطأ في العميل",

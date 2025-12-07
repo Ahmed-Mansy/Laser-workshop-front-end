@@ -244,8 +244,12 @@ export class OrdersComponent implements OnInit {
         this.snackBar.open(this.languageService.translate('messages.orderStatusUpdated'), this.languageService.translate('common.close'), { duration: 3000 });
         this.loadOrders();
       },
-      error: () => {
-        this.snackBar.open(this.languageService.translate('messages.errorUpdatingStatus'), this.languageService.translate('common.close'), { duration: 3000 });
+      error: (error) => {
+        let errorMessage = 'messages.errorUpdatingStatus';
+        if (error.error && error.error.status && error.error.status[0]) {
+          errorMessage = error.error.status[0];
+        }
+        this.snackBar.open(this.languageService.translate(errorMessage), this.languageService.translate('common.close'), { duration: 5000 });
       }
     });
   }

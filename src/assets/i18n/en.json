@@ -340,7 +340,13 @@
     "messages": {
         "orderCreated": "New order created successfully",
         "orderStatusUpdated": "Order status updated successfully",
-        "errorUpdatingStatus": "Error updating order status"
+        "errorUpdatingStatus": "Error updating order status",
+        "priceRequired": "Cannot mark as Delivered: Order price is required. Please edit the order to add a price first.",
+        "orderFinalStage": "Order is already in the final stage",
+        "deleteOrderConfirm": "Are you sure you want to delete this order?",
+        "orderDeleted": "Order deleted successfully",
+        "errorDeletingOrder": "Error deleting order",
+        "errorLoadingOrders": "Error loading orders"
     },
     "errors": {
         "clientError": "Client Error",
