@@ -48,7 +48,7 @@ export class LanguageService {
      * Load a specific translation file
      */
     private loadTranslationFile(lang: Language): Observable<Translations> {
-        const url = `/assets/i18n/${lang}.json`;
+        const url = `/assets/i18n/${lang}.json?v=${new Date().getTime()}`;
         console.log(`[LanguageService] Loading ${lang} from ${url}`);
 
         return this.http.get<Translations>(url).pipe(
