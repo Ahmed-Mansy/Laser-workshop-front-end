@@ -164,7 +164,7 @@
                                 <div>
                                     <h3 class="text-3xl font-black text-white">${{ monthlyReport()!.total_revenue |
                                         number:'1.2-2' }}</h3>
-                                    <p class="text-gray-400 font-semibold">Total Revenue</p>
+                                    <p class="text-gray-400 font-semibold">{{ 'reports.totalRevenue' | translate }}</p>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +178,7 @@
                                 </div>
                                 <div>
                                     <h3 class="text-3xl font-black text-white">{{ monthlyReport()!.total_orders }}</h3>
-                                    <p class="text-gray-400 font-semibold">Total Orders</p>
+                                    <p class="text-gray-400 font-semibold">{{ 'reports.totalOrders' | translate }}</p>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +195,7 @@
                                     <h3 class="text-3xl font-black text-white">${{ monthlyReport()!.average_order_value
                                         |
                                         number:'1.2-2' }}</h3>
-                                    <p class="text-gray-400 font-semibold">Average Order</p>
+                                    <p class="text-gray-400 font-semibold">{{ 'reports.averageOrder' | translate }}</p>
                                 </div>
                             </div>
                         </div>
@@ -205,7 +205,7 @@
                     <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-6 mt-6">
                         <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
                             <i class="fas fa-list text-laser-500"></i>
-                            Order Breakdown by Status
+                            {{ 'reports.orderBreakdownByStatus' | translate }}
                         </h3>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-fire-500">

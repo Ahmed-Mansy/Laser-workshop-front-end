@@ -62,7 +62,7 @@
                             class="bg-metal-800/50 border-2 border-metal-700 rounded-lg sm:rounded-xl p-4 sm:p-6 backdrop-blur-sm">
                             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 text-gray-400">
                                 <i class="fas fa-info-circle text-laser-400 text-xl sm:text-2xl flex-shrink-0"></i>
-                                <p class="text-left">
+                                <p class="text-start">
                                     <span class="block text-white font-bold mb-1 text-sm sm:text-base">{{
                                         'orderManagement.whyNeedShift' | translate }}</span>
                                     <span class="text-xs sm:text-sm">{{ 'orderManagement.shiftExplanation' | translate
@@ -167,10 +167,10 @@
                         [class.fa-pencil-ruler]="selectedStatus() === 'DESIGNING'"
                         [class.fa-check-circle]="selectedStatus() === 'DESIGN_COMPLETED'"
                         [class.fa-box-open]="selectedStatus() === 'DELIVERED'"></i>
-                    {{selectedStatus() === 'UNDER_WORK' ? 'UNDER WORK' :
-                    selectedStatus() === 'DESIGNING' ? 'DESIGNING' :
-                    selectedStatus() === 'DESIGN_COMPLETED' ? 'DESIGN COMPLETED' :
-                    'DELIVERED'}}
+                    {{ (selectedStatus() === 'UNDER_WORK' ? 'orders.underWork' :
+                    selectedStatus() === 'DESIGNING' ? 'orders.designing' :
+                    selectedStatus() === 'DESIGN_COMPLETED' ? 'orders.designCompleted' :
+                    'orders.delivered') | translate }}
                     <span class="ml-auto text-lg font-normal">{{getOrdersByStatus(selectedStatus()).length}}
                         {{ 'orderManagement.ordersCount' | translate }}</span>
                 </h2>
@@ -214,8 +214,8 @@
                 } @empty {
                 <div class="col-span-full text-center py-20">
                     <i class="fas fa-inbox text-6xl text-gray-600 mb-4"></i>
-                    <h3 class="text-2xl font-bold text-gray-400 mb-2">No Orders in this Category</h3>
-                    <p class="text-gray-500">Orders will appear here when added</p>
+                    <h3 class="text-2xl font-bold text-gray-400 mb-2">{{ 'orders.noOrdersInCategory' | translate }}</h3>
+                    <p class="text-gray-500">{{ 'orders.ordersWillAppearHere' | translate }}</p>
                 </div>
                 }
             </div>

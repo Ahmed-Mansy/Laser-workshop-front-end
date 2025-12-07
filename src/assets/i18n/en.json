@@ -57,6 +57,248 @@
         "contactManager": "Please contact your manager for login credentials",
         "backToHome": "Back to Home"
     },
+    "dashboard": {
+        "managerTitle": "Manager Dashboard",
+        "managerSubtitle": "Overview of workshop performance and active shift",
+        "shiftManagement": "Shift Management",
+        "status": "Status",
+        "open": "Open",
+        "duration": "Duration",
+        "orders": "Orders",
+        "revenue": "Revenue",
+        "closeShift": "Close Shift",
+        "openNew": "Open New",
+        "noShift": "No Active Shift",
+        "startNewShift": "Start New Shift",
+        "todayRevenueWithOrders": "Today's Revenue ({{orders}} orders)",
+        "quickActions": "Quick Actions",
+        "manageOrders": "Manage Orders",
+        "manageEmployees": "Manage Employees",
+        "viewReports": "View Reports",
+        "totalOrders": "Total Orders",
+        "underWork": "Under Work",
+        "designing": "Designing",
+        "designCompleted": "Design Completed",
+        "delivered": "Delivered"
+    },
+    "workerDashboard": {
+        "title": "Worker Workspace",
+        "subtitle": "Manage your assigned orders and tasks",
+        "totalOrders": "Total Orders",
+        "quickActions": "Quick Actions",
+        "addNewOrder": "Add New Order",
+        "viewAllOrders": "View All Orders",
+        "recentOrders": "Recent Orders",
+        "noOrdersYet": "No orders assigned yet"
+    },
+    "shiftSummary": {
+        "revenue": "Revenue Generated",
+        "shiftClosed": "Shift Closed Successfully",
+        "shiftId": "Shift ID",
+        "opened": "Opened",
+        "closed": "Closed",
+        "close": "Close"
+    },
+    "showcase": {
+        "title": "Our Work Gallery",
+        "subtitle": "Explore our precision laser cutting projects",
+        "items": {
+            "metal": {
+                "cat": "Metal",
+                "title": "Custom Metal Fabrication",
+                "desc": "Intricate laser cutting on stainless steel and aluminum."
+            },
+            "wood": {
+                "cat": "Wood",
+                "title": "Decorative Wood Engraving",
+                "desc": "Personalized wooden gifts and precision cut signage."
+            },
+            "acrylic": {
+                "cat": "Acrylic",
+                "title": "Modern Acrylic Designs",
+                "desc": "Crystal clear awards and vibrant commercial displays."
+            },
+            "leather": {
+                "cat": "Leather",
+                "title": "Premium Leather Etching",
+                "desc": "Detailed patterns and branding on high-quality leather."
+            }
+        },
+        "info": {
+            "precision": {
+                "title": "High Precision",
+                "desc": "0.1mm accuracy for detailed cuts"
+            },
+            "materials": {
+                "title": "Versatile Materials",
+                "desc": "Wood, acrylic, leather, and metals"
+            },
+            "turnaround": {
+                "title": "Fast Turnaround",
+                "desc": "24-48 hour completion for most orders"
+            },
+            "custom": {
+                "title": "Custom Designs",
+                "desc": "Bring your own design or let us create one"
+            }
+        },
+        "cta": {
+            "title": "Ready to Create?",
+            "subtitle": "Contact us to start your project",
+            "button": "Get a Quote"
+        }
+    },
+    "orderManagement": {
+        "pageTitle": "Order Management",
+        "newOrder": "New Order",
+        "shiftRequired": "You must open a shift to add new orders",
+        "noActiveShift": "No Active Shift",
+        "noActiveShiftMessage": "To start managing orders and processing customer requests, please start a new shift from your dashboard.",
+        "whyNeedShift": "Why do I need a shift?",
+        "shiftExplanation": "Shifts help track revenue and performance for specific time periods.",
+        "searchByPhone": "Search by phone number...",
+        "underWork": "Under Work",
+        "underWorkDesc": "Orders being processed",
+        "designing": "Designing",
+        "designingDesc": "Refining designs",
+        "designCompleted": "Design Completed",
+        "designCompletedDesc": "Design approved",
+        "delivered": "Delivered",
+        "deliveredDesc": "Completed orders",
+        "noOrdersYet": "No orders found",
+        "clickNewOrder": "Click 'New Order' to add your first one",
+        "ordersCount": "Orders"
+    },
+    "orderForm": {
+        "editOrder": "Edit Order",
+        "addNewOrder": "Add New Order",
+        "createOrder": "Create Order",
+        "updateOrder": "Update Order",
+        "customerName": "Customer Name",
+        "customerNamePlaceholder": "Enter customer name",
+        "customerNameRequired": "Customer name is required",
+        "customerPhone": "Customer Phone",
+        "customerPhonePlaceholder": "Enter customer phone",
+        "customerPhoneRequired": "Customer phone is required",
+        "orderDetails": "Order Details",
+        "orderDetailsPlaceholder": "Enter order details",
+        "orderDetailsRequired": "Order details are required",
+        "status": "Status",
+        "price": "Price",
+        "pricePlaceholder": "Enter price",
+        "orderImage": "Order Image",
+        "uploadImage": "Upload Image",
+        "cancel": "Cancel",
+        "creating": "Creating...",
+        "updating": "Updating..."
+    },
+    "orders": {
+        "underWork": "Under Work",
+        "designing": "Designing",
+        "designCompleted": "Design Completed",
+        "delivered": "Delivered",
+        "orderNumber": "Order",
+        "customerInfo": "Customer Info",
+        "nameLabel": "Name:",
+        "phoneLabel": "Phone:",
+        "createdLabel": "Created:",
+        "orderDetails": "Order Details",
+        "orderImage": "Order Image",
+        "noOrdersInCategory": "No Orders in this Category",
+        "ordersWillAppearHere": "Orders will appear here when added"
+    },
+    "reports": {
+        "title": "Reports",
+        "subtitle": "View your workshop's performance",
+        "viewShiftHistory": "View Shift History",
+        "dailyReport": "Daily Report",
+        "selectDate": "Select Date",
+        "totalRevenue": "Total Revenue",
+        "totalOrders": "Total Orders",
+        "averageOrder": "Average Order",
+        "orderBreakdown": "Order Breakdown",
+        "orderBreakdownByStatus": "Order Breakdown by Status",
+        "viewMonthlyReport": "View Monthly Report",
+        "monthlyReport": "Monthly Report",
+        "selectMonthYear": "Select Month/Year",
+        "months": {
+            "january": "January",
+            "february": "February",
+            "march": "March",
+            "april": "April",
+            "may": "May",
+            "june": "June",
+            "july": "July",
+            "august": "August",
+            "september": "September",
+            "october": "October",
+            "november": "November",
+            "december": "December"
+        }
+    },
+    "shifts": {
+        "backToHistory": "Back to History",
+        "shiftDetailsTitle": "Shift Details #{{id}}",
+        "active": "Active",
+        "closedStatus": "Closed",
+        "duration": "Duration",
+        "ordersDelivered": "Orders Delivered",
+        "totalRevenue": "Total Revenue",
+        "avgPerOrder": "Avg. Per Order",
+        "deliveredOrders": "Delivered Orders",
+        "noOrdersDelivered": "No orders delivered in this shift",
+        "orderId": "Order ID",
+        "customer": "Customer",
+        "phone": "Phone",
+        "price": "Price",
+        "deliveredAt": "Delivered At",
+        "actions": "Actions",
+        "title": "Shift History",
+        "subtitle": "View past shifts and their performance",
+        "noShifts": "No shifts found",
+        "shiftId": "Shift ID",
+        "openedLabel": "Opened:",
+        "closedLabel": "Closed:",
+        "totalOrders": "Total Orders",
+        "viewDetails": "View Details"
+    },
+    "employeeManagement": {
+        "pageTitle": "Employee Management",
+        "subtitle": "Manage staff access and roles",
+        "addEmployee": "Add Employee",
+        "noEmployees": "No Employees Found",
+        "clickAddEmployee": "Click 'Add Employee' to get started",
+        "addFirstEmployee": "Add First Employee",
+        "totalEmployees": "Total Employees",
+        "joined": "Joined",
+        "delete": "Delete",
+        "addNewEmployee": "Add New Employee",
+        "username": "Username",
+        "usernamePlaceholder": "Enter username",
+        "usernameRequired": "Username is required",
+        "usernameMinLength": "Username must be at least 3 characters",
+        "email": "Email",
+        "emailPlaceholder": "Enter email address",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Invalid email address",
+        "firstName": "First Name",
+        "firstNamePlaceholder": "Enter first name",
+        "lastName": "Last Name",
+        "lastNamePlaceholder": "Enter last name",
+        "phoneOptional": "Phone (Optional)",
+        "phonePlaceholder": "Enter phone number",
+        "password": "Password",
+        "passwordPlaceholder": "Enter password",
+        "minChars": "Minimum 6 characters",
+        "confirmPassword": "Confirm Password",
+        "confirmPasswordPlaceholder": "Confirm password",
+        "passwordMismatch": "Passwords do not match"
+    },
+    "employees": {
+        "role": "Role",
+        "worker": "Worker",
+        "manager": "Manager"
+    },
     "common": {
         "save": "Save",
         "cancel": "Cancel",
@@ -77,7 +319,9 @@
         "view": "View",
         "required": "Required",
         "adding": "Adding...",
-        "loadingText": "LASER CUTTING..."
+        "loadingText": "LASER CUTTING...",
+        "hours": "hours",
+        "or": "OR"
     },
     "contact": {
         "title": "GET IN TOUCH",
@@ -87,7 +331,11 @@
         "linkedin": "LinkedIn",
         "whatsapp": "WhatsApp",
         "facebook": "Facebook",
-        "email": "Email"
+        "email": "Email",
+        "or": "OR"
+    },
+    "footer": {
+        "poweredBy": "Powered by"
     },
     "errors": {
         "clientError": "Client Error",

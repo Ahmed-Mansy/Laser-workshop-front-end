@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy, HostListener, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { TranslatePipe } from '../../../core/pipes/translate.pipe';
 import { LanguageService } from '../../../core/services/language.service';
+import { ContactDialogComponent } from '../../../shared/contact-dialog/contact-dialog';
 
 interface ShowcaseImage {
   title: string;
@@ -14,7 +16,7 @@ interface ShowcaseImage {
 @Component({
   selector: 'app-showcase',
   standalone: true,
-  imports: [CommonModule, RouterModule, TranslatePipe],
+  imports: [CommonModule, RouterModule, TranslatePipe, MatDialogModule],
   templateUrl: './showcase.html',
   styleUrl: './showcase.css'
 })
@@ -49,6 +51,8 @@ export class ShowcaseComponent implements OnInit, OnDestroy {
   currentSlide = signal(0);
   isAutoPlaying = signal(true);
   private autoPlayInterval: any;
+
+  constructor(private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.startAutoPlay();
@@ -98,6 +102,14 @@ export class ShowcaseComponent implements OnInit, OnDestroy {
     } else {
       this.stopAutoPlay();
     }
+  }
+
+  openContactDialog(): void {
+    this.dialog.open(ContactDialogComponent, {
+      width: '600px',
+      maxWidth: '90vw',
+      panelClass: 'custom-dialog-container'
+    });
   }
 
   @HostListener('window:keydown', ['$event'])

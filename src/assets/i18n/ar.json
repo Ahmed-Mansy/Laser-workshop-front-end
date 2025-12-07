@@ -57,6 +57,248 @@
         "contactManager": "يرجى التواصل مع المدير للحصول على بيانات الدخول",
         "backToHome": "العودة للرئيسية"
     },
+    "dashboard": {
+        "managerTitle": "لوحة تحكم المدير",
+        "managerSubtitle": "نظرة عامة على أداء الورشة والوردية النشطة",
+        "shiftManagement": "إدارة الورديات",
+        "status": "الحالة",
+        "open": "مفتوح",
+        "duration": "المدة",
+        "orders": "الطلبات",
+        "revenue": "الإيرادات",
+        "closeShift": "إغلاق الوردية",
+        "openNew": "فتح جديد",
+        "noShift": "لا توجد وردية نشطة",
+        "startNewShift": "بدء وردية جديدة",
+        "todayRevenueWithOrders": "إيرادات اليوم ({{orders}} طلبات)",
+        "quickActions": "إجراءات سريعة",
+        "manageOrders": "إدارة الطلبات",
+        "manageEmployees": "إدارة الموظفين",
+        "viewReports": "عرض التقارير",
+        "totalOrders": "إجمالي الطلبات",
+        "underWork": "قيد العمل",
+        "designing": "جاري التصميم",
+        "designCompleted": "تم التصميم",
+        "delivered": "تم التسليم"
+    },
+    "workerDashboard": {
+        "title": "مساحة عمل الموظف",
+        "subtitle": "إدارة الطلبات والمهام المسندة إليك",
+        "totalOrders": "إجمالي الطلبات",
+        "quickActions": "إجراءات سريعة",
+        "addNewOrder": "إضافة طلب جديد",
+        "viewAllOrders": "عرض كل الطلبات",
+        "recentOrders": "أحدث الطلبات",
+        "noOrdersYet": "لا توجد طلبات مسندة بعد"
+    },
+    "shiftSummary": {
+        "revenue": "الإيرادات المحققة",
+        "shiftClosed": "تم إغلاق الوردية بنجاح",
+        "shiftId": "رقم الوردية",
+        "opened": "وقت الفتح",
+        "closed": "وقت الإغلاق",
+        "close": "إغلاق"
+    },
+    "showcase": {
+        "title": "معرض أعمالنا",
+        "subtitle": "استكشف مشاريعنا المتميزة في القص بالليزر",
+        "items": {
+            "metal": {
+                "cat": "معادن",
+                "title": "تصنيع المعادن المخصص",
+                "desc": "قص بالليزر دقيق على الفولاذ المقاوم للصدأ والألمنيوم."
+            },
+            "wood": {
+                "cat": "خشب",
+                "title": "حفر زخرفي على الخشب",
+                "desc": "هدايا خشبية مخصصة ولافتات مقصوصة بدقة."
+            },
+            "acrylic": {
+                "cat": "أكريليك",
+                "title": "تصاميم أكريليك عصرية",
+                "desc": "دروع كريستالية واضحة وشاشات تجارية نابضة بالحياة."
+            },
+            "leather": {
+                "cat": "جلود",
+                "title": "حفر على الجلود الفاخرة",
+                "desc": "أنماط تفصيلية وعلامات تجارية على جلود عالية الجودة."
+            }
+        },
+        "info": {
+            "precision": {
+                "title": "دقة عالية",
+                "desc": "دقة 0.1 مم للقص التفصيلي"
+            },
+            "materials": {
+                "title": "مواد متعددة",
+                "desc": "خشب، أكريليك، جلود، ومعادن"
+            },
+            "turnaround": {
+                "title": "سرعة التنفيذ",
+                "desc": "إنجاز خلال 24-48 ساعة لمعظم الطلبات"
+            },
+            "custom": {
+                "title": "تصاميم مخصصة",
+                "desc": "أحضر تصميمك أو دعنا نصمم لك"
+            }
+        },
+        "cta": {
+            "title": "جاهز للإبداع؟",
+            "subtitle": "تواصل معنا لبدء مشروعك",
+            "button": "اطلب عرض سعر"
+        }
+    },
+    "orderManagement": {
+        "pageTitle": "إدارة الطلبات",
+        "newOrder": "طلب جديد",
+        "shiftRequired": "يجب فتح وردية لإضافة طلبات جديدة",
+        "noActiveShift": "لا توجد وردية نشطة",
+        "noActiveShiftMessage": "للبدء في إدارة الطلبات ومعالجة طلبات العملاء، يرجى بدء وردية جديدة من لوحة التحكم.",
+        "whyNeedShift": "لماذا أحتاج لوردية؟",
+        "shiftExplanation": "تساعد الورديات في تتبع الإيرادات والأداء لفترات زمنية محددة.",
+        "searchByPhone": "بحث برقم الهاتف...",
+        "underWork": "قيد العمل",
+        "underWorkDesc": "طلبات قيد المعالجة",
+        "designing": "جاري التصميم",
+        "designingDesc": "تحسين التصاميم",
+        "designCompleted": "تم التصميم",
+        "designCompletedDesc": "تم اعتماد التصميم",
+        "delivered": "تم التسليم",
+        "deliveredDesc": "طلبات مكتملة",
+        "noOrdersYet": "لا توجد طلبات",
+        "clickNewOrder": "اضغط 'طلب جديد' لإضافة طلبك الأول",
+        "ordersCount": "طلبات"
+    },
+    "orderForm": {
+        "editOrder": "تعديل الطلب",
+        "addNewOrder": "إضافة طلب جديد",
+        "createOrder": "إنشاء الطلب",
+        "updateOrder": "تحديث الطلب",
+        "customerName": "اسم العميل",
+        "customerNamePlaceholder": "أدخل اسم العميل",
+        "customerNameRequired": "اسم العميل مطلوب",
+        "customerPhone": "رقم الهاتف",
+        "customerPhonePlaceholder": "أدخل رقم الهاتف",
+        "customerPhoneRequired": "رقم الهاتف مطلوب",
+        "orderDetails": "تفاصيل الطلب",
+        "orderDetailsPlaceholder": "أدخل تفاصيل الطلب",
+        "orderDetailsRequired": "تفاصيل الطلب مطلوبة",
+        "status": "الحالة",
+        "price": "السعر",
+        "pricePlaceholder": "أدخل السعر",
+        "orderImage": "صورة الطلب",
+        "uploadImage": "رفع صورة",
+        "cancel": "إلغاء",
+        "creating": "جاري الانشاء...",
+        "updating": "جاري التحديث..."
+    },
+    "orders": {
+        "underWork": "قيد العمل",
+        "designing": "جاري التصميم",
+        "designCompleted": "تم التصميم",
+        "delivered": "تم التسليم",
+        "orderNumber": "طلب رقم",
+        "customerInfo": "بيانات العميل",
+        "nameLabel": "الاسم:",
+        "phoneLabel": "الهاتف:",
+        "createdLabel": "تاريخ الانشاء:",
+        "orderDetails": "تفاصيل الطلب",
+        "orderImage": "صورة الطلب",
+        "noOrdersInCategory": "لا توجد طلبات في هذه الفئة",
+        "ordersWillAppearHere": "ستظهر الطلبات هنا عند إضافتها"
+    },
+    "reports": {
+        "title": "التقارير",
+        "subtitle": "عرض أداء الورشة",
+        "viewShiftHistory": "عرض سجل الورديات",
+        "dailyReport": "التقرير اليومي",
+        "selectDate": "اختر التاريخ",
+        "totalRevenue": "إجمالي الإيرادات",
+        "totalOrders": "إجمالي الطلبات",
+        "averageOrder": "متوسط الطلب",
+        "orderBreakdown": "تفاصيل الطلبات",
+        "orderBreakdownByStatus": "تفاصيل الطلبات حسب الحالة",
+        "viewMonthlyReport": "عرض التقرير الشهري",
+        "monthlyReport": "التقرير الشهري",
+        "selectMonthYear": "اختر الشهر/السنة",
+        "months": {
+            "january": "يناير",
+            "february": "فبراير",
+            "march": "مارس",
+            "april": "أبريل",
+            "may": "مايو",
+            "june": "يونيو",
+            "july": "يوليو",
+            "august": "أغسطس",
+            "september": "سبتمبر",
+            "october": "أكتوبر",
+            "november": "نوفمبر",
+            "december": "ديسمبر"
+        }
+    },
+    "shifts": {
+        "backToHistory": "العودة للسجل",
+        "shiftDetailsTitle": "تفاصيل الوردية رقم {{id}}",
+        "active": "نشطة",
+        "closedStatus": "مغلقة",
+        "duration": "المدة",
+        "ordersDelivered": "الطلبات المسلمة",
+        "totalRevenue": "إجمالي الإيرادات",
+        "avgPerOrder": "المتوسط لكل طلب",
+        "deliveredOrders": "الطلبات المسلمة",
+        "noOrdersDelivered": "لم يتم تسليم أي طلبات في هذه الوردية",
+        "orderId": "رقم الطلب",
+        "customer": "العميل",
+        "phone": "الهاتف",
+        "price": "السعر",
+        "deliveredAt": "وقت التسليم",
+        "actions": "إجراءات",
+        "title": "سجل الورديات",
+        "subtitle": "عرض الورديات السابقة وأدائها",
+        "noShifts": "لا توجد ورديات",
+        "shiftId": "رقم الوردية",
+        "openedLabel": "فتح:",
+        "closedLabel": "إغلاق:",
+        "totalOrders": "إجمالي الطلبات",
+        "viewDetails": "عرض التفاصيل"
+    },
+    "employeeManagement": {
+        "pageTitle": "إدارة الموظفين",
+        "subtitle": "إدارة صلاحيات وأدوار الموظفين",
+        "addEmployee": "إضافة موظف",
+        "noEmployees": "لا يوجد موظفين",
+        "clickAddEmployee": "اضغط 'إضافة موظف' للبدء",
+        "addFirstEmployee": "إضافة أول موظف",
+        "totalEmployees": "إجمالي الموظفين",
+        "joined": "انضم",
+        "delete": "حذف",
+        "addNewEmployee": "إضافة موظف جديد",
+        "username": "اسم المستخدم",
+        "usernamePlaceholder": "أدخل اسم المستخدم",
+        "usernameRequired": "اسم المستخدم مطلوب",
+        "usernameMinLength": "يجب أن يكون اسم المستخدم 3 أحرف على الأقل",
+        "email": "البريد الإلكتروني",
+        "emailPlaceholder": "أدخل البريد الإلكتروني",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "بريد إلكتروني غير صالح",
+        "firstName": "الاسم الأول",
+        "firstNamePlaceholder": "أدخل الاسم الأول",
+        "lastName": "اسم العائلة",
+        "lastNamePlaceholder": "أدخل اسم العائلة",
+        "phoneOptional": "الهاتف (اختياري)",
+        "phonePlaceholder": "أدخل رقم الهاتف",
+        "password": "كلمة المرور",
+        "passwordPlaceholder": "أدخل كلمة المرور",
+        "minChars": "6 أحرف كحد أدنى",
+        "confirmPassword": "تأكيد كلمة المرور",
+        "confirmPasswordPlaceholder": "أعد إدخال كلمة المرور",
+        "passwordMismatch": "كلمات المرور غير متطابقة"
+    },
+    "employees": {
+        "role": "الدور الوظيفي",
+        "worker": "موظف",
+        "manager": "مدير"
+    },
     "common": {
         "save": "حفظ",
         "cancel": "إلغاء",
@@ -77,7 +319,9 @@
         "view": "عرض",
         "required": "مطلوب",
         "adding": "جاري الإضافة...",
-        "loadingText": "جاري القص بالليزر..."
+        "loadingText": "جاري القص بالليزر...",
+        "hours": "ساعة",
+        "or": "أو"
     },
     "contact": {
         "title": "تواصل معنا",
@@ -87,7 +331,11 @@
         "linkedin": "لينكد إن",
         "whatsapp": "واتساب",
         "facebook": "فيسبوك",
-        "email": "البريد الإلكتروني"
+        "email": "البريد الإلكتروني",
+        "or": "أو"
+    },
+    "footer": {
+        "poweredBy": "تصميم وتطوير"
     },
     "errors": {
         "clientError": "خطأ في العميل",

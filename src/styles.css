@@ -38,6 +38,23 @@
     h6 {
         @apply font-['Rajdhani'] font-bold;
     }
+
+    .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: #f97316 #1a1a1a;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+        @apply w-2;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        @apply bg-metal-900 rounded-lg;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        @apply bg-gradient-to-br from-laser-500 to-fire-500 rounded-md;
+    }
 }
 
 /* Fire glow effect */

@@ -1,12 +1,14 @@
 <div class="showcase-wrapper">
     <!-- Header -->
+    <!-- Header -->
     <div class="showcase-header">
-        <h1 class="text-5xl md:text-6xl font-black text-fire flex items-center justify-center gap-4">
+        <h1
+            class="text-3xl md:text-6xl font-black text-fire flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4">
             <i class="fas fa-fire"></i>
-            {{ 'showcase.title' | translate }}
+            <span class="text-center">{{ 'showcase.title' | translate }}</span>
             <i class="fas fa-fire"></i>
         </h1>
-        <p class="text-xl text-gray-300 mt-4">{{ 'showcase.subtitle' | translate }}</p>
+        <p class="text-lg md:text-xl text-gray-300 mt-4 px-4">{{ 'showcase.subtitle' | translate }}</p>
     </div>
 
     <!-- Carousel Container -->
@@ -87,12 +89,12 @@
 
     <!-- CTA Section -->
     <div class="cta-section">
-        <h2 class="text-4xl font-black text-white mb-4">{{ 'showcase.cta.title' | translate }}</h2>
-        <p class="text-xl text-gray-300 mb-8">{{ 'showcase.cta.subtitle' | translate }}</p>
-        <a routerLink="/login" class="cta-button">
+        <h2 class="text-2xl md:text-4xl font-black text-white mb-4 px-4">{{ 'showcase.cta.title' | translate }}</h2>
+        <p class="text-lg md:text-xl text-gray-300 mb-8 px-4">{{ 'showcase.cta.subtitle' | translate }}</p>
+        <button (click)="openContactDialog()" class="cta-button">
             <i class="fas fa-rocket mr-2"></i>
             {{ 'showcase.cta.button' | translate }}
             <i class="fas fa-arrow-right ml-2"></i>
-        </a>
+        </button>
     </div>
 </div>

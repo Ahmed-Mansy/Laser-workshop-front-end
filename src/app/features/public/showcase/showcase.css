@@ -276,7 +276,21 @@
     }
 
     .info-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .cta-section {
+        padding: 3rem 1rem;
+        margin-top: 2rem;
+    }
+
+    .cta-button {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+        width: 100%;
+        justify-content: center;
+        max-width: 300px;
     }
 }
 
