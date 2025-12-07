@@ -337,6 +337,11 @@
     "footer": {
         "poweredBy": "Powered by"
     },
+    "messages": {
+        "orderCreated": "New order created successfully",
+        "orderStatusUpdated": "Order status updated successfully",
+        "errorUpdatingStatus": "Error updating order status"
+    },
     "errors": {
         "clientError": "Client Error",
         "serverError": "Server Error",

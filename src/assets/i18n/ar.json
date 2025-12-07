@@ -337,6 +337,11 @@
     "footer": {
         "poweredBy": "تصميم وتطوير"
     },
+    "messages": {
+        "orderCreated": "تم إنشاء طلب جديد بنجاح",
+        "orderStatusUpdated": "تم تحديث حالة الطلب بنجاح",
+        "errorUpdatingStatus": "حدث خطأ أثناء تحديث حالة الطلب"
+    },
     "errors": {
         "clientError": "خطأ في العميل",
         "serverError": "خطأ في الخادم",
