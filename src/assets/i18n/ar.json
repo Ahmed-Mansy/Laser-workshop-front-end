@@ -346,7 +346,8 @@
         "deleteOrderConfirm": "هل أنت متأكد من حذف هذا الطلب؟",
         "orderDeleted": "تم حذف الطلب بنجاح",
         "errorDeletingOrder": "حدث خطأ أثناء حذف الطلب",
-        "errorLoadingOrders": "حدث خطأ أثناء تحميل الطلبات"
+        "errorLoadingOrders": "حدث خطأ أثناء تحميل الطلبات",
+        "invalidCredentials": "حساب المستخدم أو كلمة المرور غير صحيحة"
     },
     "errors": {
         "clientError": "خطأ في العميل",

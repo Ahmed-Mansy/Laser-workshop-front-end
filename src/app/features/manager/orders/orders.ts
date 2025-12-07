@@ -17,6 +17,7 @@ import { Shift } from '../../../core/models/shift.model';
 import { AddOrderComponent } from '../add-order/add-order';
 import { OrderDetailsComponent } from '../order-details/order-details';
 import { TranslatePipe } from '../../../core/pipes/translate.pipe';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-orders',
@@ -44,6 +45,7 @@ export class OrdersComponent implements OnInit {
   private dialog = inject(MatDialog);
   private ngZone = inject(NgZone);
   private languageService = inject(LanguageService);
+  private toastr = inject(ToastrService);
 
   displayedColumns: string[] = ['id', 'customer_name', 'customer_phone', 'status', 'price', 'created_at', 'actions'];
 
@@ -241,15 +243,18 @@ export class OrdersComponent implements OnInit {
     // Use dedicated status update endpoint (works for both managers and workers)
     this.orderService.updateOrderStatus(order.id, { status: nextStatus }).subscribe({
       next: () => {
-        this.snackBar.open(this.languageService.translate('messages.orderStatusUpdated'), this.languageService.translate('common.close'), { duration: 3000 });
+        // this.snackBar.open(this.languageService.translate('messages.orderStatusUpdated'), this.languageService.translate('common.close'), { duration: 3000 });
+        this.toastr.success(this.languageService.translate('messages.orderStatusUpdated'));
         this.loadOrders();
       },
       error: (error) => {
         let errorMessage = 'messages.errorUpdatingStatus';
-        if (error.error && error.error.status && error.error.status[0]) {
-          errorMessage = error.error.status[0];
+        // Error interceptor creates error.error.errors from Django validation errors
+        if (error.error?.errors?.status && Array.isArray(error.error.errors.status)) {
+          errorMessage = error.error.errors.status[0];
         }
         this.snackBar.open(this.languageService.translate(errorMessage), this.languageService.translate('common.close'), { duration: 5000 });
+
       }
     });
   }
