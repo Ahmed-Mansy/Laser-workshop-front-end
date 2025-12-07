@@ -9,6 +9,35 @@
         "employees": "الموظفين",
         "welcome": "مرحباً"
     },
+    "home": {
+        "heroTitle": "خدمات القص بالليزر بدقة عالية",
+        "heroSubtitle": "حول أفكارك إلى واقع باستخدام أحدث تقنيات القص بالليزر",
+        "viewWork": "عرض أعمالنا",
+        "staffLogin": "دخول الموظفين",
+        "featuresTitle": "لماذا تختارنا",
+        "featuresSubtitle": "كل ما تحتاجه لإدارة أعمال القص بالليزر",
+        "features": {
+            "orderManagement": {
+                "title": "إدارة الطلبات",
+                "description": "تتبع وإدارة جميع طلبات العملاء في مكان واحد"
+            },
+            "financialReports": {
+                "title": "التقارير المالية",
+                "description": "رؤى تفصيلية حول أداء عملك"
+            },
+            "teamCollaboration": {
+                "title": "التعاون الجماعي",
+                "description": "تنسيق سلس مع أعضاء فريقك"
+            },
+            "showcaseGallery": {
+                "title": "معرض الأعمال",
+                "description": "اعرض أفضل أعمالك للعملاء المحتملين"
+            }
+        },
+        "ctaTitle": "هل أنت مستعد للبدء؟",
+        "ctaSubtitle": "انضم إلينا اليوم واختبر مستقبل القص بالليزر",
+        "getStartedNow": "ابدأ الآن"
+    },
     "auth": {
         "loginTitle": "تسجيل الدخول",
         "loginSubtitle": "مرحباً بعودتك إلى ورشة الليزر",

@@ -9,6 +9,35 @@
         "employees": "Employees",
         "welcome": "Welcome"
     },
+    "home": {
+        "heroTitle": "Precision Laser Cutting at Your Service",
+        "heroSubtitle": "Transform your ideas into reality with our state-of-the-art laser cutting technology",
+        "viewWork": "View Our Work",
+        "staffLogin": "Staff Login",
+        "featuresTitle": "Why Choose Us",
+        "featuresSubtitle": "Everything you need to manage your laser cutting business",
+        "features": {
+            "orderManagement": {
+                "title": "Order Management",
+                "description": "Track and manage all customer orders in one place"
+            },
+            "financialReports": {
+                "title": "Financial Reports",
+                "description": "Detailed insights into your business performance"
+            },
+            "teamCollaboration": {
+                "title": "Team Collaboration",
+                "description": "Coordinate seamlessly with your team members"
+            },
+            "showcaseGallery": {
+                "title": "Showcase Gallery",
+                "description": "Display your best work to potential clients"
+            }
+        },
+        "ctaTitle": "Ready to Get Started?",
+        "ctaSubtitle": "Join us today and experience the future of laser cutting",
+        "getStartedNow": "Get Started Now"
+    },
     "auth": {
         "loginTitle": "Sign In",
         "loginSubtitle": "Welcome back to Laser Workshop",
