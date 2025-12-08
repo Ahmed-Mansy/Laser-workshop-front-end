@@ -30,15 +30,13 @@ export class LanguageService {
      * Load translation files and return a promise that resolves when both are loaded
      */
     loadTranslations(): Promise<void> {
-        console.log('[LanguageService] Starting to load translations...');
+
         return lastValueFrom(
             forkJoin([
                 this.loadTranslationFile('en'),
                 this.loadTranslationFile('ar')
             ])
-        ).then(() => {
-            console.log('[LanguageService] All translations loaded', this.translations);
-        }).catch(err => {
+        ).then(() => { }).catch(err => {
             console.error('[LanguageService] Failed to load translations:', err);
             throw err;
         });
@@ -49,11 +47,11 @@ export class LanguageService {
      */
     private loadTranslationFile(lang: Language): Observable<Translations> {
         const url = `/assets/i18n/${lang}.json?v=${new Date().getTime()}`;
-        console.log(`[LanguageService] Loading ${lang} from ${url}`);
+
 
         return this.http.get<Translations>(url).pipe(
             tap(translations => {
-                console.log(`[LanguageService] Loaded ${lang} translations:`, Object.keys(translations));
+
                 this.translations[lang] = translations;
             }),
             catchError(error => {
