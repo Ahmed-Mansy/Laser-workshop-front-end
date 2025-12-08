@@ -30,7 +30,7 @@ export class LoadingService {
             // Add 1-second delay before hiding
             this.hideTimeout = setTimeout(() => {
                 this.loadingSubject.next(false);
-            }, 1000);
+            }, 500);
         }
     }
 }
