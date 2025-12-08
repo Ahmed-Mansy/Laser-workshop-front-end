@@ -345,6 +345,7 @@
     },
     "messages": {
         "orderCreated": "New order created successfully",
+        "orderUpdated": "Order updated successfully",
         "orderStatusUpdated": "Order status updated successfully",
         "errorUpdatingStatus": "Error updating order status",
         "priceRequired": "Cannot mark as Delivered: Order price is required. Please edit the order to add a price first.",
