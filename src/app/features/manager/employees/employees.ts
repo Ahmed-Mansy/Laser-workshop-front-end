@@ -44,7 +44,6 @@ export class EmployeesComponent implements OnInit {
             next: (users) => {
                 this.employees.set(users);
                 this.isLoading.set(false);
-                console.log('Loaded employees:', users);
             },
             error: (error) => {
                 console.error('Error loading employees:', error);
