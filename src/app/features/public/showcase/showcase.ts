@@ -52,7 +52,7 @@ export class ShowcaseComponent implements OnInit, OnDestroy {
   isAutoPlaying = signal(true);
   private autoPlayInterval: any;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, protected languageService: LanguageService) { }
 
   ngOnInit(): void {
     this.startAutoPlay();

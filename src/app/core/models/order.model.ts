@@ -1,4 +1,4 @@
-export type OrderStatus = 'UNDER_WORK' | 'DESIGNING' | 'DESIGN_COMPLETED' | 'DELIVERED';
+export type OrderStatus = 'UNDER_WORK' | 'DESIGNING' | 'DESIGN_COMPLETED' | 'DONE_CUTTING' | 'DELIVERED';
 
 export interface Order {
     id: number;

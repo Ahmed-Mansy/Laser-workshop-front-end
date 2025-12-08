@@ -1,23 +1,23 @@
-<div class="min-h-screen bg-gradient-to-b from-metal-900 to-black p-6">
+<div class="min-h-screen bg-gradient-to-b from-metal-900 to-black p-3 md:p-6">
     <div class="max-w-7xl mx-auto">
         <!-- Back Button -->
-        <button mat-button (click)="goBack()" class="!text-gray-400 hover:!text-white mb-4">
+        <button mat-button (click)="goBack()" class="!text-gray-400 hover:!text-white mb-4 text-sm md:text-base">
             <i class="fas fa-arrow-left mr-2"></i>
             {{ 'shifts.backToHistory' | translate }}
         </button>
 
         @if (isLoading()) {
-        <div class="flex justify-center items-center py-32">
+        <div class="flex justify-center items-center py-20 md:py-32">
             <mat-spinner class="!border-laser-500"></mat-spinner>
         </div>
         } @else if (shift()) {
         <!-- Header -->
-        <div class="mb-8">
-            <h1 class="text-4xl md:text-5xl font-black text-fire flex items-center gap-3">
-                <i class="fas fa-receipt"></i>
-                {{ 'shifts.shiftDetailsTitle' | translate: { id: shift()!.id } }}
+        <div class="mb-6 md:mb-8">
+            <h1 class="text-2xl md:text-5xl font-black text-fire flex items-center gap-2 md:gap-3">
+                <i class="fas fa-receipt text-xl md:text-4xl"></i>
+                <span class="truncate">{{ 'shifts.shiftDetailsTitle' | translate: { id: shift()!.id } }}</span>
             </h1>
-            <p class="text-xl text-gray-400 mt-2">
+            <p class="text-sm md:text-xl text-gray-400 mt-1 md:mt-2">
                 {{ formatDate(shift()!.opened_at) }}
                 @if (shift()!.is_active) {
                 <span class="text-green-400 ml-2">({{ 'shifts.active' | translate }})</span>
@@ -28,19 +28,21 @@
         </div>
 
         <!-- Shift Summary -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-6 md:mb-8">
             <!-- Duration -->
             <mat-card class="bg-metal-800 border-2 border-metal-700">
-                <div class="p-6">
-                    <div class="flex items-center gap-4">
+                <div class="p-4 md:p-6">
+                    <div class="flex items-center gap-3 md:gap-4">
                         <div
-                            class="w-12 h-12 rounded-lg bg-gradient-to-br from-spark-500 to-fire-500 flex items-center justify-center">
-                            <i class="fas fa-clock text-xl text-white"></i>
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-spark-500 to-fire-500 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-clock text-lg md:text-xl text-white"></i>
                         </div>
-                        <div>
-                            <h3 class="text-2xl font-black text-white">{{ shift()!.duration_hours }} {{ 'common.hours' |
+                        <div class="overflow-hidden">
+                            <h3 class="text-xl md:text-2xl font-black text-white truncate">{{ shift()!.duration_hours }}
+                                {{ 'common.hours' |
                                 translate }}</h3>
-                            <p class="text-gray-400 text-sm font-semibold">{{ 'shifts.duration' | translate }}</p>
+                            <p class="text-gray-400 text-xs md:text-sm font-semibold truncate">{{ 'shifts.duration' |
+                                translate }}</p>
                         </div>
                     </div>
                 </div>
@@ -48,14 +50,17 @@
 
             <!-- Orders Delivered -->
             <mat-card class="bg-metal-800 border-2 border-fire-600">
-                <div class="p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-lg bg-fire-gradient flex items-center justify-center">
-                            <i class="fas fa-box text-xl text-white"></i>
+                <div class="p-4 md:p-6">
+                    <div class="flex items-center gap-3 md:gap-4">
+                        <div
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-fire-gradient flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-box text-lg md:text-xl text-white"></i>
                         </div>
-                        <div>
-                            <h3 class="text-2xl font-black text-white">{{ shift()!.total_orders_delivered }}</h3>
-                            <p class="text-gray-400 text-sm font-semibold">{{ 'shifts.ordersDelivered' | translate }}
+                        <div class="overflow-hidden">
+                            <h3 class="text-xl md:text-2xl font-black text-white truncate">{{
+                                shift()!.total_orders_delivered }}</h3>
+                            <p class="text-gray-400 text-xs md:text-sm font-semibold truncate">{{
+                                'shifts.ordersDelivered' | translate }}
                             </p>
                         </div>
                     </div>
@@ -64,15 +69,18 @@
 
             <!-- Total Revenue -->
             <mat-card class="bg-metal-800 border-2 border-laser-600">
-                <div class="p-6">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-lg bg-laser-gradient flex items-center justify-center fire-glow">
-                            <i class="fas fa-dollar-sign text-xl text-white"></i>
+                <div class="p-4 md:p-6">
+                    <div class="flex items-center gap-3 md:gap-4">
+                        <div
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-laser-gradient flex items-center justify-center fire-glow flex-shrink-0">
+                            <i class="fas fa-dollar-sign text-lg md:text-xl text-white"></i>
                         </div>
-                        <div>
-                            <h3 class="text-2xl font-black text-white">${{ shift()!.total_revenue | number:'1.2-2' }}
+                        <div class="overflow-hidden">
+                            <h3 class="text-xl md:text-2xl font-black text-white truncate">${{ shift()!.total_revenue |
+                                number:'1.2-2' }}
                             </h3>
-                            <p class="text-gray-400 text-sm font-semibold">{{ 'shifts.totalRevenue' | translate }}</p>
+                            <p class="text-gray-400 text-xs md:text-sm font-semibold truncate">{{ 'shifts.totalRevenue'
+                                | translate }}</p>
                         </div>
                     </div>
                 </div>
@@ -80,18 +88,19 @@
 
             <!-- Avg Revenue Per Order -->
             <mat-card class="bg-metal-800 border-2 border-green-600">
-                <div class="p-6">
-                    <div class="flex items-center gap-4">
+                <div class="p-4 md:p-6">
+                    <div class="flex items-center gap-3 md:gap-4">
                         <div
-                            class="w-12 h-12 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
-                            <i class="fas fa-chart-line text-xl text-white"></i>
+                            class="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-chart-line text-lg md:text-xl text-white"></i>
                         </div>
-                        <div>
-                            <h3 class="text-2xl font-black text-white">
+                        <div class="overflow-hidden">
+                            <h3 class="text-xl md:text-2xl font-black text-white truncate">
                                 ${{ shift()!.total_orders_delivered > 0 ? (shift()!.total_revenue /
                                 shift()!.total_orders_delivered) : 0 | number:'1.2-2' }}
                             </h3>
-                            <p class="text-gray-400 text-sm font-semibold">{{ 'shifts.avgPerOrder' | translate }}</p>
+                            <p class="text-gray-400 text-xs md:text-sm font-semibold truncate">{{ 'shifts.avgPerOrder' |
+                                translate }}</p>
                         </div>
                     </div>
                 </div>
@@ -100,69 +109,86 @@
 
         <!-- Delivered Orders Table -->
         <mat-card class="bg-metal-800 border-2 border-metal-700">
-            <div class="p-6">
-                <h2 class="text-2xl font-black text-white mb-4 flex items-center gap-2">
+            <div class="p-3 md:p-6">
+                <h2 class="text-lg md:text-2xl font-black text-white mb-3 md:mb-4 flex items-center gap-2">
                     <i class="fas fa-list text-laser-500"></i>
                     {{ 'shifts.deliveredOrders' | translate }}
                 </h2>
 
                 @if (deliveredOrders().length === 0) {
-                <div class="text-center py-16">
-                    <i class="fas fa-inbox text-4xl text-gray-600 mb-4"></i>
-                    <p class="text-gray-400">{{ 'shifts.noOrdersDelivered' | translate }}</p>
+                <div class="text-center py-10 md:py-16">
+                    <i class="fas fa-inbox text-3xl md:text-4xl text-gray-600 mb-3 md:mb-4"></i>
+                    <p class="text-gray-400 text-sm md:text-base">{{ 'shifts.noOrdersDelivered' | translate }}</p>
                 </div>
                 } @else {
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto no-scrollbar">
                     <table mat-table [dataSource]="deliveredOrders()" class="w-full">
                         <!-- ID Column -->
                         <ng-container matColumnDef="id">
-                            <th mat-header-cell *matHeaderCellDef class="!bg-metal-900 !text-gray-400 !font-bold">{{
-                                'shifts.orderId' | translate }}
+                            <th mat-header-cell *matHeaderCellDef
+                                class="!bg-metal-900 !text-gray-400 !font-bold !text-xs md:!text-sm whitespace-nowrap pl-4 pr-2 py-3 rounded-l-lg">
+                                {{ 'shifts.orderId' | translate }}
                             </th>
-                            <td mat-cell *matCellDef="let order" class="!text-white">#{{ order.id }}</td>
+                            <td mat-cell *matCellDef="let order"
+                                class="!text-white !text-xs md:!text-sm whitespace-nowrap pl-4 pr-2 py-3 border-b border-metal-700">
+                                #{{ order.id }}
+                            </td>
                         </ng-container>
 
                         <!-- Customer Name -->
                         <ng-container matColumnDef="customer_name">
-                            <th mat-header-cell *matHeaderCellDef class="!bg-metal-900 !text-gray-400 !font-bold">
+                            <th mat-header-cell *matHeaderCellDef
+                                class="!bg-metal-900 !text-gray-400 !font-bold !text-xs md:!text-sm whitespace-nowrap px-2 py-3">
                                 {{ 'shifts.customer' | translate }}</th>
-                            <td mat-cell *matCellDef="let order" class="!text-white">{{ order.customer_name }}</td>
+                            <td mat-cell *matCellDef="let order"
+                                class="!text-white !text-xs md:!text-sm whitespace-nowrap px-2 py-3 border-b border-metal-700">
+                                {{ order.customer_name }}
+                            </td>
                         </ng-container>
 
                         <!-- Phone -->
                         <ng-container matColumnDef="customer_phone">
-                            <th mat-header-cell *matHeaderCellDef class="!bg-metal-900 !text-gray-400 !font-bold">{{
-                                'shifts.phone' | translate }}
+                            <th mat-header-cell *matHeaderCellDef
+                                class="!bg-metal-900 !text-gray-400 !font-bold !text-xs md:!text-sm whitespace-nowrap px-2 py-3">
+                                {{ 'shifts.phone' | translate }}
                             </th>
-                            <td mat-cell *matCellDef="let order" class="!text-gray-400">{{ order.customer_phone }}</td>
+                            <td mat-cell *matCellDef="let order"
+                                class="!text-gray-400 !text-xs md:!text-sm whitespace-nowrap px-2 py-3 border-b border-metal-700">
+                                {{ order.customer_phone }}
+                            </td>
                         </ng-container>
 
                         <!-- Price -->
                         <ng-container matColumnDef="price">
-                            <th mat-header-cell *matHeaderCellDef class="!bg-metal-900 !text-gray-400 !font-bold">{{
-                                'shifts.price' | translate }}
+                            <th mat-header-cell *matHeaderCellDef
+                                class="!bg-metal-900 !text-gray-400 !font-bold !text-xs md:!text-sm whitespace-nowrap px-2 py-3">
+                                {{ 'shifts.price' | translate }}
                             </th>
-                            <td mat-cell *matCellDef="let order" class="!text-green-400 !font-bold">
+                            <td mat-cell *matCellDef="let order"
+                                class="!text-green-400 !font-bold !text-xs md:!text-sm whitespace-nowrap px-2 py-3 border-b border-metal-700">
                                 ${{ order.price | number:'1.2-2' }}
                             </td>
                         </ng-container>
 
                         <!-- Delivered At -->
                         <ng-container matColumnDef="delivered_at">
-                            <th mat-header-cell *matHeaderCellDef class="!bg-metal-900 !text-gray-400 !font-bold">
+                            <th mat-header-cell *matHeaderCellDef
+                                class="!bg-metal-900 !text-gray-400 !font-bold !text-xs md:!text-sm whitespace-nowrap px-2 py-3">
                                 {{ 'shifts.deliveredAt' | translate }}</th>
-                            <td mat-cell *matCellDef="let order" class="!text-gray-400">
+                            <td mat-cell *matCellDef="let order"
+                                class="!text-gray-400 !text-xs md:!text-sm whitespace-nowrap px-2 py-3 border-b border-metal-700">
                                 {{ formatDate(order.delivered_at) }}
                             </td>
                         </ng-container>
 
                         <!-- Actions -->
                         <ng-container matColumnDef="actions">
-                            <th mat-header-cell *matHeaderCellDef class="!bg-metal-900 !text-gray-400 !font-bold">
+                            <th mat-header-cell *matHeaderCellDef
+                                class="!bg-metal-900 !text-gray-400 !font-bold !text-xs md:!text-sm whitespace-nowrap pl-2 pr-4 py-3 rounded-r-lg">
                                 {{ 'shifts.actions' | translate }}</th>
-                            <td mat-cell *matCellDef="let order">
+                            <td mat-cell *matCellDef="let order" class="pl-2 pr-4 py-3 border-b border-metal-700">
                                 <button mat-icon-button (click)="viewOrderDetails(order)"
-                                    class="!text-laser-500 hover:!text-fire-500">
+                                    class="!text-laser-500 hover:!text-fire-500 transform scale-75 md:scale-100 origin-right">
                                     <i class="fas fa-eye"></i>
                                 </button>
                             </td>

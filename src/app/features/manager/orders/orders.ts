@@ -230,7 +230,7 @@ export class OrdersComponent implements OnInit {
   }
 
   advanceOrderStatus(order: Order): void {
-    const statusFlow = ['UNDER_WORK', 'DESIGNING', 'DESIGN_COMPLETED', 'DELIVERED'];
+    const statusFlow = ['UNDER_WORK', 'DESIGNING', 'DESIGN_COMPLETED', 'DONE_CUTTING', 'DELIVERED'];
     const currentIndex = statusFlow.indexOf(order.status);
 
     if (currentIndex === -1 || currentIndex === statusFlow.length - 1) {
@@ -238,7 +238,7 @@ export class OrdersComponent implements OnInit {
       return;
     }
 
-    const nextStatus = statusFlow[currentIndex + 1] as 'UNDER_WORK' | 'DESIGNING' | 'DESIGN_COMPLETED' | 'DELIVERED';
+    const nextStatus = statusFlow[currentIndex + 1] as 'UNDER_WORK' | 'DESIGNING' | 'DESIGN_COMPLETED' | 'DONE_CUTTING' | 'DELIVERED';
 
     // Use dedicated status update endpoint (works for both managers and workers)
     this.orderService.updateOrderStatus(order.id, { status: nextStatus }).subscribe({
@@ -278,6 +278,7 @@ export class OrdersComponent implements OnInit {
       'UNDER_WORK': 'primary',
       'DESIGNING': 'accent',
       'DESIGN_COMPLETED': 'warn',
+      'DONE_CUTTING': 'info',
       'DELIVERED': ''
     };
     return colors[status] || '';

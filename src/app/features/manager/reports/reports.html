@@ -1,16 +1,16 @@
-<div class="min-h-screen bg-gradient-to-b from-metal-900 to-black p-6">
+<div class="min-h-screen bg-gradient-to-b from-metal-900 to-black p-3 md:p-6">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
-        <div class="mb-8 flex flex-wrap justify-between items-center ">
+        <div class="mb-6 md:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
-                <h1 class="text-4xl md:text-5xl font-black text-fire flex items-center gap-3">
-                    <i class="fas fa-chart-line"></i>
+                <h1 class="text-3xl md:text-5xl font-black text-fire flex items-center gap-2 md:gap-3">
+                    <i class="fas fa-chart-line text-2xl md:text-4xl"></i>
                     {{ 'reports.title' | translate }}
                 </h1>
-                <p class="text-xl text-gray-400 mt-2">{{ 'reports.subtitle' | translate }}</p>
+                <p class="text-sm md:text-xl text-gray-400 mt-1 md:mt-2">{{ 'reports.subtitle' | translate }}</p>
             </div>
             <a routerLink="/manager/shift-history"
-                class="px-6 py-3 bg-gradient-to-r from-laser-500 to-fire-500 text-white rounded-lg font-bold hover:shadow-fire hover:scale-105 transition-all flex items-center gap-2">
+                class="w-full sm:w-auto justify-center px-4 py-2.5 md:px-6 md:py-3 bg-gradient-to-r from-laser-500 to-fire-500 text-white rounded-lg font-bold hover:shadow-fire hover:scale-105 transition-all flex items-center gap-2 text-sm md:text-base">
                 <i class="fas fa-history"></i>
                 {{ 'reports.viewShiftHistory' | translate }}
             </a>
@@ -20,98 +20,115 @@
         <mat-tab-group class="fire-tabs" backgroundColor="primary">
             <!-- Daily Report Tab -->
             <mat-tab [label]="'reports.dailyReport' | translate">
-                <div class="pt-6">
+                <div class="pt-4 md:pt-6">
                     <!-- Date Selector -->
-                    <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-6 mb-6">
-                        <label class="block text-sm font-medium text-metal-300 mb-3">
+                    <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-4 md:p-6 mb-4 md:mb-6">
+                        <label class="block text-sm font-medium text-metal-300 mb-2 md:mb-3">
                             <i class="fas fa-calendar text-fire-500 mr-2"></i>
                             {{ 'reports.selectDate' | translate }}
                         </label>
                         <div class="flex gap-4 items-center">
                             <input type="date" [(ngModel)]="selectedDate"
-                                class="px-4 py-3 bg-metal-900 border-2 border-metal-700 rounded-lg text-white focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300">
+                                class="w-full sm:w-auto px-4 py-2.5 md:py-3 bg-metal-900 border-2 border-metal-700 rounded-lg text-white focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300">
                         </div>
                     </div>
 
                     @if (isLoadingDaily()) {
-                    <div class="flex justify-center items-center py-32">
+                    <div class="flex justify-center items-center py-20 md:py-32">
                         <mat-spinner class="!border-laser-500"></mat-spinner>
                     </div>
                     } @else if (dailyReport()) {
                     <!-- Daily Stats Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                         <!-- Total Revenue -->
                         <div
-                            class="bg-metal-800 border-2 border-laser-600 rounded-xl p-6 hover:border-laser-400 transition-all">
-                            <div class="flex items-center gap-4">
+                            class="bg-metal-800 border-2 border-laser-600 rounded-xl p-4 md:p-6 hover:border-laser-400 transition-all">
+                            <div class="flex items-center gap-3 md:gap-4">
                                 <div
-                                    class="w-16 h-16 rounded-lg bg-laser-gradient flex items-center justify-center fire-glow">
-                                    <i class="fas fa-dollar-sign text-2xl text-white"></i>
+                                    class="w-12 h-12 md:w-16 md:h-16 rounded-lg bg-laser-gradient flex items-center justify-center fire-glow flex-shrink-0">
+                                    <i class="fas fa-dollar-sign text-xl md:text-2xl text-white"></i>
                                 </div>
-                                <div>
-                                    <h3 class="text-3xl font-black text-white">${{ dailyReport()!.total_revenue |
+                                <div class="overflow-hidden">
+                                    <h3 class="text-2xl md:text-3xl font-black text-white truncate">${{
+                                        dailyReport()!.total_revenue |
                                         number:'1.2-2' }}</h3>
-                                    <p class="text-gray-400 font-semibold">{{ 'reports.totalRevenue' | translate }}</p>
+                                    <p class="text-gray-400 font-semibold text-sm md:text-base truncate">{{
+                                        'reports.totalRevenue' | translate }}</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Total Orders -->
                         <div
-                            class="bg-metal-800 border-2 border-fire-600 rounded-xl p-6 hover:border-fire-400 transition-all">
-                            <div class="flex items-center gap-4">
-                                <div class="w-16 h-16 rounded-lg bg-fire-gradient flex items-center justify-center">
-                                    <i class="fas fa-shopping-cart text-2xl text-white"></i>
+                            class="bg-metal-800 border-2 border-fire-600 rounded-xl p-4 md:p-6 hover:border-fire-400 transition-all">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <div
+                                    class="w-12 h-12 md:w-16 md:h-16 rounded-lg bg-fire-gradient flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-shopping-cart text-xl md:text-2xl text-white"></i>
                                 </div>
-                                <div>
-                                    <h3 class="text-3xl font-black text-white">{{ dailyReport()!.total_orders }}</h3>
-                                    <p class="text-gray-400 font-semibold">{{ 'reports.totalOrders' | translate }}</p>
+                                <div class="overflow-hidden">
+                                    <h3 class="text-2xl md:text-3xl font-black text-white truncate">{{
+                                        dailyReport()!.total_orders }}</h3>
+                                    <p class="text-gray-400 font-semibold text-sm md:text-base truncate">{{
+                                        'reports.totalOrders' | translate }}</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Average Order Value -->
                         <div
-                            class="bg-metal-800 border-2 border-spark-600 rounded-xl p-6 hover:border-spark-400 transition-all">
-                            <div class="flex items-center gap-4">
+                            class="bg-metal-800 border-2 border-spark-600 rounded-xl p-4 md:p-6 hover:border-spark-400 transition-all">
+                            <div class="flex items-center gap-3 md:gap-4">
                                 <div
-                                    class="w-16 h-16 rounded-lg bg-gradient-to-br from-spark-500 to-fire-500 flex items-center justify-center">
-                                    <i class="fas fa-chart-bar text-2xl text-white"></i>
+                                    class="w-12 h-12 md:w-16 md:h-16 rounded-lg bg-gradient-to-br from-spark-500 to-fire-500 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-chart-bar text-xl md:text-2xl text-white"></i>
                                 </div>
-                                <div>
-                                    <h3 class="text-3xl font-black text-white">${{ dailyReport()!.average_order_value |
+                                <div class="overflow-hidden">
+                                    <h3 class="text-2xl md:text-3xl font-black text-white truncate">${{
+                                        dailyReport()!.average_order_value |
                                         number:'1.2-2' }}</h3>
-                                    <p class="text-gray-400 font-semibold">{{ 'reports.averageOrder' | translate }}</p>
+                                    <p class="text-gray-400 font-semibold text-sm md:text-base truncate">{{
+                                        'reports.averageOrder' | translate }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Order Breakdown -->
-                    <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-6 mt-6">
-                        <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-4 md:p-6 mt-4 md:mt-6">
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-3 md:mb-4 flex items-center gap-2">
                             <i class="fas fa-list text-laser-500"></i>
                             {{ 'reports.orderBreakdown' | translate }}
                         </h3>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-fire-500">
-                                <p class="text-gray-400 text-sm">{{ 'orders.underWork' | translate }}</p>
-                                <p class="text-2xl font-bold text-white">{{
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+                            <div class="bg-metal-900 rounded-lg p-3 md:p-4 border-l-4 border-fire-500">
+                                <p class="text-gray-400 text-xs md:text-sm truncate">{{ 'orders.underWork' | translate
+                                    }}</p>
+                                <p class="text-xl md:text-2xl font-bold text-white">{{
                                     getOrderCount(dailyReport(), 'UNDER_WORK') }}</p>
                             </div>
-                            <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-spark-500">
-                                <p class="text-gray-400 text-sm">{{ 'orders.designing' | translate }}</p>
-                                <p class="text-2xl font-bold text-white">{{
+                            <div class="bg-metal-900 rounded-lg p-3 md:p-4 border-l-4 border-spark-500">
+                                <p class="text-gray-400 text-xs md:text-sm truncate">{{ 'orders.designing' | translate
+                                    }}</p>
+                                <p class="text-xl md:text-2xl font-bold text-white">{{
                                     getOrderCount(dailyReport(), 'DESIGNING') }}</p>
                             </div>
-                            <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-green-500">
-                                <p class="text-gray-400 text-sm">{{ 'orders.designCompleted' | translate }}</p>
-                                <p class="text-2xl font-bold text-white">{{
+                            <div class="bg-metal-900 rounded-lg p-3 md:p-4 border-l-4 border-green-500">
+                                <p class="text-gray-400 text-xs md:text-sm truncate">{{ 'orders.designCompleted' |
+                                    translate }}</p>
+                                <p class="text-xl md:text-2xl font-bold text-white">{{
                                     getOrderCount(dailyReport(), 'DESIGN_COMPLETED') }}</p>
                             </div>
-                            <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-blue-500">
-                                <p class="text-gray-400 text-sm">{{ 'orders.delivered' | translate }}</p>
-                                <p class="text-2xl font-bold text-white">{{
+                            <div class="bg-metal-900 rounded-lg p-3 md:p-4 border-l-4 border-blue-500">
+                                <p class="text-gray-400 text-xs md:text-sm truncate">{{ 'orders.doneCutting' | translate
+                                    }}</p>
+                                <p class="text-xl md:text-2xl font-bold text-white">{{
+                                    getOrderCount(dailyReport(), 'DONE_CUTTING') }}</p>
+                            </div>
+                            <div class="bg-metal-900 rounded-lg p-3 md:p-4 border-l-4 border-emerald-500">
+                                <p class="text-gray-400 text-xs md:text-sm truncate">{{ 'orders.delivered' | translate
+                                    }}</p>
+                                <p class="text-xl md:text-2xl font-bold text-white">{{
                                     getOrderCount(dailyReport(), 'DELIVERED') }}</p>
                             </div>
                         </div>
@@ -122,23 +139,23 @@
 
             <!-- Monthly Report Tab -->
             <mat-tab [label]="'reports.monthlyReport' | translate">
-                <div class="pt-6">
+                <div class="pt-4 md:pt-6">
                     <!-- Month/Year Selector -->
-                    <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-6 mb-6">
-                        <label class="block text-sm font-medium text-metal-300 mb-3">
+                    <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-4 md:p-6 mb-4 md:mb-6">
+                        <label class="block text-sm font-medium text-metal-300 mb-2 md:mb-3">
                             <i class="fas fa-calendar-alt text-fire-500 mr-2"></i>
                             {{ 'reports.selectMonthYear' | translate }}
                         </label>
-                        <div class="flex gap-4 items-center">
+                        <div class="flex gap-3 md:gap-4 items-center">
                             <select [(ngModel)]="selectedMonth"
-                                class="px-4 py-3 bg-metal-900 border-2 border-metal-700 rounded-lg text-white focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 cursor-pointer">
+                                class="flex-1 px-4 py-2.5 md:py-3 bg-metal-900 border-2 border-metal-700 rounded-lg text-white focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 cursor-pointer">
                                 @for (month of months; track month.value) {
                                 <option [value]="month.value">{{ 'reports.months.' + month.name.toLowerCase() |
                                     translate }}</option>
                                 }
                             </select>
                             <select [(ngModel)]="selectedYear"
-                                class="px-4 py-3 bg-metal-900 border-2 border-metal-700 rounded-lg text-white focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 cursor-pointer">
+                                class="flex-1 px-4 py-2.5 md:py-3 bg-metal-900 border-2 border-metal-700 rounded-lg text-white focus:border-laser-500 focus:outline-none focus:ring-2 focus:ring-laser-500/20 transition-all duration-300 cursor-pointer">
                                 @for (year of years; track year) {
                                 <option [value]="year">{{ year }}</option>
                                 }
@@ -147,85 +164,102 @@
                     </div>
 
                     @if (isLoadingMonthly()) {
-                    <div class="flex justify-center items-center py-32">
+                    <div class="flex justify-center items-center py-20 md:py-32">
                         <mat-spinner class="!border-laser-500"></mat-spinner>
                     </div>
                     } @else if (monthlyReport()) {
                     <!-- Monthly Stats Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                         <!-- Total Revenue -->
                         <div
-                            class="bg-metal-800 border-2 border-laser-600 rounded-xl p-6 hover:border-laser-400 transition-all">
-                            <div class="flex items-center gap-4">
+                            class="bg-metal-800 border-2 border-laser-600 rounded-xl p-4 md:p-6 hover:border-laser-400 transition-all">
+                            <div class="flex items-center gap-3 md:gap-4">
                                 <div
-                                    class="w-16 h-16 rounded-lg bg-laser-gradient flex items-center justify-center fire-glow">
-                                    <i class="fas fa-dollar-sign text-2xl text-white"></i>
+                                    class="w-12 h-12 md:w-16 md:h-16 rounded-lg bg-laser-gradient flex items-center justify-center fire-glow flex-shrink-0">
+                                    <i class="fas fa-dollar-sign text-xl md:text-2xl text-white"></i>
                                 </div>
-                                <div>
-                                    <h3 class="text-3xl font-black text-white">${{ monthlyReport()!.total_revenue |
+                                <div class="overflow-hidden">
+                                    <h3 class="text-2xl md:text-3xl font-black text-white truncate">${{
+                                        monthlyReport()!.total_revenue |
                                         number:'1.2-2' }}</h3>
-                                    <p class="text-gray-400 font-semibold">{{ 'reports.totalRevenue' | translate }}</p>
+                                    <p class="text-gray-400 font-semibold text-sm md:text-base truncate">{{
+                                        'reports.totalRevenue' | translate }}</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Total Orders -->
                         <div
-                            class="bg-metal-800 border-2 border-fire-600 rounded-xl p-6 hover:border-fire-400 transition-all">
-                            <div class="flex items-center gap-4">
-                                <div class="w-16 h-16 rounded-lg bg-fire-gradient flex items-center justify-center">
-                                    <i class="fas fa-shopping-cart text-2xl text-white"></i>
+                            class="bg-metal-800 border-2 border-fire-600 rounded-xl p-4 md:p-6 hover:border-fire-400 transition-all">
+                            <div class="flex items-center gap-3 md:gap-4">
+                                <div
+                                    class="w-12 h-12 md:w-16 md:h-16 rounded-lg bg-fire-gradient flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-shopping-cart text-xl md:text-2xl text-white"></i>
                                 </div>
-                                <div>
-                                    <h3 class="text-3xl font-black text-white">{{ monthlyReport()!.total_orders }}</h3>
-                                    <p class="text-gray-400 font-semibold">{{ 'reports.totalOrders' | translate }}</p>
+                                <div class="overflow-hidden">
+                                    <h3 class="text-2xl md:text-3xl font-black text-white truncate">{{
+                                        monthlyReport()!.total_orders }}</h3>
+                                    <p class="text-gray-400 font-semibold text-sm md:text-base truncate">{{
+                                        'reports.totalOrders' | translate }}</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Average Order Value -->
                         <div
-                            class="bg-metal-800 border-2 border-spark-600 rounded-xl p-6 hover:border-spark-400 transition-all">
-                            <div class="flex items-center gap-4">
+                            class="bg-metal-800 border-2 border-spark-600 rounded-xl p-4 md:p-6 hover:border-spark-400 transition-all">
+                            <div class="flex items-center gap-3 md:gap-4">
                                 <div
-                                    class="w-16 h-16 rounded-lg bg-gradient-to-br from-spark-500 to-fire-500 flex items-center justify-center">
-                                    <i class="fas fa-chart-bar text-2xl text-white"></i>
+                                    class="w-12 h-12 md:w-16 md:h-16 rounded-lg bg-gradient-to-br from-spark-500 to-fire-500 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-chart-bar text-xl md:text-2xl text-white"></i>
                                 </div>
-                                <div>
-                                    <h3 class="text-3xl font-black text-white">${{ monthlyReport()!.average_order_value
+                                <div class="overflow-hidden">
+                                    <h3 class="text-2xl md:text-3xl font-black text-white truncate">${{
+                                        monthlyReport()!.average_order_value
                                         |
                                         number:'1.2-2' }}</h3>
-                                    <p class="text-gray-400 font-semibold">{{ 'reports.averageOrder' | translate }}</p>
+                                    <p class="text-gray-400 font-semibold text-sm md:text-base truncate">{{
+                                        'reports.averageOrder' | translate }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Order Breakdown -->
-                    <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-6 mt-6">
-                        <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                    <div class="bg-metal-800 border-2 border-metal-700 rounded-xl p-4 md:p-6 mt-4 md:mt-6">
+                        <h3 class="text-lg md:text-xl font-bold text-white mb-3 md:mb-4 flex items-center gap-2">
                             <i class="fas fa-list text-laser-500"></i>
                             {{ 'reports.orderBreakdownByStatus' | translate }}
                         </h3>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-fire-500">
-                                <p class="text-gray-400 text-sm">{{ 'orders.underWork' | translate }}</p>
-                                <p class="text-2xl font-bold text-white">{{
+                        <div class="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4">
+                            <div class="bg-metal-900 rounded-lg p-3 md:p-4 border-l-4 border-fire-500">
+                                <p class="text-gray-400 text-xs md:text-sm truncate">{{ 'orders.underWork' | translate
+                                    }}</p>
+                                <p class="text-xl md:text-2xl font-bold text-white">{{
                                     getOrderCount(monthlyReport(), 'UNDER_WORK') }}</p>
                             </div>
-                            <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-spark-500">
-                                <p class="text-gray-400 text-sm">{{ 'orders.designing' | translate }}</p>
-                                <p class="text-2xl font-bold text-white">{{
+                            <div class="bg-metal-900 rounded-lg p-3 md:p-4 border-l-4 border-spark-500">
+                                <p class="text-gray-400 text-xs md:text-sm truncate">{{ 'orders.designing' | translate
+                                    }}</p>
+                                <p class="text-xl md:text-2xl font-bold text-white">{{
                                     getOrderCount(monthlyReport(), 'DESIGNING') }}</p>
                             </div>
-                            <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-green-500">
-                                <p class="text-gray-400 text-sm">{{ 'orders.designCompleted' | translate }}</p>
-                                <p class="text-2xl font-bold text-white">{{
+                            <div class="bg-metal-900 rounded-lg p-3 md:p-4 border-l-4 border-green-500">
+                                <p class="text-gray-400 text-xs md:text-sm truncate">{{ 'orders.designCompleted' |
+                                    translate }}</p>
+                                <p class="text-xl md:text-2xl font-bold text-white">{{
                                     getOrderCount(monthlyReport(), 'DESIGN_COMPLETED') }}</p>
                             </div>
-                            <div class="bg-metal-900 rounded-lg p-4 border-l-4 border-blue-500">
-                                <p class="text-gray-400 text-sm">{{ 'orders.delivered' | translate }}</p>
-                                <p class="text-2xl font-bold text-white">{{
+                            <div class="bg-metal-900 rounded-lg p-3 md:p-4 border-l-4 border-blue-500">
+                                <p class="text-gray-400 text-xs md:text-sm truncate">{{ 'orders.doneCutting' | translate
+                                    }}</p>
+                                <p class="text-xl md:text-2xl font-bold text-white">{{
+                                    getOrderCount(monthlyReport(), 'DONE_CUTTING') }}</p>
+                            </div>
+                            <div class="bg-metal-900 rounded-lg p-3 md:p-4 border-l-4 border-emerald-500">
+                                <p class="text-gray-400 text-xs md:text-sm truncate">{{ 'orders.delivered' | translate
+                                    }}</p>
+                                <p class="text-xl md:text-2xl font-bold text-white">{{
                                     getOrderCount(monthlyReport(), 'DELIVERED') }}</p>
                             </div>
                         </div>

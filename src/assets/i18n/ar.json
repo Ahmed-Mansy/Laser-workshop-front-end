@@ -79,6 +79,7 @@
         "underWork": "قيد العمل",
         "designing": "جاري التصميم",
         "designCompleted": "تم التصميم",
+        "doneCutting": "تم القص",
         "delivered": "تم التسليم"
     },
     "workerDashboard": {
@@ -97,7 +98,9 @@
         "shiftId": "رقم الوردية",
         "opened": "وقت الفتح",
         "closed": "وقت الإغلاق",
-        "close": "إغلاق"
+        "close": "إغلاق",
+        "duration": "المدة",
+        "orders": "الطلبات"
     },
     "showcase": {
         "title": "معرض أعمالنا",
@@ -145,7 +148,7 @@
         "cta": {
             "title": "جاهز للإبداع؟",
             "subtitle": "تواصل معنا لبدء مشروعك",
-            "button": "اطلب عرض سعر"
+            "button": "تواصل معنا"
         }
     },
     "orderManagement": {
@@ -163,6 +166,8 @@
         "designingDesc": "تحسين التصاميم",
         "designCompleted": "تم التصميم",
         "designCompletedDesc": "تم اعتماد التصميم",
+        "doneCutting": "تم القص",
+        "doneCuttingDesc": "تم قص المواد",
         "delivered": "تم التسليم",
         "deliveredDesc": "طلبات مكتملة",
         "noOrdersYet": "لا توجد طلبات",
@@ -196,6 +201,7 @@
         "underWork": "قيد العمل",
         "designing": "جاري التصميم",
         "designCompleted": "تم التصميم",
+        "doneCutting": "تم القص",
         "delivered": "تم التسليم",
         "orderNumber": "طلب رقم",
         "customerInfo": "بيانات العميل",
@@ -319,7 +325,7 @@
         "view": "عرض",
         "required": "مطلوب",
         "adding": "جاري الإضافة...",
-        "loadingText": "جاري القص بالليزر...",
+        "loadingText": "...LASER SHOP",
         "hours": "ساعة",
         "or": "أو"
     },

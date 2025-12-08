@@ -90,9 +90,19 @@ export class WebSocketService implements OnDestroy {
                 this.connected.set(false);
                 this.socket = null;
 
-                // Attempt to reconnect if wasn't a clean close
-                if (!event.wasClean && this.reconnectAttempts < this.maxReconnectAttempts) {
-                    this.scheduleReconnect();
+                // Handle Auth Failure (often code 1006 with no reason, or if we want to be proactive)
+                // If it closed immediately or with specific error, try refreshing token
+                if (!event.wasClean) {
+                    if (this.reconnectAttempts < this.maxReconnectAttempts) {
+                        // If we suspect auth error (e.g. quick disconnect), try refreshing token first
+                        // A 401 usually results in instant disconnection. 
+                        // Since we can't easily read HTTP status codes from WS API, we infer.
+                        if (this.reconnectAttempts === 0) {
+                            this.handlePotentialAuthError();
+                        } else {
+                            this.scheduleReconnect();
+                        }
+                    }
                 }
             };
 
@@ -104,6 +114,29 @@ export class WebSocketService implements OnDestroy {
         } catch (error) {
             console.error('WebSocket: Failed to create connection', error);
         }
+    }
+
+    /**
+     * Handle potential authentication error
+     */
+    private handlePotentialAuthError(): void {
+        console.log('WebSocket: Potential auth error, attempting to refresh token...');
+
+        // Use existing refresh logic from AuthService if possible, or manually call endpoint?
+        // Ideally we should inject AuthService and call refreshToken()
+        // But AuthService has side effects (updating localStorage).
+
+        this.authService.refreshToken().subscribe({
+            next: () => {
+                console.log('WebSocket: Token refreshed, reconnecting...');
+                this.reconnectAttempts++; // Count this as an attempt
+                this.connect();
+            },
+            error: (err) => {
+                console.error('WebSocket: Failed to refresh token', err);
+                this.scheduleReconnect(); // Fallback to normal reconnect
+            }
+        });
     }
 
     /**
@@ -130,6 +163,10 @@ export class WebSocketService implements OnDestroy {
         }
 
         if (this.socket) {
+            // Remove listeners to prevent loops
+            this.socket.onclose = null;
+            this.socket.onerror = null;
+
             console.log('WebSocket: Disconnecting...');
             this.socket.close(1000, 'Client disconnect');
             this.socket = null;

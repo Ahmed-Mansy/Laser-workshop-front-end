@@ -1,22 +1,22 @@
-<div class="min-h-screen bg-gradient-to-b from-metal-900 to-black p-6">
+<div class="min-h-screen bg-gradient-to-b from-metal-900 to-black p-3 md:p-6">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
             <div class="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
                 @if (selectedStatus()) {
                 <button (click)="clearStatusFilter()"
-                    class="w-10 h-10 flex items-center justify-center bg-metal-800 hover:bg-metal-700 rounded-lg transition-all flex-shrink-0">
-                    <i class="fas fa-arrow-left text-laser-500"></i>
+                    class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-metal-800 hover:bg-metal-700 rounded-lg transition-all flex-shrink-0">
+                    <i class="fas fa-arrow-left text-laser-500 text-sm md:text-base"></i>
                 </button>
                 }
                 <h1
-                    class="text-3xl sm:text-4xl md:text-5xl font-black text-fire flex items-center gap-2 sm:gap-3 flex-1">
-                    <i class="fas fa-clipboard-list text-2xl sm:text-3xl md:text-4xl"></i>
+                    class="text-2xl sm:text-3xl md:text-5xl font-black text-fire flex items-center gap-2 sm:gap-3 flex-1">
+                    <i class="fas fa-clipboard-list text-xl sm:text-2xl md:text-4xl"></i>
                     <span class="break-words leading-tight">{{ 'orderManagement.pageTitle' | translate }}</span>
                 </h1>
             </div>
             <button mat-raised-button (click)="openAddOrderDialog()" [disabled]="!hasActiveShift()"
-                class="w-full sm:w-auto !h-12 !px-4 sm:!px-6 !text-sm sm:!text-base !font-bold !bg-fire-gradient !text-white !rounded-lg fire-glow hover:!shadow-fire disabled:!opacity-50 disabled:!cursor-not-allowed disabled:hover:!shadow-none"
+                class="w-full sm:w-auto !h-10 md:!h-12 !px-4 sm:!px-6 !text-sm sm:!text-base !font-bold !bg-fire-gradient !text-white !rounded-lg fire-glow hover:!shadow-fire disabled:!opacity-50 disabled:!cursor-not-allowed disabled:hover:!shadow-none"
                 [attr.title]="!hasActiveShift() ? ('orderManagement.shiftRequired' | translate) : 'orderManagement.newOrder' | translate">
                 <i class="fas fa-plus mr-2"></i>
                 <span class="whitespace-nowrap">{{ 'orderManagement.newOrder' | translate }}</span>
@@ -100,49 +100,68 @@
         } @else {
         @if (!selectedStatus()) {
         <!-- Dashboard View - Status Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Dashboard View - Status Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             <!-- UNDER WORK Card -->
             <div (click)="selectStatus('UNDER_WORK')"
-                class="bg-gradient-to-br from-laser-600 to-laser-500 rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
-                <div class="flex items-center justify-between mb-4">
-                    <i class="fas fa-tools text-5xl text-white/90"></i>
-                    <span class="text-6xl font-black text-white">{{getOrdersByStatus('UNDER_WORK').length}}</span>
+                class="bg-gradient-to-br from-laser-600 to-laser-500 rounded-xl p-4 md:p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                <div class="flex items-center justify-between mb-3 md:mb-4">
+                    <i class="fas fa-tools text-4xl md:text-5xl text-white/90"></i>
+                    <span
+                        class="text-5xl md:text-6xl font-black text-white">{{getOrdersByStatus('UNDER_WORK').length}}</span>
                 </div>
-                <h3 class="text-xl font-bold text-white">{{ 'orderManagement.underWork' | translate }}</h3>
-                <p class="text-white/80 text-sm mt-1">{{ 'orderManagement.underWorkDesc' | translate }}</p>
+                <h3 class="text-lg md:text-xl font-bold text-white">{{ 'orderManagement.underWork' | translate }}</h3>
+                <p class="text-white/80 text-xs md:text-sm mt-1">{{ 'orderManagement.underWorkDesc' | translate }}</p>
             </div>
 
             <!-- DESIGNING Card -->
             <div (click)="selectStatus('DESIGNING')"
-                class="bg-gradient-to-br from-fire-600 to-fire-500 rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
-                <div class="flex items-center justify-between mb-4">
-                    <i class="fas fa-pencil-ruler text-5xl text-white/90"></i>
-                    <span class="text-6xl font-black text-white">{{getOrdersByStatus('DESIGNING').length}}</span>
+                class="bg-gradient-to-br from-fire-600 to-fire-500 rounded-xl p-4 md:p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                <div class="flex items-center justify-between mb-3 md:mb-4">
+                    <i class="fas fa-pencil-ruler text-4xl md:text-5xl text-white/90"></i>
+                    <span
+                        class="text-5xl md:text-6xl font-black text-white">{{getOrdersByStatus('DESIGNING').length}}</span>
                 </div>
-                <h3 class="text-xl font-bold text-white">{{ 'orderManagement.designing' | translate }}</h3>
-                <p class="text-white/80 text-sm mt-1">{{ 'orderManagement.designingDesc' | translate }}</p>
+                <h3 class="text-lg md:text-xl font-bold text-white">{{ 'orderManagement.designing' | translate }}</h3>
+                <p class="text-white/80 text-xs md:text-sm mt-1">{{ 'orderManagement.designingDesc' | translate }}</p>
             </div>
 
             <!-- DESIGN COMPLETED Card -->
             <div (click)="selectStatus('DESIGN_COMPLETED')"
-                class="bg-gradient-to-br from-spark-600 to-spark-500 rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
-                <div class="flex items-center justify-between mb-4">
-                    <i class="fas fa-check-circle text-5xl text-white/90"></i>
-                    <span class="text-6xl font-black text-white">{{getOrdersByStatus('DESIGN_COMPLETED').length}}</span>
+                class="bg-gradient-to-br from-spark-600 to-spark-500 rounded-xl p-4 md:p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                <div class="flex items-center justify-between mb-3 md:mb-4">
+                    <i class="fas fa-check-circle text-4xl md:text-5xl text-white/90"></i>
+                    <span
+                        class="text-5xl md:text-6xl font-black text-white">{{getOrdersByStatus('DESIGN_COMPLETED').length}}</span>
                 </div>
-                <h3 class="text-xl font-bold text-white">{{ 'orderManagement.designCompleted' | translate }}</h3>
-                <p class="text-white/80 text-sm mt-1">{{ 'orderManagement.designCompletedDesc' | translate }}</p>
+                <h3 class="text-lg md:text-xl font-bold text-white">{{ 'orderManagement.designCompleted' | translate }}
+                </h3>
+                <p class="text-white/80 text-xs md:text-sm mt-1">{{ 'orderManagement.designCompletedDesc' | translate }}
+                </p>
+            </div>
+
+            <!-- DONE CUTTING Card -->
+            <div (click)="selectStatus('DONE_CUTTING')"
+                class="bg-gradient-to-br from-blue-600 to-blue-500 rounded-xl p-4 md:p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                <div class="flex items-center justify-between mb-3 md:mb-4">
+                    <i class="fas fa-cut text-4xl md:text-5xl text-white/90"></i>
+                    <span
+                        class="text-5xl md:text-6xl font-black text-white">{{getOrdersByStatus('DONE_CUTTING').length}}</span>
+                </div>
+                <h3 class="text-lg md:text-xl font-bold text-white">{{ 'orderManagement.doneCutting' | translate }}</h3>
+                <p class="text-white/80 text-xs md:text-sm mt-1">{{ 'orderManagement.doneCuttingDesc' | translate }}</p>
             </div>
 
             <!-- DELIVERED Card -->
             <div (click)="selectStatus('DELIVERED')"
-                class="bg-gradient-to-br from-green-600 to-green-500 rounded-xl p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
-                <div class="flex items-center justify-between mb-4">
-                    <i class="fas fa-box-open text-5xl text-white/90"></i>
-                    <span class="text-6xl font-black text-white">{{getOrdersByStatus('DELIVERED').length}}</span>
+                class="bg-gradient-to-br from-green-600 to-green-500 rounded-xl p-4 md:p-6 cursor-pointer hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl">
+                <div class="flex items-center justify-between mb-3 md:mb-4">
+                    <i class="fas fa-box-open text-4xl md:text-5xl text-white/90"></i>
+                    <span
+                        class="text-5xl md:text-6xl font-black text-white">{{getOrdersByStatus('DELIVERED').length}}</span>
                 </div>
-                <h3 class="text-xl font-bold text-white">{{ 'orderManagement.delivered' | translate }}</h3>
-                <p class="text-white/80 text-sm mt-1">{{ 'orderManagement.deliveredDesc' | translate }}</p>
+                <h3 class="text-lg md:text-xl font-bold text-white">{{ 'orderManagement.delivered' | translate }}</h3>
+                <p class="text-white/80 text-xs md:text-sm mt-1">{{ 'orderManagement.deliveredDesc' | translate }}</p>
             </div>
         </div>
 
@@ -154,43 +173,86 @@
         </div>
         }
         } @else {
+        <!-- Status Navigation Bar -->
+        <div
+            class="flex overflow-x-auto pb-2 md:pb-4 mb-4 gap-2 md:gap-3 no-scrollbar -mx-3 px-3 md:mx-0 md:px-0 select-none">
+            <!-- Back to Overview -->
+            <button (click)="clearStatusFilter()"
+                class="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-metal-800 border border-metal-700 text-gray-400 hover:bg-metal-700 hover:text-white transition-all whitespace-nowrap flex-shrink-0 text-sm md:text-base">
+                <i class="fas fa-th-large"></i>
+                <span>{{ 'dashboard.managerTitle' | translate }}</span>
+            </button>
+
+            <!-- Status Tabs -->
+            @for (status of ['UNDER_WORK', 'DESIGNING', 'DESIGN_COMPLETED', 'DONE_CUTTING', 'DELIVERED']; track status)
+            {
+            <button (click)="selectStatus(status)" [ngClass]="{
+                    'bg-laser-600 text-white border-laser-400': status === 'UNDER_WORK' && selectedStatus() === status,
+                    'bg-fire-600 text-white border-fire-400': status === 'DESIGNING' && selectedStatus() === status,
+                    'bg-spark-600 text-white border-spark-400': status === 'DESIGN_COMPLETED' && selectedStatus() === status,
+                    'bg-blue-600 text-white border-blue-400': status === 'DONE_CUTTING' && selectedStatus() === status,
+                    'bg-green-600 text-white border-green-400': status === 'DELIVERED' && selectedStatus() === status,
+                    'bg-metal-800 text-gray-400 border-metal-700 hover:bg-metal-700 hover:text-white': selectedStatus() !== status
+                }"
+                class="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full border transition-all whitespace-nowrap flex-shrink-0 text-sm md:text-base shadow-sm">
+                <i class="fas" [class.fa-tools]="status === 'UNDER_WORK'"
+                    [class.fa-pencil-ruler]="status === 'DESIGNING'"
+                    [class.fa-check-circle]="status === 'DESIGN_COMPLETED'" [class.fa-cut]="status === 'DONE_CUTTING'"
+                    [class.fa-box-open]="status === 'DELIVERED'"></i>
+                <span>{{ (status === 'UNDER_WORK' ? 'orders.underWork' :
+                    status === 'DESIGNING' ? 'orders.designing' :
+                    status === 'DESIGN_COMPLETED' ? 'orders.designCompleted' :
+                    status === 'DONE_CUTTING' ? 'orders.doneCutting' :
+                    'orders.delivered') | translate }}</span>
+                <span class="ml-1 px-1.5 py-0.5 md:px-2 md:py-0.5 rounded-full text-xs font-bold" [ngClass]="{
+                        'bg-white/20': selectedStatus() === status,
+                        'bg-metal-900 text-gray-500': selectedStatus() !== status
+                    }">{{getOrdersByStatus(status).length}}</span>
+            </button>
+            }
+        </div>
+
         <!-- Detail View - Orders List for Selected Status -->
         <div class="bg-metal-800 border-2 border-metal-700 rounded-xl overflow-hidden shadow-xl">
-            <div class="px-6 py-4 border-b border-metal-700" [ngClass]="{
+            <div class="px-4 py-3 md:px-6 md:py-4 border-b border-metal-700" [ngClass]="{
                             'bg-gradient-to-r from-laser-600 to-laser-500': selectedStatus() === 'UNDER_WORK',
                             'bg-gradient-to-r from-fire-600 to-fire-500': selectedStatus() === 'DESIGNING',
                             'bg-gradient-to-r from-spark-600 to-spark-500': selectedStatus() === 'DESIGN_COMPLETED',
+                            'bg-gradient-to-r from-blue-600 to-blue-500': selectedStatus() === 'DONE_CUTTING',
                             'bg-gradient-to-r from-green-600 to-green-500': selectedStatus() === 'DELIVERED'
                         }">
-                <h2 class="text-2xl font-bold text-white flex items-center gap-3">
+                <h2 class="text-xl md:text-2xl font-bold text-white flex items-center gap-2 md:gap-3">
                     <i class="fas" [class.fa-tools]="selectedStatus() === 'UNDER_WORK'"
                         [class.fa-pencil-ruler]="selectedStatus() === 'DESIGNING'"
                         [class.fa-check-circle]="selectedStatus() === 'DESIGN_COMPLETED'"
+                        [class.fa-cut]="selectedStatus() === 'DONE_CUTTING'"
                         [class.fa-box-open]="selectedStatus() === 'DELIVERED'"></i>
                     {{ (selectedStatus() === 'UNDER_WORK' ? 'orders.underWork' :
                     selectedStatus() === 'DESIGNING' ? 'orders.designing' :
                     selectedStatus() === 'DESIGN_COMPLETED' ? 'orders.designCompleted' :
+                    selectedStatus() === 'DONE_CUTTING' ? 'orders.doneCutting' :
                     'orders.delivered') | translate }}
-                    <span class="ml-auto text-lg font-normal">{{getOrdersByStatus(selectedStatus()).length}}
+                    <span
+                        class="ml-auto text-base md:text-lg font-normal">{{getOrdersByStatus(selectedStatus()).length}}
                         {{ 'orderManagement.ordersCount' | translate }}</span>
                 </h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 p-3 md:p-6">
                 @for (order of getOrdersByStatus(selectedStatus()); track order.id) {
                 <div (click)="openOrderDetails(order)"
-                    class="bg-metal-900 border-2 border-metal-700 rounded-lg p-5 hover:border-laser-500 transition-all cursor-pointer">
-                    <div class="flex justify-between items-start mb-3">
-                        <span class="text-lg text-white font-bold">#{{order.id}}</span>
-                        <span class="text-xl text-spark-400 font-bold">{{order.price ? ('$' + order.price) :
+                    class="bg-metal-900 border-2 border-metal-700 rounded-lg p-3 md:p-5 hover:border-laser-500 transition-all cursor-pointer">
+                    <div class="flex justify-between items-start mb-2 md:mb-3">
+                        <span class="text-base md:text-lg text-white font-bold">#{{order.id}}</span>
+                        <span class="text-lg md:text-xl text-spark-400 font-bold">{{order.price ? ('$' + order.price) :
                             '-'}}</span>
                     </div>
-                    <h3 class="text-white font-bold text-lg mb-1">{{order.customer_name}}</h3>
-                    <p class="text-gray-400 mb-1">
+                    <h3 class="text-white font-bold text-base md:text-lg mb-1">{{order.customer_name}}</h3>
+                    <p class="text-gray-400 mb-1 text-sm md:text-base">
                         <i class="fas fa-phone text-fire-500 mr-2"></i>
                         {{order.customer_phone}}
                     </p>
-                    <p class="text-gray-500 text-sm mb-4">
+                    <p class="text-gray-500 text-xs md:text-sm mb-3 md:mb-4">
                         <i class="fas fa-calendar text-fire-500 mr-2"></i>
                         {{order.created_at | date:'short'}}
                     </p>

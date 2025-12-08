@@ -48,7 +48,8 @@ export class DashboardComponent implements OnInit {
     total: 0,
     underWork: 0,
     designing: 0,
-    designCompleted: 0
+    designCompleted: 0,
+    doneCutting: 0
   });
 
   isLoading = signal(false);
@@ -67,6 +68,7 @@ export class DashboardComponent implements OnInit {
       underWork: base.underWork,
       designing: base.designing,
       designCompleted: base.designCompleted,
+      doneCutting: base.doneCutting,
       delivered: (shift?.is_active ? shift.total_orders_delivered : 0)
     };
   });
@@ -113,7 +115,8 @@ export class DashboardComponent implements OnInit {
           total: stats.total,
           underWork: stats.by_status['UNDER_WORK'] || 0,
           designing: stats.by_status['DESIGNING'] || 0,
-          designCompleted: stats.by_status['DESIGN_COMPLETED'] || 0
+          designCompleted: stats.by_status['DESIGN_COMPLETED'] || 0,
+          doneCutting: stats.by_status['DONE_CUTTING'] || 0
         });
         this.isLoading.set(false);
       },

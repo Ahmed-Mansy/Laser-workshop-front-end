@@ -29,7 +29,7 @@
     "@angular/material": "^20.2.14",
     "@angular/platform-browser": "^20.1.0",
     "@angular/router": "^20.1.0",
-    "@fortawesome/fontawesome-free": "^7.1.0",
+    "@fortawesome/fontawesome-free": "^6.5.1",
     "@tailwindcss/postcss": "^4.1.17",
     "ngx-toastr": "^19.1.0",
     "rxjs": "~7.8.0",

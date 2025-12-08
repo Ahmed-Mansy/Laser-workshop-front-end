@@ -28,6 +28,7 @@ export class OrderDetailsComponent {
             'UNDER_WORK': 'underWork',
             'DESIGNING': 'designing',
             'DESIGN_COMPLETED': 'designCompleted',
+            'DONE_CUTTING': 'doneCutting',
             'DELIVERED': 'delivered'
         };
         return statusMap[this.order.status] || this.order.status;
@@ -38,6 +39,7 @@ export class OrderDetailsComponent {
             'UNDER_WORK': 'laser',
             'DESIGNING': 'fire',
             'DESIGN_COMPLETED': 'spark',
+            'DONE_CUTTING': 'blue',
             'DELIVERED': 'green'
         };
         return colorMap[this.order.status] || 'gray';

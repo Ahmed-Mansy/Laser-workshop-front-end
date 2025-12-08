@@ -79,6 +79,7 @@
         "underWork": "Under Work",
         "designing": "Designing",
         "designCompleted": "Design Completed",
+        "doneCutting": "Done Cutting",
         "delivered": "Delivered"
     },
     "workerDashboard": {
@@ -97,7 +98,9 @@
         "shiftId": "Shift ID",
         "opened": "Opened",
         "closed": "Closed",
-        "close": "Close"
+        "close": "Close",
+        "duration": "Duration",
+        "orders": "Orders"
     },
     "showcase": {
         "title": "Our Work Gallery",
@@ -145,7 +148,7 @@
         "cta": {
             "title": "Ready to Create?",
             "subtitle": "Contact us to start your project",
-            "button": "Get a Quote"
+            "button": "Contact us"
         }
     },
     "orderManagement": {
@@ -163,6 +166,8 @@
         "designingDesc": "Refining designs",
         "designCompleted": "Design Completed",
         "designCompletedDesc": "Design approved",
+        "doneCutting": "Done Cutting",
+        "doneCuttingDesc": "Material Cut",
         "delivered": "Delivered",
         "deliveredDesc": "Completed orders",
         "noOrdersYet": "No orders found",
@@ -196,6 +201,7 @@
         "underWork": "Under Work",
         "designing": "Designing",
         "designCompleted": "Design Completed",
+        "doneCutting": "Done Cutting",
         "delivered": "Delivered",
         "orderNumber": "Order",
         "customerInfo": "Customer Info",
@@ -319,7 +325,7 @@
         "view": "View",
         "required": "Required",
         "adding": "Adding...",
-        "loadingText": "LASER CUTTING...",
+        "loadingText": "LASER SHOP...",
         "hours": "hours",
         "or": "OR"
     },

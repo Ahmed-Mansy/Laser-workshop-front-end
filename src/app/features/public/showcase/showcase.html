@@ -92,9 +92,13 @@
         <h2 class="text-2xl md:text-4xl font-black text-white mb-4 px-4">{{ 'showcase.cta.title' | translate }}</h2>
         <p class="text-lg md:text-xl text-gray-300 mb-8 px-4">{{ 'showcase.cta.subtitle' | translate }}</p>
         <button (click)="openContactDialog()" class="cta-button">
-            <i class="fas fa-rocket mr-2"></i>
+            <i class="fas fa-rocket" [class.mr-2]="languageService.currentLanguage() === 'en'"
+                [class.ml-2]="languageService.currentLanguage() === 'ar'"></i>
             {{ 'showcase.cta.button' | translate }}
-            <i class="fas fa-arrow-right ml-2"></i>
+            <i class="fas" [class.fa-arrow-right]="languageService.currentLanguage() === 'en'"
+                [class.fa-arrow-left]="languageService.currentLanguage() === 'ar'"
+                [class.ml-2]="languageService.currentLanguage() === 'en'"
+                [class.mr-2]="languageService.currentLanguage() === 'ar'"></i>
         </button>
     </div>
 </div>
