@@ -354,7 +354,8 @@
         "orderDeleted": "Order deleted successfully",
         "errorDeletingOrder": "Error deleting order",
         "errorLoadingOrders": "Error loading orders",
-        "invalidCredentials": "Invalid username or password"
+        "invalidCredentials": "Invalid username or password",
+        "errorCreatingOrder": "Error creating order"
     },
     "errors": {
         "clientError": "Client Error",
