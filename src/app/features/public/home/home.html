@@ -7,21 +7,21 @@
             <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-fire-500 rounded-full filter blur-3xl"></div>
         </div>
 
-        <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32 text-center">
-            <h1 class="text-5xl md:text-7xl font-black mb-6 text-fire leading-tight">
+        <div class="relative max-w-7xl mx-auto px-6 py-16 md:py-32 text-center">
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-black mb-6 text-fire leading-tight">
                 {{ 'home.heroTitle' | translate }}
             </h1>
-            <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto font-light">
+            <p class="text-lg md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto font-light">
                 {{ 'home.heroSubtitle' | translate }}
             </p>
-            <div class="flex gap-6 justify-center flex-wrap">
+            <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
                 <a mat-raised-button routerLink="/showcase"
-                    class="!h-14 !px-8 !text-lg !font-bold !bg-fire-gradient !text-white !rounded-lg hover:shadow-fire !transform !transition">
+                    class="!w-full sm:!w-auto !h-14 !px-8 !text-lg !font-bold !bg-fire-gradient !text-white !rounded-lg hover:shadow-fire !transform !transition">
                     <i class="fas fa-fire mr-2"></i>
                     {{ 'home.viewWork' | translate }}
                 </a>
                 <a mat-stroked-button routerLink="/login"
-                    class="!h-14 !px-8 !text-lg !font-bold !border-2 !border-laser-500 !text-laser-400 !rounded-lg hover:!bg-laser-500/10">
+                    class="!w-full sm:!w-auto !h-14 !px-8 !text-lg !font-bold !border-2 !border-laser-500 !text-laser-400 !rounded-lg hover:!bg-laser-500/10">
                     <i class="fas fa-bolt mr-2"></i>
                     {{ 'home.staffLogin' | translate }}
                 </a>
@@ -30,28 +30,29 @@
     </section>
 
     <!-- Features Section -->
-    <section class="py-20 px-6">
+    <section class="py-16 md:py-20 px-6">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-black mb-4 text-fire">
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-3xl md:text-5xl font-black mb-4 text-fire">
                     {{ 'home.featuresTitle' | translate }}
                 </h2>
-                <p class="text-xl text-gray-400">{{ 'home.featuresSubtitle' | translate }}</p>
+                <p class="text-lg md:text-xl text-gray-400">{{ 'home.featuresSubtitle' | translate }}</p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
                 @for (feature of features; track feature.title) {
                 <mat-card
                     class="!bg-metal-800 !border-2 !border-metal-700 hover:!border-laser-500 !rounded-xl overflow-hidden group cursor-pointer transform transition hover:-translate-y-2 hover:shadow-laser">
-                    <mat-card-content class="p-8 text-center">
+                    <mat-card-content class="p-3 md:p-8 text-center">
                         <div
-                            class="w-20 h-20 mx-auto mb-6 rounded-full bg-fire-gradient flex items-center justify-center fire-glow">
-                            <i class="fas {{ feature.icon }} text-3xl text-white"></i>
+                            class="w-10 h-10 md:w-20 md:h-20 mx-auto mb-3 md:mb-6 rounded-full bg-fire-gradient flex items-center justify-center fire-glow">
+                            <i class="fas {{ feature.icon }} text-lg md:text-3xl text-white"></i>
                         </div>
-                        <h3 class="text-xl font-bold mb-3 text-white group-hover:text-fire-400 transition">
+                        <h3
+                            class="text-sm md:text-xl font-bold mb-1 md:mb-3 text-white group-hover:text-fire-400 transition">
                             {{ feature.title }}
                         </h3>
-                        <p class="text-gray-400 leading-relaxed">
+                        <p class="text-xs md:text-base text-gray-400 leading-relaxed">
                             {{ feature.description }}
                         </p>
                     </mat-card-content>
@@ -62,16 +63,17 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 px-6 bg-gradient-to-r from-laser-900 via-fire-900 to-spark-900 border-y-2 border-laser-500">
+    <section
+        class="py-16 md:py-20 px-6 bg-gradient-to-r from-laser-900 via-fire-900 to-spark-900 border-y-2 border-laser-500">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl md:text-5xl font-black mb-6 text-white">
+            <h2 class="text-3xl md:text-5xl font-black mb-6 text-white">
                 {{ 'home.ctaTitle' | translate }}
             </h2>
-            <p class="text-xl text-gray-300 mb-10 font-light">
+            <p class="text-lg md:text-xl text-gray-300 mb-10 font-light">
                 {{ 'home.ctaSubtitle' | translate }}
             </p>
             <button mat-raised-button (click)="openContactDialog()"
-                class="!h-16 !px-12 !text-xl !font-black !bg-fire-gradient !text-white !rounded-lg fire-glow !transform !transition hover:scale-105">
+                class="!w-full sm:!w-auto !h-16 !px-12 !text-xl !font-black !bg-fire-gradient !text-white !rounded-lg fire-glow !transform !transition hover:scale-105">
                 <i class="fas fa-rocket mr-3"></i>
                 {{ 'home.getStartedNow' | translate }}
             </button>
