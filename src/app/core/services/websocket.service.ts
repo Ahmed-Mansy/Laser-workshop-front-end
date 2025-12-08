@@ -53,14 +53,12 @@ export class WebSocketService implements OnDestroy {
         // Create WebSocket URL with token from environment
         const wsUrl = `${environment.wsUrl}?token=${token}`;
 
-        console.log('WebSocket: Connecting...', wsUrl);
 
         try {
             this.socket = new WebSocket(wsUrl);
 
             // Connection opened
             this.socket.onopen = () => {
-                console.log('WebSocket: Connected');
                 this.connected.set(true);
                 this.reconnectAttempts = 0;
             };
@@ -69,7 +67,6 @@ export class WebSocketService implements OnDestroy {
             this.socket.onmessage = (event) => {
                 try {
                     const data: WebSocketMessage = JSON.parse(event.data);
-                    console.log('WebSocket: Message received', data);
 
                     // Update signals based on message type
                     if (data.type === 'order_update') {
@@ -77,7 +74,7 @@ export class WebSocketService implements OnDestroy {
                     } else if (data.type === 'shift_update') {
                         this.shiftUpdate.set(data);
                     } else if (data.type === 'connection_established') {
-                        console.log('WebSocket: Connection established -', data.message);
+                        // Connection established message
                     }
                 } catch (error) {
                     console.error('WebSocket: Failed to parse message', error);
@@ -86,7 +83,6 @@ export class WebSocketService implements OnDestroy {
 
             // Connection closed
             this.socket.onclose = (event) => {
-                console.log('WebSocket: Disconnected', event.code, event.reason);
                 this.connected.set(false);
                 this.socket = null;
 
@@ -120,7 +116,7 @@ export class WebSocketService implements OnDestroy {
      * Handle potential authentication error
      */
     private handlePotentialAuthError(): void {
-        console.log('WebSocket: Potential auth error, attempting to refresh token...');
+
 
         // Use existing refresh logic from AuthService if possible, or manually call endpoint?
         // Ideally we should inject AuthService and call refreshToken()
@@ -128,7 +124,7 @@ export class WebSocketService implements OnDestroy {
 
         this.authService.refreshToken().subscribe({
             next: () => {
-                console.log('WebSocket: Token refreshed, reconnecting...');
+
                 this.reconnectAttempts++; // Count this as an attempt
                 this.connect();
             },
@@ -146,7 +142,8 @@ export class WebSocketService implements OnDestroy {
         this.reconnectAttempts++;
         const delay = this.reconnectDelay * this.reconnectAttempts;
 
-        console.log(`WebSocket: Reconnecting in ${delay}ms (attempt ${this.reconnectAttempts}/${this.maxReconnectAttempts})`);
+
+
 
         this.reconnectTimeoutId = setTimeout(() => {
             this.connect();
@@ -167,7 +164,8 @@ export class WebSocketService implements OnDestroy {
             this.socket.onclose = null;
             this.socket.onerror = null;
 
-            console.log('WebSocket: Disconnecting...');
+            this.socket.onerror = null;
+
             this.socket.close(1000, 'Client disconnect');
             this.socket = null;
         }
