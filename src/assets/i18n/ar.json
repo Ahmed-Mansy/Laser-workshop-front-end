@@ -47,7 +47,6 @@
             "dateCreated": "تاريخ الإنشاء",
             "description": "تفاصيل الاوردر",
             "noDescription": "لا يوجد وصف متاح",
-            "noDescription": "لا يوجد وصف متاح",
             "deliveredOn": "تم التسليم في"
         },
         "orderStatus": {

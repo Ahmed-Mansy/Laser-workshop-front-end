@@ -47,7 +47,6 @@
             "dateCreated": "Date Created",
             "description": "Description",
             "noDescription": "No description available",
-            "noDescription": "No description available",
             "deliveredOn": "Delivered On"
         },
         "orderStatus": {
