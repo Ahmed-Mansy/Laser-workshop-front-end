@@ -74,7 +74,7 @@
                         [class.bg-green-500]="trackingResult.status === 'DONE_CUTTING' || trackingResult.status === 'DELIVERED'"
                         [class.text-white]="trackingResult.status === 'DONE_CUTTING' || trackingResult.status === 'DELIVERED'"
                         [class.animate-pulse]="trackingResult.status === 'UNDER_WORK'">
-                        {{trackingResult.status_display}}
+                        {{ 'home.orderStatus.' + trackingResult.status | translate }}
                     </span>
                 </div>
 

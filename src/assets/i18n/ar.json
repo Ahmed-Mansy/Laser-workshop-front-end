@@ -47,7 +47,15 @@
             "dateCreated": "تاريخ الإنشاء",
             "description": "الوصف",
             "noDescription": "لا يوجد وصف متاح",
+            "noDescription": "لا يوجد وصف متاح",
             "deliveredOn": "تم التسليم في"
+        },
+        "orderStatus": {
+            "UNDER_WORK": "قيد العمل",
+            "DESIGNING": "جاري التصميم",
+            "DESIGN_COMPLETED": "تم التصميم",
+            "DONE_CUTTING": "تم التقطيع",
+            "DELIVERED": "تم التسليم"
         }
     },
     "auth": {
