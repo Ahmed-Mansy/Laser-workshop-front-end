@@ -45,7 +45,7 @@
             "orderNumber": "طلب رقم",
             "orderFor": "اسم الاوردر",
             "dateCreated": "تاريخ الإنشاء",
-            "description": "الوصف",
+            "description": "تفاصيل الاوردر",
             "noDescription": "لا يوجد وصف متاح",
             "noDescription": "لا يوجد وصف متاح",
             "deliveredOn": "تم التسليم في"
