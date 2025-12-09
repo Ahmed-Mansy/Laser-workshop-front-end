@@ -66,6 +66,13 @@ export class OrderService {
     }
 
     /**
+     * Track order by ID (Public)
+     */
+    trackOrder(id: any): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/${id}/track/`);
+    }
+
+    /**
      * Get order statistics (Manager only)
      */
     getStatistics(month?: number, year?: number): Observable<OrderStatistics> {

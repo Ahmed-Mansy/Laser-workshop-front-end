@@ -29,6 +29,97 @@
         </div>
     </section>
 
+    <!-- Order Tracking Section -->
+    <section class="py-12 bg-metal-900 border-b-2 border-metal-800">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-8 text-white">{{ 'home.tracking.title' | translate }}</h2>
+
+            <div class="relative max-w-2xl mx-auto mb-12">
+                <div class="absolute inset-0 bg-fire-500 rounded-2xl blur-xl opacity-20 animate-pulse"></div>
+                <div
+                    class="relative flex flex-col sm:flex-row gap-0 sm:gap-0 bg-metal-900/80 backdrop-blur-xl border border-metal-700 rounded-2xl overflow-hidden shadow-2xl p-2">
+                    <div class="flex-grow relative">
+                        <div
+                            class="absolute inset-y-0 ltr:left-0 rtl:right-0 ltr:pl-4 rtl:pr-4 flex items-center pointer-events-none">
+                            <i class="fas fa-hashtag text-gray-500 text-xl"></i>
+                        </div>
+                        <input type="text" [(ngModel)]="orderId"
+                            [placeholder]="'home.tracking.inputPlaceholder' | translate" (keyup.enter)="trackOrder()"
+                            class="w-full h-14 ltr:pl-12 ltr:pr-4 rtl:pr-12 rtl:pl-4 bg-transparent text-white text-lg placeholder-gray-500 focus:outline-none focus:bg-metal-800/50 transition-colors rounded-xl font-sans">
+                    </div>
+                    <button (click)="trackOrder()" [disabled]="isLoading"
+                        class="w-full sm:w-auto h-14 px-8 bg-gradient-to-r from-fire-600 to-orange-600 hover:from-fire-500 hover:to-orange-500 text-white text-lg font-bold rounded-xl shadow-lg transform transition hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group ltr:ml-0 ltr:sm:ml-2 rtl:mr-0 rtl:sm:mr-2 mt-2 sm:mt-0">
+                        @if (isLoading) {
+                        <i class="fas fa-circle-notch fa-spin"></i>
+                        } @else {
+                        <span class="group-hover:tracking-wider transition-all duration-300">{{ 'home.tracking.button' |
+                            translate }}</span>
+                        <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform rtl:rotate-180"></i>
+                        }
+                    </button>
+                </div>
+                <p class="mt-4 text-gray-500 text-sm">{{ 'home.tracking.helperText' | translate }}</p>
+            </div>
+
+            <!-- Result -->
+            @if (trackingResult) {
+            <div
+                class="bg-metal-800 border-2 border-laser-500 rounded-xl p-6 sm:p-8 max-w-xl mx-auto animate-fade-in shadow-fire">
+                <div class="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
+                    <span class="text-gray-400 text-lg">{{ 'home.tracking.orderNumber' | translate }}
+                        {{trackingResult.id}}</span>
+                    <span class="px-6 py-2 rounded-full text-base font-bold uppercase tracking-wider shadow-lg"
+                        [class.bg-yellow-500]="trackingResult.status === 'UNDER_WORK' || trackingResult.status === 'DESIGNING'"
+                        [class.text-black]="trackingResult.status === 'UNDER_WORK' || trackingResult.status === 'DESIGNING'"
+                        [class.bg-green-500]="trackingResult.status === 'DONE_CUTTING' || trackingResult.status === 'DELIVERED'"
+                        [class.text-white]="trackingResult.status === 'DONE_CUTTING' || trackingResult.status === 'DELIVERED'"
+                        [class.animate-pulse]="trackingResult.status === 'UNDER_WORK'">
+                        {{trackingResult.status_display}}
+                    </span>
+                </div>
+
+                <div class="space-y-4 text-start border-t border-metal-700 pt-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-sm text-gray-500 uppercase tracking-wide mb-1">{{ 'home.tracking.orderFor' |
+                                translate }}</p>
+                            <p class="text-white font-bold text-lg truncate">{{trackingResult.customer_name}}</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 uppercase tracking-wide mb-1">{{ 'home.tracking.dateCreated'
+                                | translate }}</p>
+                            <p class="text-white font-bold text-lg">{{trackingResult.created_at | date:'mediumDate'}}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="text-sm text-gray-500 uppercase tracking-wide mb-1">{{ 'home.tracking.description' |
+                            translate }}</p>
+                        <p class="text-gray-300 text-base leading-relaxed">{{trackingResult.order_details ||
+                            ('home.tracking.noDescription' | translate)}}</p>
+                    </div>
+
+                    @if (trackingResult.delivered_at) {
+                    <div class="mt-4 pt-4 border-t border-metal-700">
+                        <p class="text-sm text-gray-500 uppercase tracking-wide mb-1">{{ 'home.tracking.deliveredOn' |
+                            translate }}</p>
+                        <p class="text-green-400 font-bold text-lg">{{trackingResult.delivered_at | date:'medium'}}</p>
+                    </div>
+                    }
+                </div>
+            </div>
+            }
+
+            @if (error) {
+            <div
+                class="text-red-500 font-bold text-lg mt-6 animate-fade-in bg-red-500/10 py-3 rounded-lg border border-red-500/30">
+                <i class="fas fa-exclamation-circle mr-2"></i> {{error}}
+            </div>
+            }
+        </div>
+    </section>
+
     <!-- Features Section -->
     <section class="py-16 md:py-20 px-6">
         <div class="max-w-7xl mx-auto">
@@ -79,6 +170,4 @@
             </button>
         </div>
     </section>
-
-
 </div>

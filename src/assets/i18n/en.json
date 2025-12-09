@@ -36,7 +36,19 @@
         },
         "ctaTitle": "Ready to Get Started?",
         "ctaSubtitle": "Join us today and experience the future of laser cutting",
-        "getStartedNow": "Get Started Now"
+        "getStartedNow": "Get Started Now",
+        "tracking": {
+            "title": "Track Your Order",
+            "inputPlaceholder": "Enter your Order ID (e.g., 123)",
+            "button": "TRACK",
+            "helperText": "Enter the ID provided on your receipt or confirmation message.",
+            "orderNumber": "Order #",
+            "orderFor": "Order name",
+            "dateCreated": "Date Created",
+            "description": "Description",
+            "noDescription": "No description available",
+            "deliveredOn": "Delivered On"
+        }
     },
     "auth": {
         "loginTitle": "Sign In",

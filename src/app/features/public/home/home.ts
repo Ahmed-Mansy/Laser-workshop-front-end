@@ -8,16 +8,57 @@ import { TranslatePipe } from '../../../core/pipes/translate.pipe';
 import { LanguageService } from '../../../core/services/language.service';
 import { ContactDialogComponent } from '../../../shared/contact-dialog/contact-dialog';
 
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { OrderService } from '../../../core/services/order.service';
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatButtonModule, MatCardModule, MatDialogModule, TranslatePipe],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatButtonModule,
+    MatCardModule,
+    MatDialogModule,
+    TranslatePipe,
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule
+  ],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
 export class HomeComponent {
   private languageService = inject(LanguageService);
   private dialog = inject(MatDialog);
+  private orderService = inject(OrderService);
+
+  orderId: string = '';
+  trackingResult: any = null;
+  isLoading = false;
+  error: string = '';
+
+  trackOrder() {
+    if (!this.orderId) return;
+
+    this.isLoading = true;
+    this.error = '';
+    this.trackingResult = null;
+
+    this.orderService.trackOrder(this.orderId).subscribe({
+      next: (res) => {
+        this.trackingResult = res;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.error = 'Order not found or invalid ID'; // Simple error for now, could use translation
+        this.isLoading = false;
+      }
+    });
+  }
+
 
   get features() {
     return [

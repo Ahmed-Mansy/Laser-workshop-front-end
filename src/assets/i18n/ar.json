@@ -36,7 +36,19 @@
         },
         "ctaTitle": "هل أنت مستعد للبدء؟",
         "ctaSubtitle": "انضم إلينا اليوم واختبر مستقبل القص بالليزر",
-        "getStartedNow": "ابدأ الآن"
+        "getStartedNow": "ابدأ الآن",
+        "tracking": {
+            "title": "تتبع طلبك",
+            "inputPlaceholder": "أدخل رقم الطلب (مثال: 123)",
+            "button": "تتبع",
+            "helperText": "أدخل الرقم الموجود في الإيصال أو رسالة التأكيد.",
+            "orderNumber": "طلب رقم",
+            "orderFor": "اسم الاوردر",
+            "dateCreated": "تاريخ الإنشاء",
+            "description": "الوصف",
+            "noDescription": "لا يوجد وصف متاح",
+            "deliveredOn": "تم التسليم في"
+        }
     },
     "auth": {
         "loginTitle": "تسجيل الدخول",
